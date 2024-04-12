@@ -1,27 +1,15 @@
-import '@/styles/Home.module.css';
-import { toast } from 'react-toastify';
+import styles from '@/styles/Home.module.css';
+import Toast from '@/components/Toast/Toast';
+import { LOGIN_MESSAGES } from '@/constants/message/index';
 
 export default function Home() {
-  const notify = () => toast.success('toastify test!');
-  const notify1 = () => toast.info('toastify test!');
-  const notify2 = () => toast.error('toastify test!');
-  const notify3 = () => toast.warning('toastify test!');
+  const toastType = 'success';
+  const toastType1 = 'error';
 
   return (
     <>
-      <button className="buttonTest" onClick={notify}>
-        success
-      </button>
-      <button className="buttonTest" onClick={notify1}>
-        info
-      </button>
-      메인페이지
-      <button className="buttonTest" onClick={notify2}>
-        fail
-      </button>
-      <button className="buttonTest" onClick={notify3}>
-        warnning
-      </button>
+      <Toast type={toastType} message={LOGIN_MESSAGES.LOGIN_SUCCESS} />
+      <Toast type={toastType1} message="login--fail" />
     </>
   );
 }
