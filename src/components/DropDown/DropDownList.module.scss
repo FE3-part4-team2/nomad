@@ -1,0 +1,20 @@
+.dropDownList_container {
+  border: 1px solid #ddd;
+  background-color: #fff;
+  width: 160px;
+  border-radius: 6px;
+  z-index: 2;
+}
+
+.dropDownList {
+  padding: 18px 46px;
+  color: #4b4b4b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.dropDownList:last-child {
+  border-bottom: none;
+}
