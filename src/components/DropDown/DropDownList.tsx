@@ -1,8 +1,19 @@
 const MockList = ['수정하기', '삭제하기'];
 import styles from './DropDownList.module.scss';
-export default function DropDownList() {
+
+interface DropDownListProps {
+  isButton?: boolean;
+}
+
+export default function DropDownList({ isButton }: DropDownListProps) {
   return (
-    <ul className={styles.dropDownList_container}>
+    <ul
+      className={
+        isButton
+          ? styles.dropDownList_container
+          : styles.dropDownList_container_kebab
+      }
+    >
       {MockList.map((item) => (
         <li className={styles.dropDownList}>{item}</li>
       ))}

@@ -10,7 +10,7 @@ export default function Kebab() {
   };
 
   return (
-    <>
+    <div className={styles.center}>
       <div>
         <img
           className={styles.kebab}
@@ -19,7 +19,7 @@ export default function Kebab() {
           alt="케밥 아이콘"
         />
       </div>
-      {isOpen ? <DropDownList /> : ''}
-    </>
+      {isOpen ? <DropDownList isButton={false} /> : ''}
+    </div>
   );
 }
