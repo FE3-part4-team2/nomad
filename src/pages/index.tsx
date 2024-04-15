@@ -3,7 +3,7 @@ import Toast from '@/components/Toast/Toast';
 import { LOGIN_MESSAGES } from '@/constants/message/index';
 
 export default function Home() {
-  //toast 테스트 지워도 됨!
+  //toast 테스트 , 지워도 됨!
   const toastType = 'success';
   const toastType1 = 'error';
   const toastType2 = 'warning';
