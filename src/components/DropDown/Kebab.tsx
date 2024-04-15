@@ -1,25 +1,24 @@
 import { useState } from 'react';
 import DropDownList from './DropDownList';
-import styles from './Kebab.module.scss';
+import styles from './kebab.module.scss';
 
 export default function Kebab() {
   const [isOpen, setIsOpen] = useState(false);
   const handleOnClick = () => {
-    console.log('hihi');
     setIsOpen((prev) => !prev);
   };
 
   return (
     <div className={styles.center}>
-      <div>
+      <div className={styles.icon_wrapper}>
         <img
           className={styles.kebab}
           onClick={handleOnClick}
-          src="icons/kebab.svg"
+          src="assets/icons/kebab.svg"
           alt="케밥 아이콘"
         />
       </div>
-      {isOpen ? <DropDownList isButton={false} /> : ''}
+      {isOpen ? <DropDownList isBig={true} /> : ''}
     </div>
   );
 }

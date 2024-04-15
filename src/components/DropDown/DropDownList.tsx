@@ -1,17 +1,17 @@
 const MockList = ['수정하기', '삭제하기'];
-import styles from './DropDownList.module.scss';
+import styles from './dropDownList.module.scss';
 
 interface DropDownListProps {
-  isButton?: boolean;
+  isBig?: boolean;
 }
 
-export default function DropDownList({ isButton }: DropDownListProps) {
+export default function DropDownList({ isBig }: DropDownListProps) {
   return (
     <ul
       className={
-        isButton
-          ? styles.dropDownList_container
-          : styles.dropDownList_container_kebab
+        isBig
+          ? styles.dropDownList_container_kebab
+          : styles.dropDownList_container
       }
     >
       {MockList.map((item) => (

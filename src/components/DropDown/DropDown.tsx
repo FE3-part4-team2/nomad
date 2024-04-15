@@ -1,25 +1,32 @@
 import { useState } from 'react';
-import styles from './DropDown.module.scss';
+import styles from './dropDown.module.scss';
 import DropDownList from './DropDownList';
 
-export default function DropDown() {
+interface DropDownProps {
+  isBig?: boolean;
+}
+// 메인화면에 들어가는 드랍다운은 작고 예약내역의 드랍다운은 커서 스타일을 다르게 해주기 위해서 isBig prop을 만들었습니다.
+// 예약내역에서는 isBig = true로 주면 됩니다.
+export default function DropDown({ isBig }: DropDownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const handleOnClick = () => {
-    console.log('hihoi');
     setIsOpen((prev) => !prev);
   };
   return (
     <div className={styles.center}>
-      <div className={styles.button} onClick={handleOnClick}>
+      <div
+        className={isBig ? styles.button_big : styles.button}
+        onClick={handleOnClick}
+      >
         <span className={styles.button_text}>필터</span>
         <img
           className={isOpen ? styles.button_arrow : ''}
-          src="icons/dropDown-arrow.svg"
+          src="assets/icons/dropDown-arrow.svg"
           alt="드랍다운 화살표"
         />
       </div>
 
-      {isOpen ? <DropDownList isButton={true} /> : ''}
+      {isOpen ? <DropDownList isBig={isBig} /> : ''}
     </div>
   );
 }
