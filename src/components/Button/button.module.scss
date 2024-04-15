@@ -1,0 +1,25 @@
+@import 'src/styles/_variables';
+
+.button {
+  border-radius: 6px;
+  height: 100%;
+  width: 100%;
+}
+
+.black {
+  background-color: $nomad-black;
+  border: none;
+  color: $white;
+}
+
+.white {
+  background-color: $white;
+  border: 1px solid $nomad-black;
+  color: $nomad-black;
+}
+
+.disable {
+background-color: $gray_A4A1AA;
+border: none;
+color: $white;
+}
