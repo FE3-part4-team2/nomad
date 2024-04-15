@@ -18,7 +18,7 @@ export default function App({ Component, pageProps }: AppProps) {
           closeOnClick // 클릭으로 알람을 닫기
           rtl={false} // 알림 좌우 반전
           pauseOnHover // 마우스를 올리면 알람 정지
-          // limit={1} // 알람의 개수 제한
+          limit={1} // 알람의 개수 제한
           theme="light"
         />
       </QueryClientProvider>
