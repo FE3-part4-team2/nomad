@@ -1,0 +1,59 @@
+@import 'src/styles/variables';
+
+.dropDownList_container {
+  border: 1px solid $gray_DDDDDD;
+  background-color: $white;
+  width: 90px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 2;
+  top: 55px;
+
+  @media screen and (min-width: 768px) {
+    width: 120px;
+    top: 70px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    width: 127px;
+  }
+}
+
+.dropDownList_container_kebab {
+  border: 1px solid $gray_DDDDDD;
+  background-color: white;
+  width: 90px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 2;
+  top: 50px;
+
+  @media screen and (min-width: 768px) {
+    width: 140px;
+    top: 70px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    width: 160px;
+  }
+}
+
+.dropDownList {
+  padding: 10px;
+  height: 41px;
+  color: $gray_4B4B4B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid $gray_DDDDDD;
+  font-weight: 500;
+  font-size: 1.4rem;
+  @media screen and (min-width: 768px) {
+    font-size: 1.8rem;
+    height: 58px;
+  }
+}
+
+.dropDownList:last-child {
+  border-bottom: none;
+}
