@@ -18,7 +18,7 @@ export default function NotFound() {
             <p>존재하지 않는 주소를 입력하셨거나,</p>
             <p>페이지의 주소가 변경, 삭제되어 찾을 수 없습니다.</p>
           </div>
-          <div className={styles.ButtonBox}>
+          <div className={styles.buttonBox}>
             <Link href="/" role="button">
               메인으로 돌아가기
             </Link>
