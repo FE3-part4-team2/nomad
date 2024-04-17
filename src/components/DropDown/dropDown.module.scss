@@ -1,0 +1,67 @@
+@import 'src/styles/variables';
+// center class는 임시로 사용중 지워도 됨
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button {
+  border: 1px solid $primary;
+  border-radius: 15px;
+  background-color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-bottom: 8px;
+  width: 90px;
+
+  @media screen and (min-width: 768px) {
+    padding: 16px 20px;
+    width: 120px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    padding: 16px 20px;
+    width: 127px;
+  }
+}
+
+.button_big {
+  border: 1px solid $primary;
+  border-radius: 15px;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-bottom: 8px;
+  width: 90px;
+
+  @media screen and (min-width: 768px) {
+    padding: 16px 20px;
+    width: 140px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    padding: 16px 20px;
+    width: 160px;
+  }
+}
+
+.button_text {
+  color: $primary;
+  font-size: 1.4rem;
+  font-weight: 500;
+
+  @media screen and (min-width: 768px) {
+    font-size: 1.8rem;
+  }
+}
+
+.button_arrow {
+  rotate: 180deg;
+}
