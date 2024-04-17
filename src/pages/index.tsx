@@ -9,11 +9,9 @@ import Alarm from '@/components/Alarm/Alarm';
 export default function Home() {
   return (
     <>
+      <Header />
       <SideBar />
       <Alarm />
-      메인페이지
-      <Header />
-      메인페이지
       <Footer />
     </>
   );
