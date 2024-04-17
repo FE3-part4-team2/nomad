@@ -18,7 +18,6 @@
 
 .modalContent {
   background: white;
-  padding: 14px 20px;
   border-radius: 8px;
   margin: 0 auto;
 }
@@ -27,29 +26,67 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: center;
+  font-size: 2.8rem;
+  font-weight: 700;
 }
 
 .alert {
-  max-width: 540px;
-  min-width: 327px;
+  width: 327px;
+  height: 220px;
+  padding: 28px;
   border-radius: 8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  font-size: 1.6rem;
+
   .top {
     display: none;
   }
-  .close {
-    display: none;
+
+  @media (min-width: 769px){
+    width: 530px;
+    height: 250px;
   }
 }
 
 .confirm {
   padding: 24px;
-  .close {
+  .top {
     display: none;
   }
 }
 
 .content {
+  width: 327px;
+  padding: 28px 24px;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  
+  font-size: 1.6rem;
+
+  @media (min-width: 769px){
+    width: 530px;
+  }
 }
 
 .reservation {
+  width: 327px;
+  padding: 28px;
+  border-radius: 8px;
+
+  display: flex;
+  flex-direction: column;
+  
+  font-size: 1.6rem;
+
+  @media (min-width: 769px){
+    width: 530px;
+  }
 }
