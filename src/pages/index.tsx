@@ -6,7 +6,7 @@ import { LOGIN_MESSAGES } from '@/constants/message/index';
 export default function Home() {
   return (
     <>
-      <Layout>작동잘되나</Layout>
+      <Layout>children처리</Layout>
     </>
   );
 }
