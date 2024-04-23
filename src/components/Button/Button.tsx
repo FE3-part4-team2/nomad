@@ -1,3 +1,4 @@
+import { HTMLAttributes } from 'react';
 import styles from './button.module.scss';
 
 /**
@@ -6,18 +7,14 @@ import styles from './button.module.scss';
  *
  * @param status black/white/disable
  * @param buttonTitle 버튼 안에 들어갈 문구(string)
- * @param onClick onClick 이벤트핸들러(function)
- * @param type button/submit/reset
  * @param radius border-radius적용값 (number) default: 6
  * @param fontSize font-size적용값 (number) default: mobile-14/16
  *
  */
 
-export interface ButtonProps {
+export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   status?: string;
   buttonTitle?: string;
-  onClick?: () => void;
-  type?: 'button' | 'submit' | 'reset';
   radius?: number;
   fontSize?: number;
 }
@@ -25,10 +22,9 @@ export interface ButtonProps {
 export default function Button({
   status = 'black',
   buttonTitle = 'button',
-  onClick,
-  type = 'button',
   radius = 6,
   fontSize,
+  ...rest
 }: ButtonProps) {
   const buttonClass = (status: string) => {
     switch (status) {
@@ -45,9 +41,8 @@ export default function Button({
   return (
     <button
       className={buttonClassName}
-      onClick={onClick}
-      type={type}
       style={{ borderRadius: `${radius}px`, fontSize: `${fontSize}rem` }}
+      {...rest}
     >
       {buttonTitle}
     </button>
