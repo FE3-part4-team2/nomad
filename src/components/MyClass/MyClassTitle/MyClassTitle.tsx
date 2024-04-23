@@ -1,6 +1,9 @@
 import Button from '@/components/Button/Button';
 import TitleInput from '../MyClassInputs/TitleInput/TitleInput';
 import styles from './myClassTitle.module.scss';
+import CategoryInput from '../MyClassInputs/CategoryInput/CategoryInput';
+import DescriptionInput from '../MyClassInputs/DescriptionInput/DescriptionInput';
+import PriceInput from '../MyClassInputs/PriceInput/PriceInput';
 
 export default function MyClassTitle() {
   return (
@@ -16,8 +19,11 @@ export default function MyClassTitle() {
           />
         </div>
       </div>
-      <div>
+      <div className={styles.inputContainer}>
         <TitleInput />
+        <CategoryInput />
+        <DescriptionInput />
+        <PriceInput />
       </div>
     </div>
   );

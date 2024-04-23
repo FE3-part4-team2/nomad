@@ -1,0 +1,22 @@
+@import 'src/styles/variables';
+
+.input {
+  border: 1px solid $gray_79747E;
+  border-radius: 4px;
+  padding: 8px 16px;
+  height: 56px;
+  width: 100%;
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+.input::placeholder {
+  color: $gray_A4A1AA;
+  font-size: 1.6rem;
+  font-weight: 400;
+}
+
+.inputTitle {
+  font-size: 2rem;
+  font-weight: 700;
+}

@@ -16,3 +16,10 @@
   height: 48px;
   width: 120px;
 }
+
+.inputContainer {
+  border: 1px solid tomato;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}

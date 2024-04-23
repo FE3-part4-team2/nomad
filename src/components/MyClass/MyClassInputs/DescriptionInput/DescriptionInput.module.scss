@@ -1,0 +1,20 @@
+@import 'src/styles/variables';
+
+.textArea {
+  resize: none;
+  height: 346px;
+  border: 1px solid $gray_79747E;
+  border-radius: 4px;
+  padding: 10px 16px;
+  width: 100%;
+  font-size: 1.6rem;
+  font-weight: 400;
+  font-family: Pretendard;
+}
+
+.textArea::placeholder {
+  color: $gray_A4A1AA;
+  font-size: 1.8rem;
+  font-weight: 300;
+  font-family: Pretendard;
+}
