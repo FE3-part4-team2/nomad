@@ -1,0 +1,18 @@
+@import 'src/styles/variables';
+
+.myClassTitleWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.myClassSubtitle {
+  font-size: 3.2rem;
+  font-weight: 700;
+}
+
+.button {
+  height: 48px;
+  width: 120px;
+}

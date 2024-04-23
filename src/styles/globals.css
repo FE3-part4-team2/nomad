@@ -6,6 +6,10 @@ body {
   font-family: 'Pretendard', Helvetica;
 }
 
+:root {
+  font-size: 62.5%;
+}
+
 html,
 body,
 div,
@@ -92,7 +96,6 @@ video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 62.5%;
   font: inherit;
   vertical-align: baseline;
 }

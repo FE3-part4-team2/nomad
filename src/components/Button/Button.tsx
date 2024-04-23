@@ -1,3 +1,4 @@
+import { HTMLAttributes } from 'react';
 import styles from './button.module.scss';
 
 /**
@@ -13,7 +14,7 @@ import styles from './button.module.scss';
  *
  */
 
-export interface ButtonProps {
+export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   status?: string;
   buttonTitle?: string;
   onClick?: () => void;
@@ -29,6 +30,7 @@ export default function Button({
   type = 'button',
   radius = 6,
   fontSize,
+  ...rest
 }: ButtonProps) {
   const buttonClass = (status: string) => {
     switch (status) {
@@ -48,6 +50,7 @@ export default function Button({
       onClick={onClick}
       type={type}
       style={{ borderRadius: `${radius}px`, fontSize: `${fontSize}rem` }}
+      {...rest}
     >
       {buttonTitle}
     </button>

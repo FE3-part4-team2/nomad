@@ -1,0 +1,9 @@
+@import 'src/styles/variables';
+
+.input {
+  border: 1px solid tomato;
+  ::placeholder {
+    // color: $gray_A4A1AA;
+    color: tomato;
+  }
+}
