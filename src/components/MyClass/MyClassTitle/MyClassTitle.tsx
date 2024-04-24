@@ -6,6 +6,7 @@ import DescriptionInput from '../MyClassInputs/DescriptionInput/DescriptionInput
 import PriceInput from '../MyClassInputs/PriceInput/PriceInput';
 import DateInput from '../MyClassInputs/DateInput/DateInput';
 import AddressInput from '../MyClassInputs/AddressInput/AddressInput';
+import ImageInput from '../MyClassInputs/ImageInput/ImageInput';
 
 export default function MyClassTitle() {
   return (
@@ -28,6 +29,7 @@ export default function MyClassTitle() {
         <PriceInput />
         <AddressInput />
         <DateInput />
+        <ImageInput />
       </div>
     </div>
   );
