@@ -9,7 +9,7 @@
     gap: 16px;
   }
   @media screen and (min-width: 768px) {
-    width: 24px;
+    gap: 24px;
   }
 }
 
@@ -24,10 +24,24 @@
   justify-content: center;
   align-items: center;
   gap: 30px;
+  @media screen and (min-width: 375px) {
+    width: 206px;
+    height: 206px;
+  }
+  @media screen and (min-width: 768px) {
+    width: 180px;
+    height: 180px;
+  }
 }
 
 .addImgaeWapper {
   width: 167px;
+  @media screen and (min-width: 375px) {
+    width: 206px;
+  }
+  @media screen and (min-width: 768px) {
+    width: 180px;
+  }
 }
 .addImageText {
   font-family: Pretendard;
@@ -42,9 +56,31 @@
 }
 .image {
   border-radius: 12px;
+  @media screen and (min-width: 375px) {
+    width: 206px;
+    height: 206px;
+  }
+  @media screen and (min-width: 768px) {
+    width: 180px;
+    height: 180px;
+  }
 }
+
 .deleteImageButton {
   position: absolute;
   right: -13px;
   top: -10px;
+  z-index: 2;
+  @media screen and (min-width: 375px) {
+    width: 32px;
+    height: 32px;
+    right: -59px;
+    top: -16px;
+  }
+  @media screen and (min-width: 768px) {
+    width: 40px;
+    height: 40px;
+    right: -40px;
+    top: -20px;
+  }
 }

@@ -25,4 +25,7 @@
 
 .myClassAddBox {
   padding: 0 16px;
+  @media screen and (min-width: 375px) {
+    padding-right: 24px;
+  }
 }
