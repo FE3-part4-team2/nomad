@@ -1,0 +1,57 @@
+// @import './_variables.scss';
+@import '../../styles/variables';
+
+$primary-color: #1976d2;
+$secondary-color: #c2c2c2;
+$error-color: #f44336;
+
+.textField {
+  position: relative;
+  margin-bottom: 24px;
+
+  input.error {
+    border-bottom: 1px solid $gray_79747E;
+
+    &:focus {
+      border-bottom: 2px solid $gray_79747E;
+    }
+  }
+
+  input {
+    font-size: 16px;
+    padding: 12px 0 6px;
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid $secondary-color;
+    background: transparent;
+
+    &:focus {
+      outline: none;
+      border-bottom: 2px solid $primary-color;
+    }
+
+    &:focus + label,
+    &:valid + label {
+      transform: translateY(-14px) scale(0.75);
+      color: $primary-color;
+    }
+  }
+
+  label {
+    color: $secondary-color;
+    font-size: 16px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 0;
+    top: 12px;
+    transition: 0.2s ease all;
+  }
+
+  .error-message {
+    color: $gray_79747E;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+}
