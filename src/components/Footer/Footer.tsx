@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import styles from './footer.module.scss';
-import Link from 'next/link';
 
 export default function Footer() {
   return (
@@ -14,8 +13,7 @@ export default function Footer() {
           </div>
         </div>
         <div className={styles.icon_container}>
-          <Link href="https://www.facebook.com" legacyBehavior>
-            <a target="_blank" rel="noopener noreferrer">
+            <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
               <Image
                 className={styles.icon_img}
                 src="/assets/images/facebook.svg"
@@ -24,9 +22,7 @@ export default function Footer() {
                 height={20}
               />
             </a>
-          </Link>
-          <Link href="https://www.twitter.com" legacyBehavior>
-            <a target="_blank" rel="noopener noreferrer">
+            <a href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
               <Image
                 className={styles.icon_img}
                 src="/assets/images/twitter.svg"
@@ -35,9 +31,7 @@ export default function Footer() {
                 height={20}
               />
             </a>
-          </Link>
-          <Link href="https://www.youtube.com" legacyBehavior>
-            <a target="_blank" rel="noopener noreferrer">
+            <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer">
               <Image
                 className={styles.icon_img}
                 src="/assets/images/youtube.png"
@@ -46,9 +40,7 @@ export default function Footer() {
                 height={20}
               />
             </a>
-          </Link>
-          <Link href="https://www.instagram.com" legacyBehavior>
-            <a target="_blank" rel="noopener noreferrer">
+            <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
               <Image
                 className={styles.icon_img}
                 src="/assets/images/instagram.png"
@@ -57,7 +49,6 @@ export default function Footer() {
                 height={20}
               />
             </a>
-          </Link>
         </div>
       </section>
     </>
