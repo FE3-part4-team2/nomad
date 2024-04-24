@@ -15,12 +15,7 @@ export default function MyClassTitle() {
       <div className={styles.myClassTitleWrapper}>
         <span className={styles.myClassSubtitle}>내 체험 등록</span>
         <div className={styles.button}>
-          <Button
-            buttonTitle="등록하기"
-            type="button"
-            radius={4}
-            fontSize={1.6}
-          />
+          <Button buttonTitle="등록하기" radius={4} fontSize={1.6} />
         </div>
       </div>
       <div className={styles.inputContainer}>
