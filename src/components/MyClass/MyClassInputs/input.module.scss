@@ -8,6 +8,10 @@
   width: 100%;
   font-size: 1.6rem;
   font-weight: 400;
+  outline: none;
+  &:focus {
+    border: 1px solid $primary;
+  }
 }
 
 .input::placeholder {
@@ -19,4 +23,8 @@
 .inputTitle {
   font-size: 2rem;
   font-weight: 700;
+
+  @media screen and (min-width: 375px) {
+    font-size: 2.4rem;
+  }
 }

@@ -4,10 +4,12 @@ import styles from './myClassTitle.module.scss';
 import CategoryInput from '../MyClassInputs/CategoryInput/CategoryInput';
 import DescriptionInput from '../MyClassInputs/DescriptionInput/DescriptionInput';
 import PriceInput from '../MyClassInputs/PriceInput/PriceInput';
+import DateInput from '../MyClassInputs/DateInput/DateInput';
+import AddressInput from '../MyClassInputs/AddressInput/AddressInput';
 
 export default function MyClassTitle() {
   return (
-    <div>
+    <div className={styles.myClassAddBox}>
       <div className={styles.myClassTitleWrapper}>
         <span className={styles.myClassSubtitle}>내 체험 등록</span>
         <div className={styles.button}>
@@ -24,6 +26,8 @@ export default function MyClassTitle() {
         <CategoryInput />
         <DescriptionInput />
         <PriceInput />
+        <AddressInput />
+        <DateInput />
       </div>
     </div>
   );

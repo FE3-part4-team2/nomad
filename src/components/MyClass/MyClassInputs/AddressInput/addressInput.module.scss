@@ -1,0 +1,7 @@
+@import 'src/styles/variables';
+@import '../input.module.scss';
+
+.input {
+  @extend .input;
+  margin-top: 12px;
+}

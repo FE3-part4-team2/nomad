@@ -18,8 +18,11 @@
 }
 
 .inputContainer {
-  border: 1px solid tomato;
   display: flex;
   flex-direction: column;
   gap: 24px;
+}
+
+.myClassAddBox {
+  padding: 0 16px;
 }

@@ -10,6 +10,10 @@
   font-size: 1.6rem;
   font-weight: 400;
   font-family: Pretendard;
+  outline: none;
+  &:focus {
+    border: 1px solid $primary;
+  }
 }
 
 .textArea::placeholder {
