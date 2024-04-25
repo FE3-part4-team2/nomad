@@ -1,4 +1,4 @@
-import { ButtonProps } from '@/types/type';
+import { HTMLAttributes } from 'react';
 import styles from './button.module.scss';
 
 /**
@@ -6,19 +6,25 @@ import styles from './button.module.scss';
  * * div의 사이즈로 버튼의 크기를 조정해주세요. 버튼은 h/w 100%로 설정되어있습니다
  *
  * @param status black/white/disable
- * @param title 버튼 안에 들어갈 문구(string)
- * @param onClick onClick 이벤트핸들러(function)
- * @param type button/submit/reset
+ * @param buttonTitle 버튼 안에 들어갈 문구(string)
  * @param radius border-radius적용값 (number) default: 6
+ * @param fontSize font-size적용값 (number) default: mobile-14/16
  *
  */
 
+export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
+  status?: string;
+  buttonTitle?: string;
+  radius?: number;
+  fontSize?: number;
+}
+
 export default function Button({
   status = 'black',
-  title = 'button',
-  onClick,
-  type,
+  buttonTitle = 'button',
   radius = 6,
+  fontSize,
+  ...rest
 }: ButtonProps) {
   const buttonClass = (status: string) => {
     switch (status) {
@@ -35,11 +41,10 @@ export default function Button({
   return (
     <button
       className={buttonClassName}
-      onClick={onClick}
-      type={type}
-      style={{ borderRadius: `${radius}px` }}
+      style={{ borderRadius: `${radius}px`, fontSize: `${fontSize}rem` }}
+      {...rest}
     >
-      {title}
+      {buttonTitle}
     </button>
   );
 }

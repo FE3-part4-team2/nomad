@@ -1,7 +1,14 @@
-export interface ButtonProps {
-  status: string;
+export interface ClassData {
+  id: number;
+  userId: number;
   title: string;
-  onClick: () => void;
-  type: 'button' | 'submit' | 'reset';
-  radius: number;
+  description: string;
+  category: string;
+  price: number;
+  address: string;
+  bannerImageUrl: string;
+  rating: number;
+  reviewCount: number;
+  createdAt: string;
+  updatedAt: string;
 }
