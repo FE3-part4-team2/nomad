@@ -1,0 +1,418 @@
+@import 'src/styles/_variables';
+
+.container {
+  position: relative;
+  width: 100%;
+  background-color: $gray_FAFAFA;
+  color: $nomad-black;
+  padding-top: 24px;
+}
+
+.title_section {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 88%;
+}
+
+.title_container {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.class_category {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.class_title {
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.map_container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  :nth-child(1) {
+    border-radius: 16px;
+  }
+}
+
+.info_container {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0 16px 0;
+}
+
+.info_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.4rem;
+  opacity: 0.75;
+}
+
+.class_description {
+  font-size: 1.6rem;
+  line-height: 26px;
+  text-align: justify;
+  margin: 0 auto;
+  opacity: 0.75;
+
+  & div {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 26px;
+    margin: 15px 0 16px 0;
+  }
+}
+
+.line {
+  display: flex;
+  height: 0.1rem;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  background-color: $nomad-black;
+  opacity: 0.25;
+  margin: 16px auto 16px auto;
+}
+
+.review_title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 40px 0 24px 0;
+}
+
+.review_num_container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.review_cal {
+  font-size: 5rem;
+  font-weight: 600;
+}
+
+.review_most {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+.review_num {
+  display: flex;
+  align-items: center;
+  font-size: 1.4rem;
+  gap: 6px;
+}
+
+.review_container {
+  display: flex;
+  gap: 24px;
+  margin: 24px 0 24px 0;
+  font-size: 1.6rem;
+}
+
+.reviewer_wrapper {
+  margin-bottom: 8px;
+}
+
+.reviewer_wrapper,
+.reviewer_wrapper div {
+  font-size: 1.6rem;
+}
+
+.review_wrapper:nth-child(2) {
+  line-height: 26px;
+  text-align: justify;
+}
+
+.reservation_section {
+  width: 100%;
+  padding: 16px;
+  background-color: $white;
+  border-top: 1px solid $gray_A4A1AA;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 998;
+
+  & Button {
+    width: 10.6rem;
+    padding: 14px 0 14px 0;
+    font-size: 1.6rem;
+  }
+}
+
+.reservation_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.price_wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.price {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.per {
+  font-size: 1.8rem;
+  line-height: 26px;
+  color: $primary;
+  margin-left: 6px;
+}
+
+.date_pick {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: $primary;
+  text-decoration: underline;
+  margin-top: 8px;
+}
+
+.profile_image {
+  border-radius: 50%;
+  background-color: bisque;
+}
+
+.reviewer_wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reviewer {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.review_created {
+  font-size: 1rem;
+  line-height: 26px;
+  color: $gray_A4A1AA;
+}
+
+.move_icon {
+  position: fixed;
+  background-color: $white;
+  padding: 20px;
+  border-radius: 50%;
+  border: 1px solid $gray_A4A1AA;
+  z-index: 999;
+  right: 50px;
+}
+
+.sticky_arrow {
+  position: fixed;
+  bottom: 0;
+  z-index: 999;
+}
+
+.date_title,
+.person_num,
+.choose_num,
+.input_container,
+.total_container,
+.time_container {
+  display: none;
+}
+
+.responsive_container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 88%;
+}
+
+@media screen and (min-width: 768px) {
+  .image_section {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 88%;
+  }
+
+  .date_title,
+  .person_num,
+  .total_title,
+  .total_price {
+    display: flex;
+    font-size: 2rem;
+    font-weight: 700;
+    padding-bottom: 8px;
+    height: auto;
+  }
+
+  .date_title,
+  .date_pick,
+  .person_num,
+  .input_container,
+  .time_container {
+    margin: 26px 24px 8px 24px;
+  }
+
+  .submit_button {
+    margin: 26px 24px 8px 24px;
+  }
+
+  .choose_num {
+    /* Firefox에서 화살표 숨기기 */
+    -moz-appearance: textfield;
+
+    /* WebKit에서 화살표 숨기기 */
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    display: flex;
+    font-size: 1.4rem;
+    text-align: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border: none;
+  }
+
+  .date_pick {
+    font-size: 1.6rem;
+    margin-top: 0;
+    padding-bottom: 30px;
+  }
+
+  .per {
+    font-size: 1.6rem;
+  }
+
+  .responsive_container {
+    flex-direction: row;
+    margin: 0 auto;
+    width: 88%;
+    gap: 14px;
+  }
+
+  .reservation_section {
+    position: inherit;
+    display: flex;
+    width: 25rem;
+    height: 38rem;
+    border: 1px solid $gray_DDDDDD;
+    border-radius: 12px;
+    padding: 0;
+  }
+
+  .submit_button {
+    Button {
+      width: 20.3rem;
+      height: 5.6rem;
+      margin-bottom: 40px;
+    }
+  }
+
+  .price {
+    font-size: 2.4rem;
+  }
+
+  .reservation_container {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .input_container {
+    display: flex;
+    align-items: center;
+    width: 12rem;
+    height: 3rem;
+    box-shadow:
+      0px 0px 0px 1px #cdd0dc inset,
+      0px 2px 4px 0px rgba(5, 16, 55, 0.06);
+    border-radius: 6px;
+    color: $gray_4B4B4B;
+    margin-bottom: 20px;
+    margin-top: 0;
+  }
+
+  .input_container div {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    padding: 10px;
+    width: 4rem;
+  }
+
+  .input_subtract {
+    border-radius: 6px 0px 0px 6px;
+  }
+
+  .input_add {
+    border-radius: 0px 6px 6px 0px;
+  }
+
+  .input_subtract,
+  .input_add {
+    width: 4rem;
+  }
+
+  .price_wrapper {
+    padding: 26px 24px 18px 24px;
+    border-bottom: 1px solid $gray_DDDDDD;
+  }
+
+  .total_container {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid $gray_DDDDDD;
+    padding: 36px 24px 18px 24px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .reservation_section {
+    width: 38.4rem;
+    height: 46.6rem;
+  }
+
+  .time_container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .choose_time {
+    display: flex;
+    gap: 12px;
+  }
+
+  .date_pick {
+    display: none;
+  }
+
+  .time_title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 26px;
+  }
+
+  .choose_time {
+    Button {
+      width: 10.7rem;
+      height: 4.6rem;
+    }
+  }
+
+  .submit_button {
+    Button {
+      width: 33.6rem;
+    }
+  }
+}
