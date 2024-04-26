@@ -39,7 +39,7 @@ export default function DateDeleteInput({
         <div>
           <Image
             className={styles.timePlusIcon}
-            src="assets/icons/minus-time-btn.svg"
+            src="/assets/icons/minus-time-btn.svg"
             width={44}
             height={44}
             alt="시간 추가 버튼"

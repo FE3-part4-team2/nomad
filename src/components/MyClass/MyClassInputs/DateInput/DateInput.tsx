@@ -42,7 +42,7 @@ export default function DateInput({ id, register }: DateInputProps) {
         <div>
           <Image
             className={styles.timePlusIcon}
-            src="assets/icons/plus-time-btn.svg"
+            src="/assets/icons/plus-time-btn.svg"
             width={44}
             height={44}
             alt="시간 추가 버튼"

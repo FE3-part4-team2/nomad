@@ -18,7 +18,7 @@ export default function SubImageInput({ id, register }: SubImageInputProps) {
         <div className={styles.addImgaeWapper}>
           <label className={styles.fakeInput} htmlFor="addImage">
             <Image
-              src="assets/icons/plus.svg"
+              src="/assets/icons/plus.svg"
               width={29.5}
               height={29.5}
               alt="이미지 추가하기 아이콘"
@@ -37,7 +37,7 @@ export default function SubImageInput({ id, register }: SubImageInputProps) {
           />
           <Image
             className={styles.deleteImageButton}
-            src="assets/icons/delete-circle-btn.svg"
+            src="/assets/icons/delete-circle-btn.svg"
             alt="이미지 삭제 버튼"
             width={24}
             height={24}
@@ -53,7 +53,7 @@ export default function SubImageInput({ id, register }: SubImageInputProps) {
           />
           <Image
             className={styles.deleteImageButton}
-            src="assets/icons/delete-circle-btn.svg"
+            src="/assets/icons/delete-circle-btn.svg"
             alt="이미지 삭제 버튼"
             width={24}
             height={24}
@@ -69,7 +69,7 @@ export default function SubImageInput({ id, register }: SubImageInputProps) {
           />
           <Image
             className={styles.deleteImageButton}
-            src="assets/icons/delete-circle-btn.svg"
+            src="/assets/icons/delete-circle-btn.svg"
             alt="이미지 삭제 버튼"
             width={24}
             height={24}
@@ -85,7 +85,7 @@ export default function SubImageInput({ id, register }: SubImageInputProps) {
           />
           <Image
             className={styles.deleteImageButton}
-            src="assets/icons/delete-circle-btn.svg"
+            src="/assets/icons/delete-circle-btn.svg"
             alt="이미지 삭제 버튼"
             width={24}
             height={24}
