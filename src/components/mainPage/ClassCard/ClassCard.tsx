@@ -19,7 +19,7 @@ export default function ClassCard({ classData }: ClassCardProps) {
     <div className={styles.classCard}>
       <div className={styles.classImage}>
         <Image
-          src="/assets/images/image-sample-3.jpeg"
+          src={bannerImageUrl}
           alt="클래스 이미지"
           layout="fill"
           objectFit="cover"
