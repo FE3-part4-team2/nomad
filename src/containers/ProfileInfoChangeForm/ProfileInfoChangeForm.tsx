@@ -2,14 +2,7 @@ import Button from '@/components/Button/Button';
 import { useForm } from 'react-hook-form';
 import Input from '../../components/Input/Input'; // 기존 ControlInput 대신 Input 컴포넌트 사용
 import { toast } from 'react-toastify';
-
-interface Form {
-  nickName: string;
-  email: string;
-  password: string;
-  checkPassword: string;
-  confirmPassword: string;
-}
+import styles from './ProfileInfoChangeForm.module.scss';
 
 export default function ProfileInfoChangeForm({
   prevNickName,
@@ -20,7 +13,6 @@ export default function ProfileInfoChangeForm({
 }) {
   const {
     register,
-    control,
     handleSubmit: onSubmit,
     getValues,
     formState: { errors },
@@ -41,72 +33,72 @@ export default function ProfileInfoChangeForm({
   };
 
   return (
-    <form onSubmit={onSubmit(handleSubmit)}>
-      <div className="titleArea">
-        <div>내 정보</div>
-        <Button>저장하기</Button>
-      </div>
-      <div>
-        <label>닉네임</label>
-        <Input
-          label="닉네임"
-          placeholder="닉네임을 입력해 주세요."
-          defaultValue={prevNickName}
-          error={errors.nickName?.message}
-          {...register('nickName', {
-            required: '꼭 입력해 주세요.',
-            minLength: { value: 3, message: '최소 3글자 입력 가능합니다.' },
-            maxLength: { value: 10, message: '최대 10글자 입력 가능합니다.' },
-          })}
-        />
-      </div>
-      <div>
-        <label>email</label>
-        <Input
-          label="이메일"
-          type="email"
-          placeholder="이메일을 입력해 주세요."
-          defaultValue={prevEmail}
-          error={errors.email?.message}
-          {...register('email', {
-            pattern: {
-              value:
-                /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
-              message: '이메일 형식에 맞지 않습니다.',
-            },
-          })}
-        />
-      </div>
-      <div>
-        <label>비밀번호</label>
-        <Input
-          label="비밀번호"
-          type="password"
-          placeholder="8자 이상 입력해 주세요."
-          error={errors.password?.message}
-          {...register('password', {
-            minLength: { value: 8, message: '최소 8글자 입력 가능합니다.' },
-          })}
-        />
-      </div>
-      <div>
-        <label>비밀번호 재입력</label>
-        <Input
-          label="비밀번호 확인"
-          type="password"
-          placeholder="비밀번호를 한번 더 입력해 주세요."
-          error={errors.checkPassword?.message}
-          {...register('checkPassword', {
-            minLength: { value: 8, message: '최소 8글자 입력 가능합니다.' },
-            validate: {
-              matchesPreviousPassword: (value: string) => {
-                const { password } = getValues();
-                return password === value || '비밀번호가 일치하지 않습니다.';
+    <div className={styles.profileInfoContainer}>
+      <form onSubmit={onSubmit(handleSubmit)}>
+        <div className={styles.titleArea}>
+          <div>내 정보</div>
+          <div className={styles.buttonDiv}>
+            <Button fontSize={1.6} buttonTitle="저장하기" />
+          </div>
+        </div>
+        <div className={styles.inputBox}>
+          <label>닉네임</label>
+          <Input
+            placeholder="닉네임을 입력해 주세요."
+            defaultValue={prevNickName}
+            error={errors.nickName?.message}
+            {...register('nickName', {
+              // required: '꼭 입력해 주세요.',
+              minLength: { value: 3, message: '최소 3글자 입력 가능합니다.' },
+              maxLength: { value: 10, message: '최대 10글자 입력 가능합니다.' },
+            })}
+          />
+        </div>
+        <div className={styles.inputBox}>
+          <label>email</label>
+          <Input
+            // type="email"
+            placeholder="이메일을 입력해 주세요."
+            defaultValue={prevEmail}
+            error={errors.email?.message}
+            {...register('email', {
+              pattern: {
+                value:
+                  /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
+                message: '이메일 형식에 맞지 않습니다.',
               },
-            },
-          })}
-        />
-      </div>
-    </form>
+            })}
+          />
+        </div>
+        <div className={styles.inputBox}>
+          <label>비밀번호</label>
+          <Input
+            type="password"
+            placeholder="8자 이상 입력해 주세요."
+            error={errors.password?.message}
+            {...register('password', {
+              minLength: { value: 8, message: '최소 8글자 입력 가능합니다.' },
+            })}
+          />
+        </div>
+        <div className={styles.inputBox}>
+          <label>비밀번호 재입력</label>
+          <Input
+            type="password"
+            placeholder="비밀번호를 한번 더 입력해 주세요."
+            error={errors.checkPassword?.message}
+            {...register('checkPassword', {
+              minLength: { value: 8, message: '최소 8글자 입력 가능합니다.' },
+              validate: {
+                matchesPreviousPassword: (value: string) => {
+                  const { password } = getValues();
+                  return password === value || '비밀번호가 일치하지 않습니다.';
+                },
+              },
+            })}
+          />
+        </div>
+      </form>
+    </div>
   );
 }

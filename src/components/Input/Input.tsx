@@ -1,26 +1,26 @@
 import React from 'react';
-import styles from './Input.module.scss';
+import styles from './input.module.scss';
 
 interface Props {
-  label: string;
   placeholder: string;
-  name?: string;
+  classname?: string;
   type?: string;
   defaultValue?: string;
   error?: string;
 }
 
-// label: input label
-//   name: input 의 이름, default인데 추가적으로 css를 추가적으로 넣고 싶으면 여기서 다른 input이름을 줘서 할것
-//   type: default는 text인데 다른 타입을 주고싶으면 넣을것 ex) password
-//   placeholder: 말그대로 placeholder
-//   defaultValue: inputvalue의 초기값 ex) 닉네임 or 이메일
-//   errorr: error일때 보여줄 css && message
+/**
+ * input에 사용되는 params
+ * @param {string} classname - input 의 이름, default인데 추가적으로 css를 추가적으로 넣고 싶으면 여기서 다른 input이름을 줘서 할것
+ * @param {string} classname - placeholder: 말그대로 placeholder
+ * @param {string} classname - type: default는 text인데 다른 타입을 주고싶으면 넣을것 ex) password
+ * @param {string} classname - defaultValue: inputvalue의 초기값 ex) 닉네임 or 이메일
+ * @param {string} classname - errorr: error일때 보여줄 css && message
+ */
 
 const Input = ({
-  label,
   placeholder,
-  name = 'inputDefault',
+  classname = 'inputDefault',
   type,
   defaultValue,
   error,
@@ -29,12 +29,12 @@ const Input = ({
   return (
     <div className={styles.textField}>
       <input
-        className={`${name} ${error ? styles.error : ''}`}
+        // className={`${name} ${error ? styles.error : ''}`}
+        className={`${styles[classname] || ''} ${error ? styles.error : ''}`}
         placeholder={placeholder}
         defaultValue={defaultValue ?? ''}
         {...rest}
       />
-      <label htmlFor={name}>{label}</label>
       {error && <div className={styles.errorMessage}>{error}</div>}
     </div>
   );
