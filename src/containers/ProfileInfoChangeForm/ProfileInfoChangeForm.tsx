@@ -1,6 +1,6 @@
 import Button from '@/components/Button/Button';
 import { useForm } from 'react-hook-form';
-import ControlInput from '../ControlInput/ControlInput';
+import Input from '../../components/Input/Input'; // 기존 ControlInput 대신 Input 컴포넌트 사용
 import { toast } from 'react-toastify';
 
 interface Form {
@@ -24,7 +24,7 @@ export default function ProfileInfoChangeForm({
     handleSubmit: onSubmit,
     getValues,
     formState: { errors },
-  } = useForm<Form>({
+  } = useForm({
     mode: 'onSubmit',
     defaultValues: {
       nickName: prevNickName,
@@ -34,7 +34,7 @@ export default function ProfileInfoChangeForm({
     },
   });
 
-  const handleSubmit = (data: Form) => {
+  const handleSubmit = () => {
     //이 핸들은 ProfileInfoChange 에서 만들고 ProfileInfoChangeForm에 넘겨줘야함(로직이기 때문)
     //api로 info change 시켜야함
     //toast.success('프로필 정보 변경 완료 했습니다.');
@@ -48,23 +48,26 @@ export default function ProfileInfoChangeForm({
       </div>
       <div>
         <label>닉네임</label>
-        <ControlInput<Form>
-          control={control}
-          name="nickName"
-          rules={{
+        <Input
+          label="닉네임"
+          placeholder="닉네임을 입력해 주세요."
+          defaultValue={prevNickName}
+          error={errors.nickName?.message}
+          {...register('nickName', {
             required: '꼭 입력해 주세요.',
-            minLength: { value: 3, message: '최소 10글자 입력 가능합니다.' },
+            minLength: { value: 3, message: '최소 3글자 입력 가능합니다.' },
             maxLength: { value: 10, message: '최대 10글자 입력 가능합니다.' },
-          }}
+          })}
         />
-        {errors.nickName ? (
-          <p className="error">{errors.nickName?.message}</p>
-        ) : null}
       </div>
       <div>
         <label>email</label>
-        <input
-          type="text"
+        <Input
+          label="이메일"
+          type="email"
+          placeholder="이메일을 입력해 주세요."
+          defaultValue={prevEmail}
+          error={errors.email?.message}
           {...register('email', {
             pattern: {
               value:
@@ -76,25 +79,24 @@ export default function ProfileInfoChangeForm({
       </div>
       <div>
         <label>비밀번호</label>
-        <ControlInput<Form>
-          control={control}
-          name="password"
+        <Input
+          label="비밀번호"
           type="password"
           placeholder="8자 이상 입력해 주세요."
-          rules={{
-            // required: '8자 이상 입력해 주세요',
+          error={errors.password?.message}
+          {...register('password', {
             minLength: { value: 8, message: '최소 8글자 입력 가능합니다.' },
-          }}
+          })}
         />
       </div>
       <div>
         <label>비밀번호 재입력</label>
-        <ControlInput<Form>
-          control={control}
-          name="checkPassword"
+        <Input
+          label="비밀번호 확인"
           type="password"
           placeholder="비밀번호를 한번 더 입력해 주세요."
-          rules={{
+          error={errors.checkPassword?.message}
+          {...register('checkPassword', {
             minLength: { value: 8, message: '최소 8글자 입력 가능합니다.' },
             validate: {
               matchesPreviousPassword: (value: string) => {
@@ -102,11 +104,8 @@ export default function ProfileInfoChangeForm({
                 return password === value || '비밀번호가 일치하지 않습니다.';
               },
             },
-          }}
+          })}
         />
-        {errors.confirmPassword && (
-          <p className="error">{errors.confirmPassword?.message}</p>
-        )}
       </div>
     </form>
   );
