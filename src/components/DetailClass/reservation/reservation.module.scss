@@ -1,0 +1,225 @@
+@import 'src/styles/_variables';
+
+.reservationSection {
+  width: 100%;
+  padding: 16px;
+  background-color: $white;
+  border-top: 1px solid $gray_A4A1AA;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 998;
+
+  & Button {
+    width: 10.6rem;
+    padding: 14px 0 14px 0;
+  }
+}
+
+.reservationContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.priceWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.price {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.per {
+  font-size: 1.8rem;
+  line-height: 1.5;
+  color: $primary;
+  margin-left: 6px;
+}
+
+.datePick {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: $primary;
+  text-decoration: underline;
+  margin-top: 8px;
+}
+
+.dateTitle,
+.personNum,
+.chooseNum,
+.inputContainer,
+.totalContainer,
+.timeContainer {
+  display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .dateTitle,
+  .personNum,
+  .totalTitle,
+  .totalPrice {
+    display: flex;
+    font-size: 2rem;
+    font-weight: 700;
+    padding-bottom: 8px;
+    height: auto;
+  }
+
+  .dateTitle,
+  .datePick,
+  .personNum,
+  .inputContainer,
+  .timeContainer {
+    margin: 26px 24px 8px 24px;
+  }
+
+  .submitButton {
+    margin: 26px 24px 8px 24px;
+  }
+
+  .chooseNum {
+    /* Firefox에서 화살표 숨기기 */
+    -moz-appearance: textfield;
+
+    /* WebKit에서 화살표 숨기기 */
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    display: flex;
+    font-size: 1.4rem;
+    text-align: center;
+    width: 2.4rem;
+    height: 2.4rem;
+    border: none;
+  }
+
+  .datePick {
+    font-size: 1.6rem;
+    margin-top: 0;
+    padding-bottom: 30px;
+  }
+
+  .per {
+    font-size: 1.6rem;
+  }
+
+  .reservationSection {
+    position: inherit;
+    display: flex;
+    width: 25rem;
+    height: 50rem;
+    border: 1px solid $gray_DDDDDD;
+    border-radius: 12px;
+    padding: 0;
+  }
+
+  .submitButton {
+    Button {
+      width: 20.3rem;
+      height: 5.6rem;
+      margin-bottom: 40px;
+    }
+  }
+
+  .price {
+    font-size: 2.4rem;
+  }
+
+  .reservationContainer {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .inputContainer {
+    display: flex;
+    align-items: center;
+    width: 12rem;
+    height: 3rem;
+    box-shadow:
+      0px 0px 0px 1px #cdd0dc inset,
+      0px 2px 4px 0px rgba(5, 16, 55, 0.06);
+    border-radius: 6px;
+    color: $gray_4B4B4B;
+    margin-bottom: 20px;
+    margin-top: 0;
+  }
+
+  .inputContainer div {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    padding: 10px;
+    width: 4rem;
+  }
+
+  .inputSubtract {
+    border-radius: 6px 0px 0px 6px;
+  }
+
+  .inputAdd {
+    border-radius: 0px 6px 6px 0px;
+  }
+
+  .inputSubtract,
+  .inputAdd {
+    width: 4rem;
+  }
+
+  .priceWrapper {
+    padding: 26px 24px 18px 24px;
+    border-bottom: 1px solid $gray_DDDDDD;
+  }
+
+  .totalContainer {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid $gray_DDDDDD;
+    padding: 36px 24px 18px 24px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .reservationSection {
+    width: 38.4rem;
+    height: 56rem;
+  }
+
+  .timeContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .chooseTime {
+    display: flex;
+    gap: 12px;
+  }
+
+  .datePick {
+    display: none;
+  }
+
+  .timeTitle {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  .chooseTime {
+    Button {
+      width: 10.7rem;
+      height: 4.6rem;
+    }
+  }
+
+  .submitButton {
+    Button {
+      width: 33.6rem;
+    }
+  }
+}
