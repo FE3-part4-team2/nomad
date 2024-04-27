@@ -1,0 +1,15 @@
+@import 'src/styles/variables';
+
+.imageContainer {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  @media screen and (min-width: 375px) {
+    gap: 16px;
+  }
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 24px;
+  }
+}

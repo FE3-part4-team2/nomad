@@ -1,0 +1,38 @@
+@import 'src/styles/variables';
+
+.myClassTitleWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.myClassSubtitle {
+  font-size: 3.2rem;
+  font-weight: 700;
+}
+
+.button {
+  height: 48px;
+  width: 120px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.myClassAddBox {
+  padding: 0 16px;
+  width: 375px;
+  @media screen and (min-width: 375px) {
+    padding: 0px;
+    width: 429px;
+  }
+
+  @media screen and (min-width: 768px) {
+    padding: 0px;
+    width: 792px;
+  }
+}
