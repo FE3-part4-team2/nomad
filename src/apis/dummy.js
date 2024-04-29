@@ -38,7 +38,7 @@ const dummyData = {
       category: "Category 3",
       price: 12345,
       address: "Address 3",
-      bannerImageUrl: "https://example.com/image3.jpg",
+      bannerImageUrl: "/assets/images/image-sample-3.jpeg",
       rating: 4.1,
       reviewCount: 65,
       createdAt: "2024-04-23T01:23:44.366Z",
