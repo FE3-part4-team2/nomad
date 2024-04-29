@@ -1,0 +1,73 @@
+@import 'src/styles/_variables';
+
+.backContainer {
+  position: absolute;
+}
+.container {
+  width: 100%;
+  // height: 80%;
+  background-color: $white;
+  padding: 30px 24px 30px 24px;
+  border-radius: 20px 20px 0 0;
+  animation: modalAnimation 0.5s ease-out;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  position: fixed;
+  bottom: 0;
+  z-index: 999;
+}
+
+@keyframes modalAnimation {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 2.8rem;
+  font-weight: 700;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.submitButton {
+  width: 32.7rem;
+  height: 5.6rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-top: 24px;
+  cursor: pointer;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    width: 44%;
+    height: 66%;
+    border-radius: 20px 20px 20px 20px;
+    top: 20%;
+    right: 6%;
+    animation: none;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .container {
+    display: none;
+  }
+}
