@@ -1,0 +1,15 @@
+.bestCards {
+  display: flex;
+  flex-direction: row;
+  overflow: scroll;
+  gap: 16px;
+  width: 100%;
+}
+
+
+.title {
+  font-family: pretendard;
+  padding: 16px 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
