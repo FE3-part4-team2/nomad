@@ -1,12 +1,16 @@
 import Layout from '@/components/Layout/Layout';
-import styles from '@/styles/Home.module.css';
-import Toast from '@/components/Toast/Toast';
-import { LOGIN_MESSAGES } from '@/constants/message/index';
+import ProfileInfoChangeForm from '@/containers/ProfileInfoChangeForm/ProfileInfoChangeForm';
 
 export default function Home() {
   return (
     <>
-      <Layout>children처리</Layout>
+      <Layout>
+        children
+        <ProfileInfoChangeForm
+          prevNickName="정동철"
+          prevEmail="example@codeit.com"
+        />
+      </Layout>
     </>
   );
 }
