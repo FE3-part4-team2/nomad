@@ -1,0 +1,53 @@
+@import 'src/styles/_variables';
+
+.classCard{
+  width: 168px;
+}
+
+.classImage{
+  width: 168px;
+  height: 168px;
+  position: relative;
+  border-radius: 20px;
+
+  img{
+    width: 168px;
+    border-radius: 20px;
+    position: relative;
+  }
+}
+
+.classInfo {
+  color: $black_171717;
+  padding-top: 16px;
+}
+
+.rate {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.6rem;
+  gap: 5px;
+  margin-bottom: 10px;
+
+  .reviewCount{
+    color: $gray_A4A1AA;
+  }
+}
+
+.title{
+  margin-bottom: 15px;
+  font-size: 1.8rem;
+  font-weight: 600;
+}
+
+.price{
+  font-size: 2rem;
+  font-weight: 700;
+
+  .person{
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: $gray_4B4B4B;
+  }
+}

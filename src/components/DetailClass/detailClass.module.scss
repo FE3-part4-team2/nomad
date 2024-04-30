@@ -1,0 +1,37 @@
+@import 'src/styles/_variables';
+
+.container {
+  position: relative;
+  width: 100%;
+  background-color: $gray_FAFAFA;
+  color: $nomad-black;
+  padding-top: 24px;
+}
+
+.line {
+  display: flex;
+  height: 0.1rem;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  background-color: $nomad-black;
+  opacity: 0.25;
+  margin: 16px auto 16px auto;
+}
+
+.responsiveContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 88%;
+}
+
+@media screen and (min-width: 768px) {
+  .responsiveContainer {
+    flex-direction: row;
+    margin: 0 auto;
+    width: 88%;
+    gap: 14px;
+  }
+}
