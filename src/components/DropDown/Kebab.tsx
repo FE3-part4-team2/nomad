@@ -18,7 +18,7 @@ export default function Kebab() {
           alt="케밥 아이콘"
         />
       </div>
-      {isOpen ? <DropDownList isBig={true} /> : ''}
+      {isOpen ? <DropDownList isBig={true} dropDownList={[]} /> : ''}
     </div>
   );
 }
