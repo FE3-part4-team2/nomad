@@ -3,9 +3,13 @@ import styles from './dropDownList.module.scss';
 
 interface DropDownListProps {
   isBig?: boolean;
+  dropDownList: string[];
 }
 
-export default function DropDownList({ isBig }: DropDownListProps) {
+export default function DropDownList({
+  isBig,
+  dropDownList,
+}: DropDownListProps) {
   return (
     <ul
       className={
@@ -14,7 +18,7 @@ export default function DropDownList({ isBig }: DropDownListProps) {
           : styles.dropDownList_container
       }
     >
-      {MockList.map((item) => (
+      {dropDownList.map((item) => (
         <li className={styles.dropDownList}>{item}</li>
       ))}
     </ul>
