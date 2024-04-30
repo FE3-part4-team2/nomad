@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './input.module.scss';
 
 interface Props {
-  placeholder?: string;
+  placeholder: string;
   classname?: string;
   type?: string;
   defaultValue?: string;
