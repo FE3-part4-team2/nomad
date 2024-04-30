@@ -2,10 +2,10 @@
 
 .profileInfoContainer {
   form {
+    gap: 24px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 24px;
     flex-shrink: 0;
 
     .titleArea {
