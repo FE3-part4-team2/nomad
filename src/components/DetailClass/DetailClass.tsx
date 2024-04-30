@@ -6,8 +6,30 @@ import Map from '@/components/DetailClass/map/Map';
 import Review from '@/components/DetailClass/review_/Review';
 import Reservation from '@/components/DetailClass/reservation/Reservation';
 import Image from './image_/Image';
+import { useEffect, useState } from 'react';
+import ReservationModal from './reservationModal/ReservationModal';
+import Modal from './modal/Modal';
 
 export default function DetailClass() {
+  const [isOpenModal, setIsOpenModal] = useState(false);
+
+  const openReservationModal = () => {
+    setIsOpenModal(true);
+  };
+
+  const closeReservationModal = () => {
+    setIsOpenModal(false);
+  };
+
+  useEffect(() => {
+    document.documentElement.style.scrollbarGutter = 'stable';
+
+    if (isOpenModal === true) document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpenModal]);
+
   return (
     <>
       <div className={styles.container}>
@@ -21,7 +43,12 @@ export default function DetailClass() {
             <Map />
             <Review />
           </div>
-          <Reservation />
+          {isOpenModal && (
+            <Modal isOpen={true} title={'예약'} setIsOpenModal={setIsOpenModal}>
+              <ReservationModal />
+            </Modal>
+          )}
+          <Reservation openReservationModal={openReservationModal} />
         </div>
       </div>
     </>
