@@ -2,7 +2,13 @@ import styles from './reservation.module.scss';
 import Button from '@/components/Button/Button';
 import Image from 'next/image';
 
-export default function Reservation({ openReservationModal }) {
+interface ReservationProps {
+  openReservationModal: () => void;
+}
+
+export default function Reservation({
+  openReservationModal,
+}: ReservationProps) {
   return (
     <>
       <section className={styles.reservationSection}>
