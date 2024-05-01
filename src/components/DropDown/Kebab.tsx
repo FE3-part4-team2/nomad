@@ -2,7 +2,12 @@ import { useState } from 'react';
 import DropDownList from './DropDownList';
 import styles from './kebab.module.scss';
 
-export default function Kebab() {
+interface KebabProps {
+  dropDownList: string[];
+  onClick: () => void;
+}
+
+export default function Kebab({ dropDownList, onClick }: KebabProps) {
   const [isOpen, setIsOpen] = useState(false);
   const handleOnClick = () => {
     setIsOpen((prev) => !prev);
@@ -18,7 +23,15 @@ export default function Kebab() {
           alt="케밥 아이콘"
         />
       </div>
-      {isOpen ? <DropDownList isBig={true} dropDownList={[]} /> : ''}
+      {isOpen ? (
+        <DropDownList
+          isBig={true}
+          dropDownList={dropDownList}
+          onClick={onClick}
+        />
+      ) : (
+        ''
+      )}
     </div>
   );
 }
