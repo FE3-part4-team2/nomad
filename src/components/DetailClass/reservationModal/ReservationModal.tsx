@@ -2,7 +2,7 @@ import styles from './reservationModal.module.scss';
 import CalendarComponent from '../calendar/CalendarComponent';
 
 export default function ReservationModal() {
-  const onClick = () => {};
+  // const onClick = () => {};
 
   return (
     <>

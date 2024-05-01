@@ -21,7 +21,7 @@ interface Props {
 const Input = ({
   placeholder,
   classname = 'inputDefault',
-  type,
+  // type,
   defaultValue,
   error,
   ...rest
