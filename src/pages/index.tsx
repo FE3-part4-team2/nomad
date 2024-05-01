@@ -1,5 +1,16 @@
-import styles from '@/styles/Home.module.css';
+import Layout from '@/components/Layout/Layout';
+import ProfileInfoChangeForm from '@/containers/ProfileInfoChangeForm/ProfileInfoChangeForm';
 
 export default function Home() {
-  return <>메인페이지</>;
+  return (
+    <>
+      <Layout>
+        children
+        <ProfileInfoChangeForm
+          prevNickName="정동철"
+          prevEmail="example@codeit.com"
+        />
+      </Layout>
+    </>
+  );
 }
