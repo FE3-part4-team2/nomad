@@ -7,6 +7,7 @@ interface ModalProps {
   isOpen: boolean;
   title: string;
   children: React.ReactNode;
+  setIsOpenModal:any;
 }
 
 const Modal: React.FC<ModalProps> = ({
