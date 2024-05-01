@@ -1,9 +1,9 @@
 import Footer from '@/components/Footer/Footer';
 import Header from '@/components/Header/Header';
 import SideBar from '@/components/SideBar/SideBar';
-import styles from './Layout.module.css';
+import styles from './layout.module.css';
 
-export default function Layout({ children }) {
+export default function Layout({ children }: any) {
   return (
     <>
       <Header />
