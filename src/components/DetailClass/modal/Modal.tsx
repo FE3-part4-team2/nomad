@@ -18,7 +18,7 @@ const Modal: React.FC<ModalProps> = ({
 }) => {
   if (!isOpen) return null;
 
-  const closeModal = (e) => {
+  const closeModal = (e:any) => {
     e.stopPropagation();
     setIsOpenModal(false);
   };
