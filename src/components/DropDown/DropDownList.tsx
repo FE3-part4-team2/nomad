@@ -1,14 +1,15 @@
-const MockList = ['수정하기', '삭제하기'];
 import styles from './dropDownList.module.scss';
 
 interface DropDownListProps {
   isBig?: boolean;
   dropDownList: string[];
+  onClick: () => void;
 }
 
 export default function DropDownList({
   isBig,
   dropDownList,
+  onClick,
 }: DropDownListProps) {
   return (
     <ul
@@ -19,7 +20,9 @@ export default function DropDownList({
       }
     >
       {dropDownList.map((item) => (
-        <li className={styles.dropDownList}>{item}</li>
+        <li className={styles.dropDownList} onClick={onClick}>
+          {item}
+        </li>
       ))}
     </ul>
   );
