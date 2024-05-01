@@ -2,12 +2,13 @@ import ReactDOM from 'react-dom';
 import Button from '@/components/Button/Button';
 import styles from './modal.module.scss';
 import Image from 'next/image';
+import React from 'react';
 
 interface ModalProps {
   isOpen: boolean;
   title: string;
   children: React.ReactNode;
-  setIsOpenModal:any;
+  setIsOpenModal: (isOpen: boolean) => void;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -18,7 +19,7 @@ const Modal: React.FC<ModalProps> = ({
 }) => {
   if (!isOpen) return null;
 
-  const closeModal = (e:any) => {
+  const closeModal = (e: React.MouseEvent<HTMLSpanElement>) => {
     e.stopPropagation();
     setIsOpenModal(false);
   };

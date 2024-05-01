@@ -17,9 +17,9 @@ export default function DetailClass() {
     setIsOpenModal(true);
   };
 
-  const closeReservationModal = () => {
-    setIsOpenModal(false);
-  };
+  // const closeReservationModal = () => {
+  //   setIsOpenModal(false);
+  // };
 
   useEffect(() => {
     document.documentElement.style.scrollbarGutter = 'stable';

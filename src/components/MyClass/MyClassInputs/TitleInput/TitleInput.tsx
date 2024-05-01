@@ -6,7 +6,7 @@ interface TitleInputProps {
   register?: UseFormRegister<FieldValues>;
 }
 
-export default function TitleInput({ id, register }: TitleInputProps) {
+export default function TitleInput({ id }: TitleInputProps) {
   return (
     <input
       className={styles.input}

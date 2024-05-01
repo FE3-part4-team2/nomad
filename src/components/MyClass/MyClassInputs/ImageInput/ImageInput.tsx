@@ -7,7 +7,7 @@ interface ImageInputProps {
   register?: UseFormRegister<FieldValues>;
 }
 
-export default function ImageInput({ id, register }: ImageInputProps) {
+export default function ImageInput({ id }: ImageInputProps) {
   return (
     <div>
       <label className={styles.inputTitle} htmlFor={id}>
