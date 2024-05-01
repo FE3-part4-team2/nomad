@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 import Button from '@/components/Button/Button';
 import styles from './modal.module.scss';
 import Image from 'next/image';
@@ -52,7 +52,7 @@ const Modal: React.FC<ModalProps> = ({
       //{' '}
     </div>
   );
-  return ReactDOM.createPortal(modal, document.body);
+  return createPortal(modal, document.body);
 };
 
 export default Modal;
