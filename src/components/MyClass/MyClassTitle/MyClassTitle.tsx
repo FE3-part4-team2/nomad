@@ -8,7 +8,7 @@ import DateInput from '../MyClassInputs/DateInput/DateInput';
 import AddressInput from '../MyClassInputs/AddressInput/AddressInput';
 // import ImageInput from '../MyClassInputs/ImageInput/ImageInput';
 import SubImageInput from '../MyClassInputs/ImageInput/SubImgaeInput';
-import FImageInput from '@/constants/MyClass/MyClassInputs/ImageInput/FImageInput';
+import FImageInput from '@/containers/ImageInput/FImageInput';
 
 export default function MyClassTitle() {
   return (
