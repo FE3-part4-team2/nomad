@@ -15,8 +15,8 @@ export default function Header() {
           />
         </Link>
         <div className={styles.sign}>
-          <Link href="/signin">로그인</Link>
-          <Link href="/signup">회원가입</Link>
+          <Link href="/sign-in">로그인</Link>
+          <Link href="/sign-up">회원가입</Link>
         </div>
       </main>
     </>
