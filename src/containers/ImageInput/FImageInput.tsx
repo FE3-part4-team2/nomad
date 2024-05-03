@@ -8,8 +8,12 @@ export default function FImageInput() {
     const files = event.target?.files ?? [];
     const file = files[0];
     // console.log(files[0].name);
-    const img = URL.createObjectURL(file);
-    setImgURL(img);
+    // const img = URL.createObjectURL(file);
+    const fileRead = new FileReader();
+    fileRead.readAsDataURL(file);
+    fileRead.onload = function () {
+      setImgURL(fileRead.result as string);
+    };
   };
 
   const handleClickDeleteButton = () => {
