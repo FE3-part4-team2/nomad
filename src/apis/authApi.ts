@@ -19,7 +19,6 @@ export const loginApi = async (
   email: string = '1234@1234.com',
   password: string = '123412341234',
 ) => {
-  console.log('??');
   try {
     const res = await instance.post(`${BASE_URL}auth/login`, {
       email: email,

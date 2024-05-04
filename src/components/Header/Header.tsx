@@ -6,16 +6,15 @@ import { loginApi, loginType } from '../../apis/authApi';
 
 export default function Header() {
   const [userInfo, setUserInfo] = useState<loginType>();
+
   useEffect(() => {
     const getUserInfo = async () => {
-      console.log('asd');
       const res = await loginApi('1234@1234.com', '123412341234');
-      setUserInfo(res.user);
+      setUserInfo(res);
     };
-
     getUserInfo();
   }, []);
-  console.log(userInfo);
+
   return (
     <>
       <main className={styles.main}>
@@ -40,19 +39,25 @@ export default function Header() {
               alt="구분선 아이콘"
               width={20}
               height={22}
-              style={{ color: 'red' }}
             />
-            {/* {userInfo?.profileImageUrl !== null ? (
-            {userInfo?.profileImageUrl}
-            ) : */}
-            <Image
-              src="/assets/icons/default-user.png"
-              alt="기본 유저 이미지"
-              width={32}
-              height={32}
-            />
-            {/* } */}
-            {userInfo?.nickname}
+
+            {userInfo?.user.profileImageUrl !== null ? (
+              <Image
+                src={userInfo?.user.profileImageUrl}
+                alt="프로필 이미지"
+                width={32}
+                height={32}
+              />
+            ) : (
+              <Image
+                src="/assets/icons/default-user.png"
+                alt="기본 유저 이미지"
+                width={32}
+                height={32}
+              />
+            )}
+
+            {userInfo?.user.nickname}
           </div>
         ) : (
           <div className={styles.sign}>
