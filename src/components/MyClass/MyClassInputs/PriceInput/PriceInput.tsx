@@ -6,7 +6,7 @@ interface PriceInputProps {
   register?: UseFormRegister<FieldValues>;
 }
 
-export default function PriceInput({ id, register }: PriceInputProps) {
+export default function PriceInput({ id }: PriceInputProps) {
   return (
     <div>
       <label className={styles.inputTitle} htmlFor={id}>

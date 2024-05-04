@@ -8,10 +8,7 @@ interface DateDeleteInputProps {
   register?: UseFormRegister<FieldValues>;
 }
 
-export default function DateDeleteInput({
-  id,
-  register,
-}: DateDeleteInputProps) {
+export default function DateDeleteInput({ id }: DateDeleteInputProps) {
   return (
     <div>
       <div className={deleteStyle.smallInputContainer}>

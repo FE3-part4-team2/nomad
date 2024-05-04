@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styles from '../styles/404.module.scss';
-import Image from 'next/image';
+// import Image from 'next/image';
 
 export default function NotFound() {
   return (

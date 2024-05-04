@@ -6,7 +6,7 @@ interface AddressInputProps {
   register?: UseFormRegister<FieldValues>;
 }
 
-export default function AddressInput({ id, register }: AddressInputProps) {
+export default function AddressInput({ id }: AddressInputProps) {
   return (
     <div>
       <label className={styles.inputTitle} htmlFor={id}>

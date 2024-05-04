@@ -1,12 +1,14 @@
-import ReactDOM from 'react-dom';
+import { createPortal } from 'react-dom';
 import Button from '@/components/Button/Button';
 import styles from './modal.module.scss';
 import Image from 'next/image';
+import React from 'react';
 
 interface ModalProps {
   isOpen: boolean;
   title: string;
   children: React.ReactNode;
+  setIsOpenModal: (isOpen: boolean) => void;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -17,7 +19,7 @@ const Modal: React.FC<ModalProps> = ({
 }) => {
   if (!isOpen) return null;
 
-  const closeModal = (e) => {
+  const closeModal = (e: React.MouseEvent<HTMLSpanElement>) => {
     e.stopPropagation();
     setIsOpenModal(false);
   };
@@ -50,7 +52,7 @@ const Modal: React.FC<ModalProps> = ({
       //{' '}
     </div>
   );
-  return ReactDOM.createPortal(modal, document.body);
+  return createPortal(modal, document.body);
 };
 
 export default Modal;

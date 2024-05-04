@@ -6,7 +6,7 @@ interface CategoryInputProps {
   register?: UseFormRegister<FieldValues>;
 }
 
-export default function CategoryInput({ id, register }: CategoryInputProps) {
+export default function CategoryInput({ id }: CategoryInputProps) {
   return (
     <input
       className={styles.input}
