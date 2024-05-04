@@ -44,7 +44,6 @@ export default function DetailClass() {
     const getDetailClassInfo = async () => {
       const res = await getDetailClassApi(776);
       setDetail(res);
-      ç;
     };
     const getDetailClassReview = async () => {
       const res = await getDetailClassReviewApi(776);
