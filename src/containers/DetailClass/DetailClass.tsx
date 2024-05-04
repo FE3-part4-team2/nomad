@@ -258,14 +258,12 @@ export default function DetailClass() {
                       status="default"
                       title="14:00~15:00"
                       onClick={openReservationModal}
-                      type="button"
                       radius={8}
                     />
                     <Button
                       status="white"
                       title="15:00~~16:00"
                       onClick={openReservationModal}
-                      type="button"
                       radius={8}
                     />
                   </div>
@@ -301,7 +299,6 @@ export default function DetailClass() {
                   status="disable"
                   title="예약하기"
                   onClick={openReservationModal}
-                  type="button"
                   radius={6}
                 />
               </div>
