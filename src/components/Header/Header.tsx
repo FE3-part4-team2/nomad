@@ -1,8 +1,21 @@
 import Link from 'next/link';
 import styles from './header.module.scss';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { loginApi, loginType } from '../../apis/authApi';
 
 export default function Header() {
+  const [userInfo, setUserInfo] = useState<loginType>();
+  useEffect(() => {
+    const getUserInfo = async () => {
+      console.log('asd');
+      const res = await loginApi('1234@1234.com', '123412341234');
+      setUserInfo(res.user);
+    };
+
+    getUserInfo();
+  }, []);
+  console.log(userInfo);
   return (
     <>
       <main className={styles.main}>
@@ -14,10 +27,39 @@ export default function Header() {
             height={28}
           />
         </Link>
-        <div className={styles.sign}>
-          <Link href="/sign-in">로그인</Link>
-          <Link href="/sign-up">회원가입</Link>
-        </div>
+        {userInfo ? (
+          <div className={styles.userContainer}>
+            <Image
+              src="/assets/icons/notification.svg"
+              alt="알림 아이콘"
+              width={20}
+              height={20}
+            />
+            <Image
+              src="/assets/icons/line.svg"
+              alt="구분선 아이콘"
+              width={20}
+              height={22}
+              style={{ color: 'red' }}
+            />
+            {/* {userInfo?.profileImageUrl !== null ? (
+            {userInfo?.profileImageUrl}
+            ) : */}
+            <Image
+              src="/assets/icons/default-user.png"
+              alt="기본 유저 이미지"
+              width={32}
+              height={32}
+            />
+            {/* } */}
+            {userInfo?.nickname}
+          </div>
+        ) : (
+          <div className={styles.sign}>
+            <Link href="/sign-in">로그인</Link>
+            <Link href="/sign-up">회원가입</Link>
+          </div>
+        )}
       </main>
     </>
   );
