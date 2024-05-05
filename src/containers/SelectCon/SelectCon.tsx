@@ -1,20 +1,21 @@
-// import Select from '@/components/Select/Select';
-// import getMyActivities from '@/apis/myActivitiesApi';
-// import { useQuery } from '@tanstack/react-query';
+import Select from '@/components/Select/Select';
+import getMyActivities from '@/apis/myActivitiesApi';
+import { useQuery } from '@tanstack/react-query';
 
-// export default function SelectCon() {
-//   const { data, isLoading } = useQuery({
-//     queryKey: ['myActivities'],
-//     queryFn: () => getMyActivities(),
-//   });
+export default function SelectCon() {
+  const { data, isLoading } = useQuery({
+    queryKey: ['myActivities'],
+    queryFn: () => getMyActivities(),
+  });
 
-//   if (isLoading || !data) {
-//     return <div>Loading...</div>;
-//   }
+  if (isLoading || !data) {
+    return <div>Loading...</div>;
+  }
 
-// //   const options = data.map(activity => ({
-// //     value: activity.id,
-// //     label: activity.name,
-// //   }));
-//   return <Select options={options} />;
-// }
+  console.log(data);
+  const dataArray = Object.values(data) as any[];
+  console.log(dataArray);
+  const options = dataArray[0].map((item: any) => item.title);
+  console.log(options);
+  return <Select options={options} />;
+}

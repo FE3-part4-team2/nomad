@@ -4,6 +4,7 @@ import Layout from '@/components/Layout/Layout';
 import styles from '@/pages/reserve-stat/index.module.scss';
 import postSignIn from '@/apis/postSignInApi';
 import { useMutation } from '@tanstack/react-query';
+import SelectCon from '@/containers/SelectCon/SelectCon';
 
 export default function ReserveStat() {
   const { mutate } = useMutation({
@@ -12,6 +13,10 @@ export default function ReserveStat() {
       alert('로그인 성공');
       console.log(data);
     },
+    onError: (error) => {
+      alert('로그인 실패');
+      console.log(error);
+    },
   });
 
   return (
@@ -19,7 +24,7 @@ export default function ReserveStat() {
       <Layout>
         <div id={styles.reserveContainer}>
           <div id={styles.reserveHeader}>예약 현황</div>
-          {/* <Select /> */}
+          <SelectCon />
           <Calendar />
         </div>
         <button onClick={() => mutate()}>로그인</button>
