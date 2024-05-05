@@ -1,37 +1,50 @@
 import styles from './dateInput.module.scss';
 import deleteStyle from './dateDeleteInput.module.scss';
 import Image from 'next/image';
-// import { Dispatch, SetStateAction } from 'react';
+import { FormValues } from '../../MyClassTitle/MyClassTitle';
+import { UseFormRegister } from 'react-hook-form';
 
 interface DateDeleteInputProps {
-  id: string;
-
+  // id: string;
   onClick: () => void;
+  register: UseFormRegister<FormValues>;
 }
 
-export default function DateDeleteInput({ id, onClick }: DateDeleteInputProps) {
+export default function DateDeleteInput({
+  onClick,
+  register,
+}: DateDeleteInputProps) {
   return (
     <div>
       <div className={deleteStyle.smallInputContainer}>
         <div className={styles.smallInputWrapper}>
           <input
             className={`${deleteStyle.smallInput} ${deleteStyle.dateInput}`}
-            id={id}
+            id="plusDate"
             type="date"
+            {...register('plusDate', {
+              required: '날짜 입력은 필수입니다.',
+            })}
           />
         </div>
         <div className={styles.smallInputWrapper}>
           <input
             className={`${deleteStyle.smallInput} ${deleteStyle.timeInput}`}
-            id={id}
+            id="plusStartTime"
             type="time"
+            {...register('plusStartTime', {
+              required: '시작 시간 입력은 필수입니다.',
+            })}
           />
         </div>
         <div className={styles.smallInputWrapper}>
           <input
             className={`${deleteStyle.smallInput} ${deleteStyle.timeInput}`}
-            id={id}
+            id="plusEndTime"
             type="time"
+            {...register('plusEndTime', {
+              required: '종료 시간 입력은 필수입니다.',
+            })}
           />
         </div>
         <div>

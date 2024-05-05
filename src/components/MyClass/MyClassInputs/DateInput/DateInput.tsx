@@ -21,10 +21,11 @@ export default function DateInput({ id, register, errors }: DateInputProps) {
       return newArray;
     });
   };
+
   const addSelectTime = () => {
     setDateInputArray((prev) => [
       ...prev,
-      <DateDeleteInput onClick={handlePop} id="moreDate" />,
+      <DateDeleteInput onClick={handlePop} register={register} />,
     ]);
   };
 

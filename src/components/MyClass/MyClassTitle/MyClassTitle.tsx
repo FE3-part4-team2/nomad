@@ -20,6 +20,9 @@ export type FormValues = {
   date: string[];
   startTime: string;
   endTime: string;
+  plusDate: string;
+  plusStartTime: string;
+  plusEndTime: string;
   image: string;
   subImage?: string[];
 };
