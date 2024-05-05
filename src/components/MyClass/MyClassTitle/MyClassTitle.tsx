@@ -1,5 +1,4 @@
 import Button from '@/components/Button/Button';
-import TitleInput from '../MyClassInputs/TitleInput/TitleInput';
 import styles from './myClassTitle.module.scss';
 import CategoryInput from '../MyClassInputs/CategoryInput/CategoryInput';
 import DescriptionInput from '../MyClassInputs/DescriptionInput/DescriptionInput';
@@ -10,6 +9,7 @@ import FImageInput from '@/containers/ImageInput/FImageInput';
 import FSubImageInput from '@/containers/ImageInput/FSubImageInput';
 import { useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
+import TitleInput from '../MyClassInputs/TitleInput/TitleInput';
 
 export type FormValues = {
   title: string;
@@ -17,7 +17,9 @@ export type FormValues = {
   description: string;
   price: number;
   address: string;
-  Date: string[];
+  date: string[];
+  startTime: string;
+  endTime: string;
   image: string;
   subImage?: string[];
 };
@@ -56,7 +58,7 @@ export default function MyClassTitle() {
           />
           <PriceInput id="price" register={register} errors={errors} />
           <AddressInput id="address" register={register} errors={errors} />
-          <DateInput />
+          <DateInput id="date" register={register} errors={errors} />
           <FImageInput />
           <FSubImageInput />
         </div>

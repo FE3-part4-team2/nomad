@@ -1,16 +1,6 @@
 import { UseFormRegister, FieldErrors } from 'react-hook-form';
 import styles from './titleInput.module.scss';
-
-type FormValues = {
-  title: string;
-  category: string;
-  description: string;
-  price: number;
-  address: string;
-  Date: string[];
-  image: string;
-  subImage?: string[];
-};
+import { FormValues } from '../../MyClassTitle/MyClassTitle';
 
 interface TitleInputProps {
   id: string;
