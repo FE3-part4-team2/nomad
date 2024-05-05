@@ -2,24 +2,25 @@ import { UseFormRegister, FieldValues } from 'react-hook-form';
 import styles from './imageInput.module.scss';
 import subImageStyle from './subImageInput.module.scss';
 import Image from 'next/image';
-import { useState } from 'react';
+// import { useState } from 'react';
 
 interface SubImageInputProps {
   id?: string;
   register?: UseFormRegister<FieldValues>;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   imageSrc: string[];
+  setImgURL: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export default function SubImageInput({
   id,
   onChange,
   imageSrc,
+  setImgURL,
 }: SubImageInputProps) {
-  const [imgURLArray, setImgURLArray] = useState(imageSrc);
   const handleDeleteButton = (clickedId: string) => {
-    const newArray = imgURLArray.filter((url) => url !== clickedId);
-    setImgURLArray(newArray);
+    const newArray = imageSrc.filter((url) => url !== clickedId);
+    setImgURL(newArray);
   };
 
   return (
@@ -27,6 +28,7 @@ export default function SubImageInput({
       <label className={styles.inputTitle} htmlFor={id}>
         소개 이미지
       </label>
+      <div>{imageSrc}</div>
       <div className={subImageStyle.imageContainer}>
         <div className={styles.addImgaeWapper} onChange={onChange}>
           <label className={styles.fakeInput} htmlFor="addSubImage">
@@ -46,7 +48,8 @@ export default function SubImageInput({
             multiple
           />
         </div>
-        {imgURLArray.map((url) => (
+
+        {imageSrc.map((url) => (
           <div className={styles.imageWrapper} key={url}>
             <Image
               className={styles.image}
