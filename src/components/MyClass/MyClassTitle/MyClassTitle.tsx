@@ -55,7 +55,7 @@ export default function MyClassTitle() {
             errors={errors}
           />
           <PriceInput id="price" register={register} errors={errors} />
-          <AddressInput />
+          <AddressInput id="address" register={register} errors={errors} />
           <DateInput />
           <FImageInput />
           <FSubImageInput />
