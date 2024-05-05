@@ -17,9 +17,9 @@ export default function DetailClass() {
     setIsOpenModal(true);
   };
 
-  // const closeReservationModal = () => {
-  //   setIsOpenModal(false);
-  // };
+  const closeReservationModal = () => {
+    setIsOpenModal(false);
+  };
 
   useEffect(() => {
     document.documentElement.style.scrollbarGutter = 'stable';
@@ -44,7 +44,12 @@ export default function DetailClass() {
             <Review />
           </div>
           {isOpenModal && (
-            <Modal isOpen={true} title={'예약'} setIsOpenModal={setIsOpenModal}>
+            <Modal
+              isOpen={true}
+              title={'예약'}
+              setIsOpenModal={setIsOpenModal}
+              setIsOpenModal={setIsOpenModal}
+            >
               <ReservationModal />
             </Modal>
           )}
