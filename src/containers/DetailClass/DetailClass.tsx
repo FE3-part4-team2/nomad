@@ -90,7 +90,7 @@ export default function DetailClass() {
                 </div>
               </div>
             </div>
-            <Kebab />
+            <Kebab dropDownList={[]} onClick={() => console.log('')} />
           </div>
         </section>
         <section className={styles.image_section}>
