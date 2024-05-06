@@ -44,7 +44,8 @@
   font-weight: 600;
   color: $primary;
   text-decoration: underline;
-  margin-top: 8px;
+  background: none;
+  border: none;
 }
 
 .dateTitle,
@@ -102,6 +103,7 @@
     font-size: 1.6rem;
     margin-top: 0;
     padding-bottom: 30px;
+    cursor: pointer;
   }
 
   .per {
