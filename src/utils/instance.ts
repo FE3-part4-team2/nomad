@@ -10,31 +10,4 @@ const instance = axios.create({
   },
 });
 
-const window = global.window;
-
-instance.interceptors.request.use(
-  (config) => {
-    // config는 axios의 설정을 담고있는 객체
-    const token = window?.sessionStorage.getItem('accessToken');
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    return config;
-  },
-  (error) => {
-    if (window) console.log(error);
-    return Promise.reject(error);
-  },
-);
-
-instance.interceptors.response.use(
-  (config) => {
-    return config;
-  },
-  (error) => {
-    if (window) console.log(error);
-    return Promise.reject(error);
-  },
-);
-
 export default instance;

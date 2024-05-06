@@ -1,10 +1,11 @@
+import '@/components/Calendar/Calendar.css';
+
 import '@/styles/globals.css';
-import type { AppProps } from 'next/app';
-import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import type { AppProps } from 'next/app';
+import 'react-image-gallery/styles/scss/image-gallery.scss';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import 'react-image-gallery/styles/scss/image-gallery.scss';
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();

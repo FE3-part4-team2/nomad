@@ -8,7 +8,7 @@ interface DateInputProps {
   register?: UseFormRegister<FieldValues>;
 }
 
-export default function DateInput({ id, register }: DateInputProps) {
+export default function DateInput({ id }: DateInputProps) {
   return (
     <div>
       <label className={styles.inputTitle} htmlFor={id}>

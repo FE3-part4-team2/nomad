@@ -1,5 +1,5 @@
 import { UseFormRegister, FieldValues } from 'react-hook-form';
-import commonStyles from '../input.module.scss';
+// import commonStyles from '../input.module.scss';
 import styles from './DescriptionInput.module.scss';
 
 interface DescriptionInputProps {
@@ -7,9 +7,6 @@ interface DescriptionInputProps {
   register?: UseFormRegister<FieldValues>;
 }
 
-export default function DescriptionInput({
-  id,
-  register,
-}: DescriptionInputProps) {
+export default function DescriptionInput({ id }: DescriptionInputProps) {
   return <textarea className={styles.textArea} id={id} placeholder="설명" />;
 }

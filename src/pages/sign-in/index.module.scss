@@ -1,0 +1,67 @@
+@import 'src/styles/_variables';
+
+.container {
+  padding: 44px 12px 260px 12px;
+
+  & Button {
+    cursor: pointer;
+  }
+}
+.logoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 44px;
+  margin: 0 auto;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  margin: 40px 0px;
+}
+
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.6rem;
+  gap: 8px;
+
+  & input {
+    width: 35rem;
+    padding: 16px 20px 16px 20px;
+    font-size: 1.6rem;
+    color: $gray_A4A1AA;
+  }
+}
+
+.loginButton {
+  width: 35rem;
+  padding: 14px 0 14px 0;
+  border: none;
+  font-weight: 700;
+  color: white;
+  background-color: $gray_A4A1AA;
+}
+
+.linkContainer {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  font-size: 1.6rem;
+  color: $nomad-black;
+}
+
+@media screen and (min-width: 768px) {
+  .inputWrapper {
+    & input {
+      width: 64rem;
+    }
+  }
+
+  .loginButton {
+    width: 64rem;
+  }
+}

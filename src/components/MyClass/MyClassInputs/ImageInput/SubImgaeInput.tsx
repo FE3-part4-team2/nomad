@@ -8,7 +8,7 @@ interface SubImageInputProps {
   register?: UseFormRegister<FieldValues>;
 }
 
-export default function SubImageInput({ id, register }: SubImageInputProps) {
+export default function SubImageInput({ id }: SubImageInputProps) {
   return (
     <div>
       <label className={styles.inputTitle} htmlFor={id}>
