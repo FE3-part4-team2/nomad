@@ -1,7 +1,4 @@
-import instance from '@/utils/instance';
-import axios from 'axios';
-
-export const BASE_URL = 'https://sp-globalnomad-api.vercel.app/3-2/';
+import axios from './axiosInstance';
 
 export interface ClassList {
   method: string;
@@ -73,7 +70,7 @@ export const getClassListApi = async (
   size?: number,
 ) => {
   const res = await axios.get(
-    `{BASE_URL}/activities/method=${method}&cursorId?=${cursorId}&category?=${category}&keyword?=${keyword}&sort?=${sort}&page?=${page}$size?=${size}`,
+    `activities/method=${method}&cursorId?=${cursorId}&category?=${category}&keyword?=${keyword}&sort?=${sort}&page?=${page}$size?=${size}`,
     {
       headers: {
         Accept: 'application/json',
@@ -89,12 +86,12 @@ export const getClassListApi = async (
 
 // 체험 상세 조회
 export const getDetailClassApi = async (id: number = 776) => {
-  const detail = await instance.get(`${BASE_URL}activities/${id}`);
+  const detail = await axios.get(`activities/${id}`);
   return detail.data;
 };
 
 // 체험 리뷰 조회
 export const getDetailClassReviewApi = async (id: number = 776) => {
-  const review = await instance.get(`${BASE_URL}activities/${id}/reviews`);
+  const review = await axios.get(`activities/${id}/reviews`);
   return review.data;
 };
