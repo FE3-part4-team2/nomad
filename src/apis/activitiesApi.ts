@@ -1,6 +1,4 @@
-import axios from 'axios';
-
-const BASE_URL = 'https://sp-globalnomad-api.vercel.app/3-2/';
+import instance from '@/utils/instance';
 
 export interface ClassList {
   method: string;
@@ -26,14 +24,20 @@ export const getClassListApi = async (
   page?: number,
   size?: number,
 ) => {
-  const res = await axios.get(
-    `${BASE_URL}/activities/method=${method}&cursorId?=${cursorId}&category?=${category}&keyword?=${keyword}&sort?=${sort}&page?=${page}$size?=${size}`,
-    {
-      headers: {
-        Accept: 'application/json',
-      },
+  const res = await instance.get('/activities', {
+    params: {
+      method,
+      cursorId,
+      category,
+      keyword,
+      sort,
+      page,
+      size,
     },
-  );
+    headers: {
+      Accept: 'application/json',
+    },
+  });
   if (res.status === 200) {
     return res.data;
   } else if (res.status === 400) {
@@ -43,7 +47,7 @@ export const getClassListApi = async (
 
 // 체험 상세 조회
 export const getDetailClassApi = async (activityId: number) => {
-  const res = await axios.get(`{${BASE_URL}/activities/${activityId}}`, {
+  const res = await instance.get(`/activities/${activityId}`, {
     headers: {
       Accept: 'application/json',
     },
