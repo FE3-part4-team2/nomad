@@ -14,8 +14,8 @@ export default function Select({ options }: { options: any[] }) {
     <div id={styles.selectContainer}>
       <label htmlFor="class">체험명</label>
       <select id={styles.class}>
-        {options.map((option) => (
-          <option key={option}>{option}</option>
+        {options.map((option, index) => (
+          <option key={index}>{option}</option>
         ))}
       </select>
     </div>

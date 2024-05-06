@@ -6,7 +6,7 @@ import postSignIn from '@/apis/postSignInApi';
 import { useMutation } from '@tanstack/react-query';
 import SelectCon from '@/containers/SelectCon/SelectCon';
 
-export default function ReserveStat() {
+export default function manageReservation() {
   const { mutate } = useMutation({
     mutationFn: postSignIn,
     onSuccess: (data) => {
