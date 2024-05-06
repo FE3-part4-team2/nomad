@@ -1,0 +1,18 @@
+.classCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(168px, 168px));
+  gap: 24px 8px;
+  justify-content: center;
+}
+
+.title {
+  font-family: pretendard;
+  padding: 16px 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.classCardWrapper {
+  display: flex;
+  justify-content: center;
+}
