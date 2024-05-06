@@ -19,7 +19,7 @@ export default function Kebab({ dropDownList, onClick }: KebabProps) {
         <img
           className={styles.kebab}
           onClick={handleOnClick}
-          src="assets/icons/kebab.svg"
+          src="/assets/icons/kebab.svg"
           alt="케밥 아이콘"
         />
       </div>
