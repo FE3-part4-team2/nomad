@@ -19,7 +19,9 @@ export default function Reservation({
               <div className={styles.per}>/ 인</div>
             </div>
             <div className={styles.dateTitle}>날짜</div>
-            <div className={styles.datePick}>날짜 선택하기</div>
+            <button className={styles.datePick} onClick={openReservationModal}>
+              날짜 선택하기
+            </button>
             {/* 1200px 이상일 때 캘린더 보이게 */}
             <div className={styles.timeContainer}>
               <div className={styles.timeTitle}>예약 가능한 시간</div>
@@ -79,9 +81,6 @@ export default function Reservation({
             <div className={styles.totalTitle}>총 합계</div>
             <div className={styles.totalPrice}>₩ 10,000</div>
           </div>
-          {/* 모바일 - 날짜 선택하기 누르면 캘린더 모달 뜨고,
-              날짜 선택하면 인원 선택 모달로 바뀌고,
-              인원 선택하면 캘린더 모달로 재이동. */}
         </div>
       </section>
     </>
