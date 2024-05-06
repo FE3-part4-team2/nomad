@@ -22,7 +22,9 @@ export default function BestCardList() {
 
   return (
     <div>
-      <h2 className={styles.title}>인기 체험</h2>
+      <h2 className={styles.title}>
+        <span>🔥</span> 인기 체험
+      </h2>
       <div className={styles.bestCards}>
         {cardList.map((data, index) => (
           <BestClassCard key={index} classData={data} />

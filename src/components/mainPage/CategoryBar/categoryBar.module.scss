@@ -3,6 +3,11 @@
   flex-direction: row;
   gap: 5px;
   align-items: center;
+  padding-top: 40px;
+  
+  @media (min-width: 769px){
+    padding: 60px 0 7px;
+  }
 }
 
 .buttons {
@@ -22,6 +27,14 @@
 .button {
   min-width: 80px;
   height: 41px;
+
+  @media (min-width:769px){
+    width: 120px;
+    height: 53px;
+  }
+  @media (min-width: 1248px){
+    width: 127px;
+  }
 }
 
 .dropDown {

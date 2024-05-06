@@ -24,7 +24,9 @@ export default function ClassCardList() {
   return (
     <div className={styles.wrapper}>
       <CategoryBar />
-      <h2 className={styles.title}>문화 · 예술</h2>
+      <h2 className={styles.title}>
+        <span>🛼</span> 모든 체험
+      </h2>
       {/* <div className={styles.classCardWrapper}> */}
       <div className={styles.classCards}>
         {cardList.map((data, index) => (
