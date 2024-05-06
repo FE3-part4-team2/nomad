@@ -3,6 +3,10 @@
   height: 240px;
   overflow: hidden;
 
+  @media (min-width : 769px){
+    height: 480px;
+  }
+
   img {
     transform: scale(1.5);
   }
@@ -19,16 +23,36 @@
       left: 50%;
       transform: translate(-50%, -50%);
       width: 320px;
+      @media (min-width : 769px){
+        width: 696px;
+      }
+      @media (min-width: 1200px){
+        width: 1200px;
+      }
       color: #fff;
       h2 {
         font-size: 2.4rem;
         font-weight: 700;
         margin-bottom: 8px;
-        line-height: 29px;
-      }
+        line-height: 1;
+
+        @media (min-width : 769px){
+          font-size: 5.4rem;
+        }
+        @media (min-width: 1200px){
+          font-size: 6.8rem;
+        }
+      } 
       h3 {
         font-size: 1.4rem;
         font-weight: 700;
+
+        @media (min-width : 769px){
+          font-size: 2rem;
+        }
+        @media (min-width: 1200px){
+          font-size: 2.4rem;
+        }
       }
     }
   }
