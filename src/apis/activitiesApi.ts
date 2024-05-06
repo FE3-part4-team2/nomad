@@ -69,7 +69,7 @@ export const getClassListApi = async (
   page?: number,
   size?: number,
 ) => {
-  const res = await instance.get('/activities', {
+  const res = await axios.get('/activities', {
     params: {
       method,
       cursorId,
