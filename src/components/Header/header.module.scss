@@ -14,6 +14,14 @@
   }
 }
 
+.userContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
 @media screen and (min-width: 1200px) {
   .main {
     padding: 0 369px 0 369px;

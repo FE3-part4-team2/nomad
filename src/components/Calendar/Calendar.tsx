@@ -1,13 +1,14 @@
 import Cal from 'react-calendar';
 import moment from 'moment';
 
-export default function Calendar() {
+export default function Calendar({ fun }: { fun: any }) {
   return (
     <div>
       <Cal
         locale="ko-KR" //showNeighboringMonth={false}
         calendarType="gregory"
         formatDay={(locale, date) => moment(date).format('D')}
+        onActiveStartDateChange={fun}
       />
     </div>
   );
