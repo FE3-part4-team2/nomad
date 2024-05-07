@@ -5,6 +5,7 @@ import Kebab from '@/components/DropDown/Kebab';
 interface TitleProps {
   title: string;
   category: string;
+  rating: number;
   reviewCount: number;
   address: string;
 }
@@ -12,9 +13,11 @@ interface TitleProps {
 export default function ClassTitle({
   title,
   category,
+  rating,
   reviewCount,
   address,
 }: TitleProps) {
+  const onClick = () => {};
   return (
     <>
       <section className={styles.titleSection}>
@@ -30,7 +33,9 @@ export default function ClassTitle({
                   width={16}
                   height={16}
                 />
-                <div className={styles.starNum}>4.0 ({reviewCount})</div>
+                <div className={styles.starNum}>
+                  {rating.toFixed(1)} ({reviewCount})
+                </div>
               </div>
               <div className={styles.infoWrapper}>
                 <Image
@@ -44,7 +49,7 @@ export default function ClassTitle({
             </div>
           </div>
           {/* 본인 글에만 보이게 */}
-          <Kebab />
+          <Kebab dropDownList={['수정하기', '삭제하기']} onClick={onClick} />
         </div>
       </section>
     </>

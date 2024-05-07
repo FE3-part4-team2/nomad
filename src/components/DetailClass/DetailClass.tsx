@@ -8,35 +8,12 @@ import Reservation from '@/components/DetailClass/reservation/Reservation';
 import { useEffect, useState } from 'react';
 import ReservationModal from './reservationModal/ReservationModal';
 import Modal from './modal/Modal';
-import {
-  DetailClassType,
-  DetailReviewType,
-  getDetailClassApi,
-  getDetailClassReviewApi,
-} from '@/apis/activitiesApi';
+import { getDetailClassApi } from '@/apis/activitiesApi';
 import ImageComponent from './image_/Image';
+import { DetailClassType } from '@/types/activitiesType/ActivitiesType';
 
-export default function DetailClass() {
+export default function DetailClass({ id }: { id: number }) {
   const [detail, setDetail] = useState<DetailClassType>();
-  const [review, setReview] = useState<DetailReviewType>({
-    averageRating: 0,
-    totalCount: 0,
-    reviews: [
-      {
-        id: 0,
-        user: {
-          profileImageUrl: '',
-          nickname: '',
-          id: 0,
-        },
-        activityId: 0,
-        rating: 0,
-        content: '',
-        createdAt: '',
-        updatedAt: '',
-      },
-    ],
-  });
 
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
@@ -45,21 +22,16 @@ export default function DetailClass() {
       const res = await getDetailClassApi(776);
       setDetail(res);
     };
-    const getDetailClassReview = async () => {
-      const res = await getDetailClassReviewApi(776);
-      setReview(res);
-    };
     getDetailClassInfo();
-    getDetailClassReview();
-  }, [detail?.userId]);
+  }, []);
 
   const openReservationModal = () => {
     setIsOpenModal(true);
   };
 
-  const closeReservationModal = () => {
-    setIsOpenModal(false);
-  };
+  // const closeReservationModal = () => {
+  //   setIsOpenModal(false);
+  // };
 
   useEffect(() => {
     document.documentElement.style.scrollbarGutter = 'stable';
@@ -77,6 +49,7 @@ export default function DetailClass() {
         <ClassTitle
           title={detail?.title || ''}
           category={detail?.category || ''}
+          rating={detail?.rating || 0}
           reviewCount={detail?.reviewCount || 0}
           address={detail?.address || ''}
         />
@@ -86,15 +59,10 @@ export default function DetailClass() {
             <Description description={detail?.description || ''} />
             <div className={styles.line}></div>
             <Map address={detail?.address || ''} title={detail?.title || ''} />
-            <Review review={review} />
+            <Review id={id} />
           </div>
           {isOpenModal && (
-            <Modal
-              isOpen={true}
-              title={'예약'}
-              setIsOpenModal={setIsOpenModal}
-              setIsOpenModal={setIsOpenModal}
-            >
+            <Modal isOpen={true} title={'예약'} setIsOpenModal={setIsOpenModal}>
               <ReservationModal />
             </Modal>
           )}
