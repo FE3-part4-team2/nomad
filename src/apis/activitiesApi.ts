@@ -59,6 +59,10 @@ export interface DetailReviewType {
   ];
 }
 
+export interface ActivitiesImageType {
+  activityImageUrl: string;
+}
+
 // 체험 리스트 조회
 export const getClassListApi = async (
   method: string,
@@ -94,4 +98,14 @@ export const getDetailClassApi = async (id: number = 776) => {
 export const getDetailClassReviewApi = async (id: number = 776) => {
   const review = await axios.get(`activities/${id}/reviews`);
   return review.data;
+};
+
+//체험 이미지 url생성
+export const postActivitiesImageApi = async (image: FormData) => {
+  const res = await axios.post(`activities/image`, image, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return res.data;
 };

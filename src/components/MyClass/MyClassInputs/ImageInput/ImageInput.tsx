@@ -1,10 +1,12 @@
-import { UseFormRegister, FieldValues } from 'react-hook-form';
+import { UseFormRegister, FieldErrors } from 'react-hook-form';
 import styles from './imageInput.module.scss';
 import Image from 'next/image';
+import { FormValues } from '../../MyClassTitle/MyClassTitle';
 
 interface ImageInputProps {
-  id?: string;
-  register?: UseFormRegister<FieldValues>;
+  id: string;
+  register: UseFormRegister<FormValues>;
+  errors: FieldErrors<FormValues>;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   imageSrc: string;
   onClick: () => void;
@@ -12,6 +14,8 @@ interface ImageInputProps {
 
 export default function ImageInput({
   id,
+  register,
+  errors,
   onChange,
   imageSrc,
   onClick,
@@ -32,7 +36,15 @@ export default function ImageInput({
             />
             <div className={styles.addImageText}>이미지 등록</div>
           </label>
-          <input id="addImage" type="file" accept="image/*" hidden required />
+          <input
+            id="addImage"
+            type="file"
+            accept="image/*"
+            hidden
+            {...register('image', {
+              required: '배너 이미지는 필수입니다.',
+            })}
+          />
         </div>
         <div className={styles.imageWrapper}>
           {imageSrc ? (
@@ -58,6 +70,7 @@ export default function ImageInput({
           )}
         </div>
       </div>
+      {errors ? <p className={styles.error}>{errors.image?.message}</p> : ''}
     </div>
   );
 }

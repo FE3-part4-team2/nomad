@@ -62,7 +62,7 @@ export default function MyClassTitle() {
           <PriceInput id="price" register={register} errors={errors} />
           <AddressInput id="address" register={register} errors={errors} />
           <DateInput id="date" register={register} errors={errors} />
-          <FImageInput />
+          <FImageInput id="image" register={register} errors={errors} />
           <FSubImageInput />
         </div>
       </form>
