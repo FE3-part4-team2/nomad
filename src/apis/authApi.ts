@@ -1,11 +1,24 @@
-import axiosInstance from './axiosInstance';
+import axios from './axiosInstance';
+
+export interface loginType {
+  accessToken: string;
+  refreshToken: string;
+  user: {
+    id: number;
+    email: string;
+    nickname: string;
+    profileImageUrl: string | null;
+    createdAt: string;
+    updatedAt: string;
+  };
+}
 
 export const loginApi = async (
   email: string = '1234@1234.com',
   password: string = '123412341234',
 ) => {
   try {
-    const res = await axiosInstance.post(`auth/login`, {
+    const res = await axios.post(`auth/login`, {
       email: email,
       password: password,
     });

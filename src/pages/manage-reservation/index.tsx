@@ -1,10 +1,10 @@
-import Calendar from '@/components/Calendar/Calendar';
+import CalendarContainer from '@/containers/CalendarContainer/CalendarContainer';
 import Layout from '@/components/Layout/Layout';
 // import Select from '@/components/Select/Select';
-import styles from '@/pages/reserve-stat/index.module.scss';
+import styles from './index.module.scss';
 import postSignIn from '@/apis/postSignInApi';
 import { useMutation } from '@tanstack/react-query';
-import SelectCon from '@/containers/SelectCon/SelectCon';
+import SelectContainer from '@/containers/SelectContainer/SelectContainer';
 
 export default function manageReservation() {
   const { mutate } = useMutation({
@@ -24,8 +24,8 @@ export default function manageReservation() {
       <Layout>
         <div id={styles.reserveContainer}>
           <div id={styles.reserveHeader}>예약 현황</div>
-          <SelectCon />
-          <Calendar />
+          <SelectContainer />
+          <CalendarContainer />
         </div>
         <button onClick={() => mutate()}>로그인</button>
       </Layout>
