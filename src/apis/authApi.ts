@@ -1,6 +1,4 @@
-import instance from '@/utils/instance';
-
-const BASE_URL = 'https://sp-globalnomad-api.vercel.app/3-2/';
+import axios from './axiosInstance';
 
 export interface loginType {
   accessToken: string;
@@ -20,7 +18,7 @@ export const loginApi = async (
   password: string = '123412341234',
 ) => {
   try {
-    const res = await instance.post(`${BASE_URL}auth/login`, {
+    const res = await axios.post(`auth/login`, {
       email: email,
       password: password,
     });
