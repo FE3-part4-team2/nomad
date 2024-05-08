@@ -1,10 +1,10 @@
 import Header from '@/components/Header/Header';
 import Banner from '@/components/mainPage/Banner/Banner';
-import SearchBar from '@/components/mainPage/SearchBar/SearchBar';
 import Footer from '@/components/Footer/Footer';
 import styles from './index.module.scss';
 import BestCardList from '@/containers/mainPage/BestClassList/BestCardList';
 import ClassCardList from '@/containers/mainPage/ClassCardList/ClassCardList';
+import SearchBarContainer from '@/containers/mainPage/SearchBarContainer/SearchBarContainer';
 
 export default function Home() {
   return (
@@ -15,10 +15,10 @@ export default function Home() {
       </div>
       <div className={styles.content}>
         <div className={styles.searchBar}>
-          <SearchBar />
+          <SearchBarContainer />
         </div>
-        <BestCardList />
-        <ClassCardList />
+        <BestCardList method="offset" sort="most_reviewed" />
+        <ClassCardList method="offset" />
       </div>
       <Footer />
     </>
