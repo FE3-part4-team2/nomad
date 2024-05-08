@@ -19,7 +19,7 @@ export default function DetailClass({ id }: { id: number }) {
 
   useEffect(() => {
     const getDetailClassInfo = async () => {
-      const res = await getDetailClassApi(776);
+      const res = await getDetailClassApi(id);
       setDetail(res);
     };
     getDetailClassInfo();
