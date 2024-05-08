@@ -48,6 +48,8 @@
 .reviewWrapper:nth-child(2) {
   line-height: 1.5;
   text-align: justify;
+  width: 300px;
+  // width 반응형으로 수정하기
 }
 
 .profileImage {
@@ -82,4 +84,14 @@
   background-color: $nomad-black;
   opacity: 0.25;
   margin: 16px auto 16px auto;
+}
+
+.reviewListContainer {
+  overflow: scroll;
+}
+
+.scrollContainer {
+  height: 1px;
+  width: 100%;
+  background-color: $white;
 }
