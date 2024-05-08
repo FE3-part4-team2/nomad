@@ -19,6 +19,8 @@ interface Props {
  * @param {string} type - type: default는 text인데 다른 타입을 주고싶으면 넣을것 ex) password
  * @param {string} defaultValue - defaultValue: inputvalue의 초기값 ex) 닉네임 or 이메일
  * @param {string} error - errorr: error일때 보여줄 css && message
+ * @param {string} readOnly - readonly: input의 값을 띄우기는하는데 값을 변경하지 않을때
+ *
  */
 
 const Input = ({
