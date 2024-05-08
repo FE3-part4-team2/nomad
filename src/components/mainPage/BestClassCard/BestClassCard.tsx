@@ -40,7 +40,7 @@ export default function BestClassCard({ classData }: BestClassCardProps) {
           </div>
           <div className={styles.title}>{classTitle}</div>
           <div className={styles.price}>
-            <span>{`₩ ${price} `}</span>
+            <span>{`₩ ${price.toLocaleString('ko-KR')} `}</span>
             <span className={styles.person}>/ 인</span>
           </div>
         </div>

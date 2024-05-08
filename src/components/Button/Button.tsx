@@ -17,6 +17,7 @@ export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   buttonTitle?: string;
   radius?: number;
   fontSize?: number;
+  backgroundColor?: string;
 }
 
 export default function Button({
@@ -24,6 +25,7 @@ export default function Button({
   buttonTitle = 'button',
   radius = 6,
   fontSize,
+  backgroundColor,
   ...rest
 }: ButtonProps) {
   const buttonClass = (status: string) => {
@@ -41,7 +43,11 @@ export default function Button({
   return (
     <button
       className={buttonClassName}
-      style={{ borderRadius: `${radius}px`, fontSize: `${fontSize}rem` }}
+      style={{
+        borderRadius: `${radius}px`,
+        fontSize: `${fontSize}rem`,
+        backgroundColor: `${backgroundColor}`,
+      }}
       {...rest}
     >
       {buttonTitle}
