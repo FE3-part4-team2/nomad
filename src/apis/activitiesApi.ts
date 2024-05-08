@@ -10,14 +10,20 @@ export const getClassListApi = async (
   page?: number,
   size?: number,
 ) => {
-  const res = await axiosInstance.get(
-    `activities/method=${method}&cursorId?=${cursorId}&category?=${category}&keyword?=${keyword}&sort?=${sort}&page?=${page}$size?=${size}`,
-    {
-      headers: {
-        Accept: 'application/json',
-      },
+  const res = await axios.get('/activities', {
+    params: {
+      method,
+      cursorId,
+      category,
+      keyword,
+      sort,
+      page,
+      size,
     },
-  );
+    headers: {
+      Accept: 'application/json',
+    },
+  });
   if (res.status === 200) {
     return res.data;
   } else if (res.status === 400) {
