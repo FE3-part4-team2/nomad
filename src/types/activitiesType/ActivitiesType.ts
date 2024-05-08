@@ -46,3 +46,7 @@ export interface DetailReviewType {
     },
   ];
 }
+
+export interface ActivitiesImageType {
+  activityImageUrl: string;
+}

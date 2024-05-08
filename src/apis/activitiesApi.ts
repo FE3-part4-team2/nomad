@@ -1,9 +1,5 @@
 import axiosInstance from './axiosInstance';
 
-export interface ActivitiesImageType {
-  activityImageUrl: string;
-}
-
 // 체험 리스트 조회
 export const getClassListApi = async (
   method: string,
@@ -14,7 +10,7 @@ export const getClassListApi = async (
   page?: number,
   size?: number,
 ) => {
-  const res = await axios.get('/activities', {
+  const res = await axiosInstance.get('/activities', {
     params: {
       method,
       cursorId,
@@ -56,7 +52,7 @@ export const getDetailClassReviewApi = async (
 
 //체험 이미지 url생성
 export const postActivitiesImageApi = async (image: FormData) => {
-  const res = await axios.post(`activities/image`, image, {
+  const res = await axiosInstance.post(`activities/image`, image, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
