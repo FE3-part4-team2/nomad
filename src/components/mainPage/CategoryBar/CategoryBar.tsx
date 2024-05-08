@@ -3,18 +3,16 @@ import styles from './categoryBar.module.scss';
 import DropDown from '@/components/DropDown/DropDown';
 
 interface CategoryBarProps {
+  category: string[];
   onClick: (title: string) => void;
+  handleDropDown: () => void;
 }
 
-export default function CategoryBar({ onClick }: CategoryBarProps) {
-  const category = ['문화·예술', '식음료', '스포츠', '투어', '관광', '웰빙'];
-
-  const handleDropDown = () => {};
-
-  const handleButtonClick = (title: string) => {
-    onClick(title);
-  };
-
+export default function CategoryBar({
+  category,
+  onClick,
+  handleDropDown,
+}: CategoryBarProps) {
   return (
     <div className={styles.categoryBar}>
       <div className={styles.buttons}>
@@ -25,7 +23,7 @@ export default function CategoryBar({ onClick }: CategoryBarProps) {
               buttonTitle={cat}
               radius={15}
               status="white"
-              onClick={() => handleButtonClick(cat)}
+              onClick={() => onClick(cat)}
             />
           </div>
         ))}
