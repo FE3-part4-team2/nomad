@@ -1,0 +1,39 @@
+@import 'src/styles/_variables';
+
+.titleSection {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 88%;
+}
+
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.classCategory {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.classTitle {
+  font-size: 2.4rem;
+  font-weight: 700;
+}
+
+.infoContainer {
+  display: flex;
+  gap: 8px;
+  margin: 16px 0 16px 0;
+}
+
+.infoWrapper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 1.4rem;
+  opacity: 0.75;
+}

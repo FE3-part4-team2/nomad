@@ -1,0 +1,84 @@
+@import 'src/styles/variables';
+@import '../input.module.scss';
+
+.biginput {
+  @extend .input;
+  margin-top: 12px;
+}
+
+.smallInput {
+  @extend .input;
+  margin-top: 8px;
+  height: 44px;
+
+  @media screen and (min-width: 375px) {
+    margin-top: 10px;
+    height: 56px;
+  }
+}
+
+.dateInput {
+  width: 130px;
+  @media screen and (min-width: 375px) {
+    width: 149px;
+  }
+  @media screen and (min-width: 768px) {
+    width: 374px;
+  }
+}
+
+.timeInput {
+  width: 79px;
+  @media screen and (min-width: 375px) {
+    width: 104px;
+  }
+  @media screen and (min-width: 768px) {
+    width: 140px;
+  }
+}
+
+.inputSubtitle {
+  font-size: 1.6rem;
+  font-weight: 500;
+
+  @media screen and (min-width: 375px) {
+    font-size: 2rem;
+  }
+}
+
+.smallInputContainer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-top: 24px;
+  gap: 4px;
+  @media screen and (min-width: 768px) {
+    gap: 20px;
+  }
+}
+
+//예약 가능한 시간대 추가했을때 스타일
+.isAdd {
+  @extend .smallInputContainer;
+  padding-bottom: 16px;
+  border-bottom: 1px solid $gray_DDDDDD;
+  margin-bottom: 16px;
+
+  @media screen and (min-width: 768px) {
+    margin-bottom: 21px;
+    padding-bottom: 21px;
+  }
+}
+
+.smallInputWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.timePlusIcon {
+  cursor: pointer;
+  @media screen and (min-width: 375px) {
+    width: 56px;
+    height: 56px;
+  }
+}

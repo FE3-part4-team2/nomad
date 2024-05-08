@@ -1,0 +1,27 @@
+@import 'src/styles/variables';
+@import './dateInput.module.scss';
+
+.smallInputContainer {
+  @extend .smallInputContainer;
+  margin-top: 0px;
+  margin-bottom: 8px;
+  @media screen and (min-width: 375px) {
+    margin-bottom: 16px;
+  }
+  @media screen and (min-width: 768px) {
+    margin-bottom: 21px;
+  }
+}
+
+.smallInput {
+  @extend .smallInput;
+  margin-top: 0px;
+}
+
+.dateInput {
+  @extend .dateInput;
+}
+
+.timeInput {
+  @extend .timeInput;
+}

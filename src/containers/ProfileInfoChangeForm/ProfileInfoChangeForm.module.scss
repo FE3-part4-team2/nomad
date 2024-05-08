@@ -1,0 +1,68 @@
+@import '../../styles/variables';
+
+.profileInfoContainer {
+  padding-right: 24px;
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-shrink: 0;
+
+    .titleArea {
+      gap: 581px;
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+      font-size: 3.2rem;
+      font-family: Pretendard;
+      font-size: 32px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: normal;
+      white-space: nowrap;
+
+      .myInfo {
+        font-family: Pretendard;
+        font-size: 3.2rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+      .buttonDiv {
+        width: 120px;
+        height: 48px;
+      }
+    }
+    .inputBox {
+      width: 100%;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    label {
+      color: $black_171717;
+      font-family: Pretendard;
+      font-size: 2.4rem;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 26px; /* 108.333% */
+    }
+  }
+  @media screen and (max-width: 1200px) {
+    form {
+      .titleArea {
+        gap: 219px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    form {
+      .titleArea {
+        gap: 133px;
+      }
+    }
+  }
+}
