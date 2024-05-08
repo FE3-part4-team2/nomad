@@ -1,5 +1,10 @@
+import Layout from '@/components/Layout/Layout';
 import MyClassTitle from '@/components/MyClass/MyClassTitle/MyClassTitle';
 
 export default function AddClass() {
-  return <MyClassTitle />;
+  return (
+    <Layout>
+      <MyClassTitle />
+    </Layout>
+  );
 }

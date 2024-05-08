@@ -4,7 +4,7 @@ import { FormValues } from '@/components/MyClass/MyClassTitle/MyClassTitle';
 import React, { useState } from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-interface FImgaeInputProps {
+interface ImgaeInputContainerProps {
   id: string;
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
@@ -14,7 +14,7 @@ export default function ImageInputContainer({
   id,
   register,
   errors,
-}: FImgaeInputProps) {
+}: ImgaeInputContainerProps) {
   const [imgURL, setImgURL] = useState('');
   const [apiImgURL, setApiImgURL] = useState('');
 

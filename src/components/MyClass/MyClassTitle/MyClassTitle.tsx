@@ -24,7 +24,7 @@ export type FormValues = {
   plusStartTime: string;
   plusEndTime: string;
   image: string;
-  subImage?: string[];
+  subImage: string[];
 };
 
 export default function MyClassTitle() {
@@ -63,7 +63,11 @@ export default function MyClassTitle() {
           <AddressInput id="address" register={register} errors={errors} />
           <DateInput id="date" register={register} errors={errors} />
           <ImageInputContainer id="image" register={register} errors={errors} />
-          <SubImageInputContainer />
+          <SubImageInputContainer
+            id="subImage"
+            register={register}
+            errors={errors}
+          />
         </div>
       </form>
       <DevTool control={control} />

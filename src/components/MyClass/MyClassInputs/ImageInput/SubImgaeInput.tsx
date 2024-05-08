@@ -1,12 +1,14 @@
-import { UseFormRegister, FieldValues } from 'react-hook-form';
+import { UseFormRegister, FieldErrors } from 'react-hook-form';
 import styles from './imageInput.module.scss';
 import subImageStyle from './subImageInput.module.scss';
 import Image from 'next/image';
+import { FormValues } from '../../MyClassTitle/MyClassTitle';
 // import { useState } from 'react';
 
 interface SubImageInputProps {
-  id?: string;
-  register?: UseFormRegister<FieldValues>;
+  id: string;
+  register: UseFormRegister<FormValues>;
+  errors: FieldErrors<FormValues>;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   imageSrc: string[];
   setImgURL: React.Dispatch<React.SetStateAction<string[]>>;
@@ -14,6 +16,8 @@ interface SubImageInputProps {
 
 export default function SubImageInput({
   id,
+  register,
+  errors,
   onChange,
   imageSrc,
   setImgURL,
@@ -46,6 +50,18 @@ export default function SubImageInput({
             accept="image/*"
             hidden
             multiple
+            {...register('subImage', {
+              // required: {
+              //   value: false,
+              //   message: 'Email is invalid.',
+              // },
+              validate: (fieldValue) => {
+                return (
+                  fieldValue.length < 5 ||
+                  '소개 이미지는 최대 4개까지 선택 가능합니다'
+                );
+              },
+            })}
           />
         </div>
 
@@ -69,6 +85,7 @@ export default function SubImageInput({
           </div>
         ))}
       </div>
+      {errors ? <p className={styles.error}>{errors.subImage?.message}</p> : ''}
     </div>
   );
 }
