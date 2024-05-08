@@ -1,4 +1,6 @@
+import { GetClassDataParamsType } from '@/types/type';
 import axios from './axiosInstance';
+import axiosInstance from './axiosInstance';
 
 export interface ClassList {
   method: string;
@@ -60,28 +62,12 @@ export interface DetailReviewType {
 }
 
 // 체험 리스트 조회
-export const getClassListApi = async (
-  method: string,
-  cursorId?: number,
-  category?: string,
-  keyword?: string,
-  sort?: string,
-  page?: number,
-  size?: number,
-) => {
-  const res = await axios.get('/activities', {
-    params: {
-      method,
-      cursorId,
-      category,
-      keyword,
-      sort,
-      page,
-      size,
-    },
+export const getClassListApi = async (params: GetClassDataParamsType) => {
+  const res = await axios.get('activities', {
     headers: {
       Accept: 'application/json',
     },
+    params,
   });
   if (res.status === 200) {
     return res.data;
