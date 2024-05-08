@@ -28,10 +28,12 @@ export default function ClassCardAfterSearch(params: GetClassDataParamsType) {
 
   return (
     <div className={styles.wrapper}>
-      <h2 className={styles.title}>
-        <span>🔎</span> {q} 으로 검색한 결과입니다.
-      </h2>
-      <div>총{total}개의 결과</div>
+      <div className={styles.text}>
+        <h2 className={styles.searchTitle}>
+          🔎 <span>{q}</span> 으로 검색한 결과입니다.
+        </h2>
+        <div className={styles.total}>총 {total}개의 결과</div>
+      </div>
       {/* <div className={styles.classCardWrapper}> */}
       <div className={styles.classCards}>
         {cardList.map((data) => (
