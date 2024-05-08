@@ -1,0 +1,34 @@
+.bestCards {
+  display: flex;
+  flex-direction: row;
+  overflow: scroll;
+  gap: 16px;
+  width: 100%;
+
+  @media (min-width : 769px){
+    gap: 32px;
+  }
+  @media (min-width: 1248px){
+    gap: 24px;
+  }
+}
+.bestCards::-webkit-scrollbar {
+  display: none;
+}
+
+
+.title {
+  font-family: pretendard;
+  padding: 24px 0 16px;
+  font-size: 1.8rem;
+  font-weight: 700;
+
+  @media (min-width : 769px){
+    font-size: 3.6rem;
+    padding: 24px 0 32px;
+  }
+
+  @media (min-width : 1248px){
+    padding: 40px 0 32px;
+  }
+}

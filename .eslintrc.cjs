@@ -28,6 +28,7 @@ module.exports = {
     'react/jsx-uses-react': 'off',
     // 'react/jsx-filename-extension': [2, { extensions: ['.jsx', '.tsx'] }],
     '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-explicit-any': 'off',
     // 'jsx-a11y/label-has-associated-control': [
     //   'error',
     //   {

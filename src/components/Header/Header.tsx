@@ -16,7 +16,7 @@ export default function Header() {
   }, []);
 
   return (
-    <>
+    <div className={styles.wrapper}>
       <main className={styles.main}>
         <Link href="/">
           <Image
@@ -66,6 +66,6 @@ export default function Header() {
           </div>
         )}
       </main>
-    </>
+    </div>
   );
 }
