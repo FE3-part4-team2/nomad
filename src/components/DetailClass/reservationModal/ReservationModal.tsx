@@ -1,5 +1,5 @@
 import styles from './reservationModal.module.scss';
-import CalendarComponent from '../calendar/CalendarComponent';
+import Calendar from '@/components/Calendar/Calendar';
 
 export default function ReservationModal() {
   // const onClick = () => {};
@@ -9,7 +9,7 @@ export default function ReservationModal() {
       <div className={styles.container}>
         <div>
           <div className={styles.calendar_container}>
-            <CalendarComponent />
+            <Calendar />
           </div>
           <div className={styles.time_container}>
             <div className={styles.time_title}>예약 가능한 시간</div>
