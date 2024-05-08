@@ -10,7 +10,7 @@ interface FImgaeInputProps {
   errors: FieldErrors<FormValues>;
 }
 
-export default function FImageInput({
+export default function ImageInputContainer({
   id,
   register,
   errors,

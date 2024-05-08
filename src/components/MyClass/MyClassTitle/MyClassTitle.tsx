@@ -5,8 +5,8 @@ import DescriptionInput from '../MyClassInputs/DescriptionInput/DescriptionInput
 import PriceInput from '../MyClassInputs/PriceInput/PriceInput';
 import DateInput from '../MyClassInputs/DateInput/DateInput';
 import AddressInput from '../MyClassInputs/AddressInput/AddressInput';
-import FImageInput from '@/containers/ImageInput/FImageInput';
-import FSubImageInput from '@/containers/ImageInput/FSubImageInput';
+import ImageInputContainer from '@/containers/ImageInput/ImageInputContainer';
+import SubImageInputContainer from '@/containers/ImageInput/SubImageInputContainer';
 import { useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import TitleInput from '../MyClassInputs/TitleInput/TitleInput';
@@ -62,8 +62,8 @@ export default function MyClassTitle() {
           <PriceInput id="price" register={register} errors={errors} />
           <AddressInput id="address" register={register} errors={errors} />
           <DateInput id="date" register={register} errors={errors} />
-          <FImageInput id="image" register={register} errors={errors} />
-          <FSubImageInput />
+          <ImageInputContainer id="image" register={register} errors={errors} />
+          <SubImageInputContainer />
         </div>
       </form>
       <DevTool control={control} />

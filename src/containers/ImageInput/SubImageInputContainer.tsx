@@ -2,7 +2,7 @@ import SubImageInput from '@/components/MyClass/MyClassInputs/ImageInput/SubImga
 
 import React, { useState } from 'react';
 
-export default function FSubImageInput() {
+export default function SubImageInputContainer() {
   const [imgURL, setImgURL] = useState<string[]>([]);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
