@@ -7,9 +7,9 @@ export default function ReservationModal() {
   return (
     <>
       <div className={styles.container}>
-        <div>
+        <div className="small">
           <div className={styles.calendar_container}>
-            <Calendar />
+            <Calendar fun={undefined} className={''} />
           </div>
           <div className={styles.time_container}>
             <div className={styles.time_title}>예약 가능한 시간</div>

@@ -1,3 +1,4 @@
+@import 'react-calendar/dist/Calendar.css';
 @import 'src/styles/_variables';
 
 .reservationSection {
@@ -95,7 +96,6 @@
     font-size: 1.4rem;
     text-align: center;
     width: 2.4rem;
-    height: 2.4rem;
     border: none;
   }
 
@@ -139,24 +139,29 @@
 
   .inputContainer {
     display: flex;
-    align-items: center;
     width: 12rem;
-    height: 3rem;
     box-shadow:
       0px 0px 0px 1px #cdd0dc inset,
-      0px 2px 4px 0px rgba(5, 16, 55, 0.06);
+      0px 2px 4px 0px rgba(5, 16, 55, 0.15);
     border-radius: 6px;
     color: $gray_4B4B4B;
     margin-bottom: 20px;
-    margin-top: 0;
+    // margin-top: 0;
   }
 
-  .inputContainer div {
-    display: flex;
-    align-items: center;
-    margin: 0 auto;
-    padding: 10px;
-    width: 4rem;
+  // .inputContainer div {
+  //   display: flex;
+  //   align-items: center;
+  //   margin: 0 auto;
+  //   padding: 10px;
+  //   width: 4rem;
+  // }
+
+  .inputSubtract,
+  .inputAdd {
+    border: none;
+    background-color: $white;
+    cursor: pointer;
   }
 
   .inputSubtract {
@@ -185,10 +190,15 @@
   }
 }
 
+.calendarContainer {
+  display: none;
+}
+
 @media screen and (min-width: 1200px) {
   .reservationSection {
     width: 38.4rem;
-    height: 56rem;
+    height: 85rem;
+    position: relative;
   }
 
   .timeContainer {
@@ -223,5 +233,10 @@
     Button {
       width: 33.6rem;
     }
+  }
+
+  .calendarContainer {
+    display: flex;
+    justify-content: center;
   }
 }

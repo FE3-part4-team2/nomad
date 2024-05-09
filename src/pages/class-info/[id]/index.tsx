@@ -1,4 +1,6 @@
 import DetailClass from '@/components/DetailClass/DetailClass';
+import Footer from '@/components/Footer/Footer';
+import Header from '@/components/Header/Header';
 import { useRouter } from 'next/router';
 
 export default function ClassInfo() {
@@ -7,7 +9,9 @@ export default function ClassInfo() {
   const parsedId = parseInt(id as string, 10);
   return (
     <>
+      <Header />
       <DetailClass id={parsedId} />
+      <Footer />
     </>
   );
 }

@@ -48,8 +48,41 @@
 .reviewWrapper:nth-child(2) {
   line-height: 1.5;
   text-align: justify;
-  width: 300px;
-  // width 반응형으로 수정하기
+}
+
+@media screen and (min-width: 768px) {
+  .reviewWrapper:nth-child(2) {
+    width: 375px;
+  }
+  .reviewerWrapper,
+  .reviewerWrapper div {
+    font-size: 2.4rem;
+  }
+
+  .reviewTitle {
+    font-size: 3rem;
+  }
+
+  .reviewCal {
+    font-size: 6rem;
+  }
+
+  .reviewMost {
+    font-size: 2.4rem;
+  }
+  .reviewNum {
+    font-size: 1.8rem;
+  }
+
+  .reviewContainer {
+    font-size: 2.4rem;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .reviewWrapper:nth-child(2) {
+    width: 600px;
+  }
 }
 
 .profileImage {
