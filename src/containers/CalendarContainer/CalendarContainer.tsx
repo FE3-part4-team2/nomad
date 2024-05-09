@@ -4,6 +4,7 @@ import { useRecoilValue } from 'recoil';
 import { useQuery } from '@tanstack/react-query';
 import getREservationDashboard from '@/apis/getReservationDashboardApi';
 import { useState } from 'react';
+import moment from 'moment';
 
 export default function CalendarContainer() {
   // interface IProps {
@@ -12,8 +13,8 @@ export default function CalendarContainer() {
   //   month: string;
   // }
 
-  const [month, setMonth] = useState<string>('');
-  const [year, setYear] = useState<string>('');
+  const [month, setMonth] = useState<string>(`${moment().format('MM')}`);
+  const [year, setYear] = useState<string>(`${moment().format('YYYY')}`);
   const activityId = useRecoilValue(idAtom);
   const { data, isLoading } = useQuery({
     queryKey: ['calendar', month],
@@ -29,5 +30,5 @@ export default function CalendarContainer() {
     console.log(month, year);
   }
 
-  return <Calendar fun={getDates} />;
+  return <Calendar fun={getDates} data={data} />;
 }

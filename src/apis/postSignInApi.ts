@@ -11,11 +11,11 @@ const password = 'asdasdasd';
 const postSignUp = async () => {
   const res = await axios.post('auth/login', { email, password });
 
-  const { accessToken, refreshToken } = res.data;
+  const { accessToken } = res.data;
 
   // 로컬 스토리지에 토큰 저장
   localStorage.setItem('accessToken', accessToken);
-  localStorage.setItem('refreshToken', refreshToken);
+  // localStorage.setItem('refreshToken', refreshToken);
   return res.data;
 };
 
