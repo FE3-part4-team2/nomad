@@ -1,12 +1,16 @@
 import Image from 'next/image';
 import styles from './classCard.module.scss';
-import { ClassData } from '@/types/type';
+import { ClassDataType } from '@/types/type';
+import { useRouter } from 'next/router';
 
 interface ClassCardProps {
-  classData: ClassData;
+  classData: ClassDataType;
+  id: number;
 }
 
-export default function ClassCard({ classData }: ClassCardProps) {
+export default function ClassCard({ classData, id }: ClassCardProps) {
+  const router = useRouter();
+
   const {
     bannerImageUrl,
     rating,
@@ -15,8 +19,12 @@ export default function ClassCard({ classData }: ClassCardProps) {
     price,
   } = classData;
 
+  const onClickCard = () => {
+    router.push(`/class-info/${id}`);
+  };
+
   return (
-    <div className={styles.classCard}>
+    <div className={styles.classCard} onClick={onClickCard}>
       <div className={styles.classImage}>
         <Image
           src={bannerImageUrl}

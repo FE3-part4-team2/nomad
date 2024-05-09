@@ -2,17 +2,29 @@ import Button from '@/components/Button/Button';
 import styles from './categoryBar.module.scss';
 import DropDown from '@/components/DropDown/DropDown';
 
-export default function CategoryBar() {
-  const category = ['문화·예술', '식음료', '스포츠', '투어', '관광', '웰빙'];
+interface CategoryBarProps {
+  category: string[];
+  onClick: (title: string) => void;
+  handleDropDown: () => void;
+}
 
-  const handleDropDown = () => {};
-
+export default function CategoryBar({
+  category,
+  onClick,
+  handleDropDown,
+}: CategoryBarProps) {
   return (
     <div className={styles.categoryBar}>
       <div className={styles.buttons}>
-        {category.map((cat, index) => (
+        {category.map((cat) => (
           <div className={styles.button}>
-            <Button key={index} buttonTitle={cat} radius={15} status="white" />
+            <Button
+              key={cat}
+              buttonTitle={cat}
+              radius={15}
+              status="white"
+              onClick={() => onClick(cat)}
+            />
           </div>
         ))}
       </div>
