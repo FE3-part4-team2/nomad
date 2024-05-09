@@ -41,7 +41,6 @@ export default function ProfileInfoChangeForm() {
         });
         setValue('nickName', data.nickName ?? '');
         setValue('email', data.email ?? '');
-        // setValue('profileImage', data.profileImage ?? '');
       } catch (error) {
         console.error('Failed to fetch user info', error);
       }

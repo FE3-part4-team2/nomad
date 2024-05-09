@@ -27,7 +27,6 @@ const Input = ({
   placeholder,
   id,
   classname = 'inputDefault',
-  // type,
   defaultValue,
   error,
   readOnly,
