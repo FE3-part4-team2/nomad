@@ -24,6 +24,18 @@ export const getDetailClassApi = async (id: number = 776) => {
   return detail.data;
 };
 
+// 체험 예약 가능일 조회
+export const getAvailableScheduleApi = async (
+  id: number = 776,
+  year: string = '2024',
+  month: string = '05',
+) => {
+  const res = await axiosInstance.get(
+    `activities/${id}/available-schedule?year=${year}&month=${month}`,
+  );
+  return res;
+};
+
 // 체험 리뷰 조회
 export const getDetailClassReviewApi = async (
   id: number = 776,
