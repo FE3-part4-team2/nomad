@@ -1,28 +1,14 @@
+import { GetClassDataParamsType } from '@/types/type';
+import axios from './axiosInstance';
 import axiosInstance from './axiosInstance';
 
 // 체험 리스트 조회
-export const getClassListApi = async (
-  method: string,
-  cursorId?: number,
-  category?: string,
-  keyword?: string,
-  sort?: string,
-  page?: number,
-  size?: number,
-) => {
-  const res = await axiosInstance.get('/activities', {
-    params: {
-      method,
-      cursorId,
-      category,
-      keyword,
-      sort,
-      page,
-      size,
-    },
+export const getClassListApi = async (params: GetClassDataParamsType) => {
+  const res = await axios.get('activities', {
     headers: {
       Accept: 'application/json',
     },
+    params,
   });
   if (res.status === 200) {
     return res.data;
@@ -36,6 +22,18 @@ export const getDetailClassApi = async (id: number = 776) => {
   const detail = await axiosInstance.get(`activities/${id}`);
 
   return detail.data;
+};
+
+// 체험 예약 가능일 조회
+export const getAvailableScheduleApi = async (
+  id: number = 776,
+  year: string = '2024',
+  month: string = '05',
+) => {
+  const res = await axiosInstance.get(
+    `activities/${id}/available-schedule?year=${year}&month=${month}`,
+  );
+  return res;
 };
 
 // 체험 리뷰 조회

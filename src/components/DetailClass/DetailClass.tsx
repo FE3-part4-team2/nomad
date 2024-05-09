@@ -8,19 +8,28 @@ import Reservation from '@/components/DetailClass/reservation/Reservation';
 import { useEffect, useState } from 'react';
 import ReservationModal from './reservationModal/ReservationModal';
 import Modal from './modal/Modal';
-import { getDetailClassApi } from '@/apis/activitiesApi';
+import {
+  getAvailableScheduleApi,
+  getDetailClassApi,
+} from '@/apis/activitiesApi';
 import ImageComponent from './image_/Image';
 import { DetailClassType } from '@/types/activitiesType/ActivitiesType';
 
 export default function DetailClass({ id }: { id: number }) {
   const [detail, setDetail] = useState<DetailClassType>();
+  const [date, setDate] = useState();
 
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
   useEffect(() => {
     const getDetailClassInfo = async () => {
-      const res = await getDetailClassApi(776);
+      const res = await getDetailClassApi(id);
       setDetail(res);
+    };
+    const getAvailableSchedule = async () => {
+      const res = await getAvailableScheduleApi(776, '2024', '05');
+      setDate(res);
+      console.log(res);
     };
     getDetailClassInfo();
   }, []);
@@ -29,6 +38,7 @@ export default function DetailClass({ id }: { id: number }) {
     setIsOpenModal(true);
   };
 
+  console.log(detail);
   // const closeReservationModal = () => {
   //   setIsOpenModal(false);
   // };
@@ -66,7 +76,10 @@ export default function DetailClass({ id }: { id: number }) {
               <ReservationModal />
             </Modal>
           )}
-          <Reservation openReservationModal={openReservationModal} />
+          <Reservation
+            openReservationModal={openReservationModal}
+            price={detail?.price}
+          />
         </div>
       </div>
     </>

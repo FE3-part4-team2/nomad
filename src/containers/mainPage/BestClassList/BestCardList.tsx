@@ -2,14 +2,14 @@ import BestClassCard from '@/components/mainPage/BestClassCard/BestClassCard';
 import styles from './bestCardList.module.scss';
 import { useEffect, useState } from 'react';
 import { getClassListApi } from '@/apis/activitiesApi';
-import { ClassData } from '@/types/type';
+import { ClassDataType, GetClassDataParamsType } from '@/types/type';
 
-export default function BestCardList() {
-  const [cardList, setCardList] = useState<ClassData[]>([]);
+export default function BestCardList(params: GetClassDataParamsType) {
+  const [cardList, setCardList] = useState<ClassDataType[]>([]);
 
   async function CardList() {
     try {
-      const res = await getClassListApi('offset');
+      const res = await getClassListApi(params);
       const cardData = res.activities;
       setCardList(cardData);
     } catch (error) {
@@ -26,8 +26,8 @@ export default function BestCardList() {
         <span>🔥</span> 인기 체험
       </h2>
       <div className={styles.bestCards}>
-        {cardList.map((data, index) => (
-          <BestClassCard key={index} classData={data} />
+        {cardList.map((data) => (
+          <BestClassCard key={data.id} classData={data} id={data.id} />
         ))}
       </div>
     </div>
