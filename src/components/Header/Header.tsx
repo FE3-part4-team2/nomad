@@ -7,13 +7,15 @@ import { loginApi, loginType } from '../../apis/authApi';
 export default function Header() {
   const [userInfo, setUserInfo] = useState<loginType>();
 
-  useEffect(() => {
+  const onclick = () => {
+    // useEffect(() => {
     const getUserInfo = async () => {
       const res = await loginApi('1234@1234.com', '123412341234');
       setUserInfo(res);
     };
     getUserInfo();
-  }, []);
+    // }, []);
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -61,6 +63,7 @@ export default function Header() {
           </div>
         ) : (
           <div className={styles.sign}>
+            <button onClick={onclick} />
             <Link href="/sign-in">로그인</Link>
             <Link href="/sign-up">회원가입</Link>
           </div>

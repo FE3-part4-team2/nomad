@@ -10,7 +10,7 @@ export const getClassListApi = async (
   page?: number,
   size?: number,
 ) => {
-  const res = await axios.get('/activities', {
+  const res = await axiosInstance.get('/activities', {
     params: {
       method,
       cursorId,
@@ -36,6 +36,18 @@ export const getDetailClassApi = async (id: number = 776) => {
   const detail = await axiosInstance.get(`activities/${id}`);
 
   return detail.data;
+};
+
+// 체험 예약 가능일 조회
+export const getAvailableScheduleApi = async (
+  id: number = 776,
+  year: string = '2024',
+  month: string = '05',
+) => {
+  const res = await axiosInstance.get(
+    `activities/${id}/available-schedule?year=${year}&month=${month}`,
+  );
+  return res;
 };
 
 // 체험 리뷰 조회

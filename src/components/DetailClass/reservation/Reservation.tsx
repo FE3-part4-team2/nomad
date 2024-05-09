@@ -1,28 +1,53 @@
 import styles from './reservation.module.scss';
 import Button from '@/components/Button/Button';
+import ReservationCalendar from '@/containers/ReservationCalendar/ReservationCalendar';
 import Image from 'next/image';
+import { useState } from 'react';
 
 interface ReservationProps {
   openReservationModal: () => void;
+  price: number;
 }
 
 export default function Reservation({
   openReservationModal,
+  price,
 }: ReservationProps) {
+  const [quantity, setQuantity] = useState(1);
+  const [totalPrice, setTotalPrice] = useState(price);
+
+  const handleIncrease = () => {
+    if (quantity < 10) {
+      const newQuantity = quantity + 1;
+      setQuantity(newQuantity);
+      setTotalPrice(newQuantity * price);
+    }
+  };
+
+  const handleDecrease = () => {
+    if (quantity > 1) {
+      const newQuantity = quantity - 1;
+      setQuantity(newQuantity);
+      setTotalPrice(newQuantity * price);
+    }
+  };
+
   return (
     <>
       <section className={styles.reservationSection}>
         <div className={styles.reservationContainer}>
           <div>
             <div className={styles.priceWrapper}>
-              <div className={styles.price}>₩ 1,000</div>
+              <div className={styles.price}>₩ {price}</div>
               <div className={styles.per}>/ 인</div>
             </div>
             <div className={styles.dateTitle}>날짜</div>
             <button className={styles.datePick} onClick={openReservationModal}>
               날짜 선택하기
             </button>
-            {/* 1200px 이상일 때 캘린더 보이게 */}
+            <div className={styles.calendarContainer}>
+              <ReservationCalendar />
+            </div>
             <div className={styles.timeContainer}>
               <div className={styles.timeTitle}>예약 가능한 시간</div>
               <div className={styles.chooseTime}>
@@ -44,27 +69,27 @@ export default function Reservation({
             </div>
             <div className={styles.personNum}>참여 인원 수</div>
             <div className={styles.inputContainer}>
-              <div className={styles.inputSubtract}>
+              <button className={styles.inputSubtract} onClick={handleDecrease}>
                 <Image
                   src="/assets/icons/Subtract.svg"
                   alt="마이너스 아이콘"
                   width={20}
                   height={20}
                 />
-              </div>
+              </button>
               <input
                 className={styles.chooseNum}
                 type="number"
-                defaultValue={1}
+                defaultValue={quantity}
               />
-              <div className={styles.inputAdd}>
+              <button className={styles.inputAdd} onClick={handleIncrease}>
                 <Image
                   src="/assets/icons/Add.svg"
                   alt="플러스 아이콘"
                   width={20}
                   height={20}
                 />
-              </div>
+              </button>
             </div>
           </div>
           <div className={styles.submitButton}>
@@ -79,7 +104,7 @@ export default function Reservation({
           </div>
           <div className={styles.totalContainer}>
             <div className={styles.totalTitle}>총 합계</div>
-            <div className={styles.totalPrice}>₩ 10,000</div>
+            <div className={styles.totalPrice}>₩ {totalPrice}</div>
           </div>
         </div>
       </section>

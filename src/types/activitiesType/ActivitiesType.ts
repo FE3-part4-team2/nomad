@@ -27,6 +27,17 @@ export interface DetailClassType {
   ];
 }
 
+export interface getAvailableScheduleType {
+  date: string;
+  times: [
+    {
+      id: number;
+      startTime: string;
+      endTime: string;
+    },
+  ];
+}
+
 export interface DetailReviewType {
   averageRating: number;
   totalCount: number;
