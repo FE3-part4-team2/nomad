@@ -1,13 +1,17 @@
 import styles from './classCardList.module.scss';
 import ClassCard from '@/components/mainPage/ClassCard/ClassCard';
 import { useEffect, useState } from 'react';
-import { ClassDataType, GetClassDataParamsType } from '@/types/type';
+import { ClassDataType } from '@/types/type';
 import { getClassListApi } from '@/apis/activitiesApi';
 import CategoryBarContainer from '../CategoryBarContainer/CategoryBarContainer';
+import { useRecoilState } from 'recoil';
+import { paramState } from '@/store/atoms/paramStates';
 
-export default function ClassCardList(params: GetClassDataParamsType) {
+export default function ClassCardList() {
   const [cardList, setCardList] = useState<ClassDataType[]>([]);
-  const [category, setCategory] = useState<string>('');
+  const [params, setParams] = useRecoilState(paramState);
+
+  console.log(params.category);
 
   async function CardList() {
     try {
@@ -22,15 +26,20 @@ export default function ClassCardList(params: GetClassDataParamsType) {
     CardList();
   }, [params]);
 
-  const onClickCategory = (selectedCategory: string) => {
-    setCategory(selectedCategory);
+  const updateCategory = (value: string) => {
+    const updatedParams = {
+      ...params,
+      category: value,
+    };
+    setParams(updatedParams);
   };
 
   return (
     <div className={styles.wrapper}>
-      <CategoryBarContainer onClick={onClickCategory} />
+      <CategoryBarContainer onClick={updateCategory} />
       <h2 className={styles.title}>
-        <span>🛼</span> {category === '' ? '모든 체험' : category}
+        <span>🛼</span>{' '}
+        {params.category === undefined ? '모든 체험' : params.category}
       </h2>
       {/* <div className={styles.classCardWrapper}> */}
       <div className={styles.classCards}>

@@ -18,7 +18,7 @@ export default function Home() {
           <SearchBarContainer />
         </div>
         <BestCardList method="offset" sort="most_reviewed" />
-        <ClassCardList method="offset" />
+        <ClassCardList />
       </div>
       <Footer />
     </>
