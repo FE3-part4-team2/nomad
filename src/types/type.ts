@@ -28,3 +28,17 @@ export interface GetClassDataParamsType {
   page?: number;
   size?: number;
 }
+
+export interface ReservationCardType {
+  classImage: string; // 배너이미지
+  revStatus: string; //현재 예약 상태
+  title: string;
+  date: string;
+  startTime: string;
+  endTime: string;
+  headCount: number; //총 모집인원
+  price: number;
+  //   reviewSubmitted: boolean; //리뷰 썼는지 안썼는지 , 이거는 페이지에서
+  buttonStatus: string;
+  buttonTitle: string;
+}

@@ -1,6 +1,5 @@
-import ReservationCard, {
-  ReservationCardProps,
-} from '../../components/ReservationCard/ReservationCard';
+import ReservationCard from '../../components/ReservationCard/ReservationCard';
+import { ReservationCardType } from '../../types/type';
 
 export default function ReservationCardContainer({
   classImage,
@@ -12,7 +11,7 @@ export default function ReservationCardContainer({
   headCount,
   price,
   buttonTitle,
-}: ReservationCardProps) {
+}: ReservationCardType) {
   const bStatusArray = {
     confirmed: 'white',
     completed: 'black',

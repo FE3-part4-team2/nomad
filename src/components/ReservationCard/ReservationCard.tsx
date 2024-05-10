@@ -1,20 +1,7 @@
 import Button from '../Button/Button';
 import res from './ReservationCard.module.scss';
 import Image from 'next/image';
-
-export interface ReservationCardProps {
-  classImage: string; // 배너이미지
-  revStatus: string; //현재 예약 상태
-  title: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  headCount: number; //총 모집인원
-  price: number;
-  //   reviewSubmitted: boolean; //리뷰 썼는지 안썼는지 , 이거는 페이지에서
-  buttonStatus: string;
-  buttonTitle: string;
-}
+import { ReservationCardType } from '../../types/type';
 
 export default function ReservationCard({
   classImage,
@@ -27,7 +14,7 @@ export default function ReservationCard({
   price,
   buttonStatus,
   buttonTitle,
-}: ReservationCardProps) {
+}: ReservationCardType) {
   return (
     <div className={res.reservationCardContainer}>
       <div className={res.mainBox}>
