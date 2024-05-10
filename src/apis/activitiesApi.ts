@@ -1,10 +1,9 @@
 import { GetClassDataParamsType } from '@/types/type';
-import axios from './axiosInstance';
 import axiosInstance from './axiosInstance';
 
 // 체험 리스트 조회
 export const getClassListApi = async (params: GetClassDataParamsType) => {
-  const res = await axios.get('activities', {
+  const res = await axiosInstance.get('activities', {
     headers: {
       Accept: 'application/json',
     },

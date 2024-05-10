@@ -5,5 +5,7 @@ export const paramState = atom<GetClassDataParamsType>({
   key: 'paramState',
   default: {
     method: 'offset',
+    page: 1,
+    size: 8,
   },
 });
