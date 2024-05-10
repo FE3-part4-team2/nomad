@@ -1,10 +1,12 @@
 import Calendar from '@/components/Calendar/Calendar';
-import { idAtom } from '@/store/idAtom';
+import { idAtom } from '@/store/atoms/idState';
 import { useRecoilValue } from 'recoil';
 import { useQuery } from '@tanstack/react-query';
 import getREservationDashboard from '@/apis/getReservationDashboardApi';
 import { useState } from 'react';
 import moment from 'moment';
+import getReservedSchedule from '@/apis/getReservedScheduleApi';
+import Modal from '@/components/Modal/ModalBase';
 
 export default function CalendarContainer() {
   // interface IProps {
@@ -15,11 +17,18 @@ export default function CalendarContainer() {
 
   const [month, setMonth] = useState<string>(`${moment().format('MM')}`);
   const [year, setYear] = useState<string>(`${moment().format('YYYY')}`);
+  const [date, setDate] = useState<string>(`${moment().format('YYYY-MM-DD')}`);
   const activityId = useRecoilValue(idAtom);
   const { data, isLoading } = useQuery({
-    queryKey: ['calendar', month],
+    queryKey: ['calendar', month, activityId],
     queryFn: () => getREservationDashboard({ activityId, year, month } as any),
   });
+  const { data: scheduleData } = useQuery({
+    queryKey: ['schedule', date],
+    queryFn: () => getReservedSchedule({ activityId, date } as any),
+  });
+  console.log(scheduleData);
+
   console.log(activityId);
   console.log(data);
   function getDates(value: any) {
@@ -30,5 +39,17 @@ export default function CalendarContainer() {
     console.log(month, year);
   }
 
-  return <Calendar fun={getDates} data={data} />;
+  function onClick(value: any) {
+    setDate(moment(value).format('YYYY-MM-DD'));
+    console.log(date);
+  }
+
+  return (
+    <>
+      {/* <Modal title="예약정보" type="reservation">
+          하이
+        </Modal> */}
+      <Calendar fun={getDates} data={data} onClick={onClick} />;
+    </>
+  );
 }

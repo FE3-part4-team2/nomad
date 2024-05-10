@@ -1,7 +1,15 @@
 import Cal from 'react-calendar';
 import moment from 'moment';
 
-export default function Calendar({ fun, data }: { fun: any; data: any }) {
+export default function Calendar({
+  fun,
+  data,
+  onClick,
+}: {
+  fun: any;
+  data: any;
+  onClick: any;
+}) {
   console.log(data);
   return (
     <div>
@@ -32,6 +40,7 @@ export default function Calendar({ fun, data }: { fun: any; data: any }) {
             return content;
           }
         }}
+        onClickDay={onClick}
       />
     </div>
   );

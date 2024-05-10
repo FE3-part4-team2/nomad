@@ -10,7 +10,7 @@ export default function Header() {
   const onclick = () => {
     // useEffect(() => {
     const getUserInfo = async () => {
-      const res = await loginApi('asd@asd.com', 'asdasdasd');
+      const res = await loginApi('1234@1234.com', '123412341234');
       setUserInfo(res);
     };
     getUserInfo();

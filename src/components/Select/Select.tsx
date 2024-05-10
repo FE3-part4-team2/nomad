@@ -1,5 +1,5 @@
 import styles from '@/components/Select/select.module.scss';
-import { idAtom } from '@/store/idAtom';
+import { idAtom } from '@/store/atoms/idState';
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 
