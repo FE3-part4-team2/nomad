@@ -42,3 +42,9 @@ export interface ReservationCardType {
   buttonStatus: string;
   buttonTitle: string;
 }
+
+export interface getMyReservationType {
+  cursorId?: number;
+  size?: number;
+  status?: string;
+}
