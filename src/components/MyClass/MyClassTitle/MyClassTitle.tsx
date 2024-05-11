@@ -41,10 +41,11 @@ export default function MyClassTitle() {
 
   // const [imgURL, setImgURL] = useState<string[]>([]);
   const [apiImgURL, setApiImgURL] = useState<string[]>([]);
-
+  const [bannerApiImgURL, setBannerApiImgURL] = useState('');
   const onSubmit = (data: FormValues) => {
     // price number로 바꿔줘야함
     data.subImage = apiImgURL;
+    data.image = bannerApiImgURL;
     console.log(data);
   };
 
@@ -68,7 +69,13 @@ export default function MyClassTitle() {
           <PriceInput id="price" register={register} errors={errors} />
           <AddressInput id="address" register={register} errors={errors} />
           <DateInput id="date" register={register} errors={errors} />
-          <ImageInputContainer id="image" register={register} errors={errors} />
+          <ImageInputContainer
+            id="image"
+            register={register}
+            errors={errors}
+            apiImgURL={bannerApiImgURL}
+            setApiImgURL={setBannerApiImgURL}
+          />
           <SubImageInputContainer
             id="subImage"
             register={register}

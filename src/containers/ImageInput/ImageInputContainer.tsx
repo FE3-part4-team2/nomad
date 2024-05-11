@@ -8,15 +8,19 @@ interface ImgaeInputContainerProps {
   id: string;
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
+  apiImgURL: string;
+  setApiImgURL: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function ImageInputContainer({
   id,
   register,
   errors,
+  apiImgURL,
+  setApiImgURL,
 }: ImgaeInputContainerProps) {
   const [imgURL, setImgURL] = useState('');
-  const [apiImgURL, setApiImgURL] = useState('');
+  // const [apiImgURL, setApiImgURL] = useState('');
 
   const handleImageChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
