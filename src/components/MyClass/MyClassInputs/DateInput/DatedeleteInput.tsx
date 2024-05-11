@@ -2,18 +2,26 @@ import styles from './dateInput.module.scss';
 import deleteStyle from './dateDeleteInput.module.scss';
 import Image from 'next/image';
 import { FormValues } from '../../MyClassTitle/MyClassTitle';
-import { UseFormRegister } from 'react-hook-form';
+import { UseFieldArrayRemove, UseFormRegister } from 'react-hook-form';
 
 interface DateDeleteInputProps {
   // id: string;
-  onClick: () => void;
+  // onClick: () => void;
+  remove: UseFieldArrayRemove;
+  index: number;
   register: UseFormRegister<FormValues>;
 }
 
 export default function DateDeleteInput({
-  onClick,
+  // onClick,
   register,
+  index,
+  remove,
 }: DateDeleteInputProps) {
+  const removeSelectTime = () => {
+    remove(index);
+  };
+
   return (
     <div>
       <div className={deleteStyle.smallInputContainer}>
@@ -22,7 +30,7 @@ export default function DateDeleteInput({
             className={`${deleteStyle.smallInput} ${deleteStyle.dateInput}`}
             id="plusDate"
             type="date"
-            {...register('plusDate', {
+            {...register(`schedules.${index}.date`, {
               required: '날짜 입력은 필수입니다.',
             })}
           />
@@ -32,7 +40,7 @@ export default function DateDeleteInput({
             className={`${deleteStyle.smallInput} ${deleteStyle.timeInput}`}
             id="plusStartTime"
             type="time"
-            {...register('plusStartTime', {
+            {...register(`schedules.${index}.startTime`, {
               required: '시작 시간 입력은 필수입니다.',
             })}
           />
@@ -42,7 +50,7 @@ export default function DateDeleteInput({
             className={`${deleteStyle.smallInput} ${deleteStyle.timeInput}`}
             id="plusEndTime"
             type="time"
-            {...register('plusEndTime', {
+            {...register(`schedules.${index}.endTime`, {
               required: '종료 시간 입력은 필수입니다.',
             })}
           />
@@ -54,7 +62,7 @@ export default function DateDeleteInput({
             width={44}
             height={44}
             alt="시간 추가 버튼"
-            onClick={onClick}
+            onClick={removeSelectTime}
           />
         </div>
       </div>

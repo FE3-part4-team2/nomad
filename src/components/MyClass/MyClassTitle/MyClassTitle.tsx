@@ -7,7 +7,7 @@ import DateInput from '../MyClassInputs/DateInput/DateInput';
 import AddressInput from '../MyClassInputs/AddressInput/AddressInput';
 import ImageInputContainer from '@/containers/ImageInput/ImageInputContainer';
 import SubImageInputContainer from '@/containers/ImageInput/SubImageInputContainer';
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import TitleInput from '../MyClassInputs/TitleInput/TitleInput';
 import { useState } from 'react';
@@ -18,9 +18,16 @@ export interface FormValues {
   description: string;
   price: number;
   address: string;
-  date: string[];
-  startTime: string;
-  endTime: string;
+  mainSchedule: {
+    date: string;
+    startTime: string;
+    endTime: string;
+  };
+  schedules: {
+    date: string;
+    startTime: string;
+    endTime: string;
+  }[];
   plusDate: string;
   plusStartTime: string;
   plusEndTime: string;
@@ -37,6 +44,11 @@ export default function MyClassTitle() {
     formState: { errors },
   } = useForm<FormValues>({
     mode: 'onBlur',
+  });
+
+  const { fields, append, remove } = useFieldArray({
+    name: 'schedules',
+    control: control,
   });
 
   // const [imgURL, setImgURL] = useState<string[]>([]);
@@ -68,7 +80,14 @@ export default function MyClassTitle() {
           />
           <PriceInput id="price" register={register} errors={errors} />
           <AddressInput id="address" register={register} errors={errors} />
-          <DateInput id="date" register={register} errors={errors} />
+          <DateInput
+            id="date"
+            register={register}
+            errors={errors}
+            fields={fields}
+            append={append}
+            remove={remove}
+          />
           <ImageInputContainer
             id="image"
             register={register}
