@@ -40,7 +40,7 @@ export default function Review({ id }: ReviewsProps) {
         reviews: newReviews,
         averageRating,
         totalCount,
-      } = await getDetailClassReviewApi(776, page, SIZE);
+      } = await getDetailClassReviewApi(id, page, SIZE);
       averageRatingRef.current = averageRating;
       const maxPage = Math.ceil(totalCount / SIZE);
 

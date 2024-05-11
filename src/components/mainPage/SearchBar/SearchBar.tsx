@@ -1,8 +1,21 @@
 import Button from '@/components/Button/Button';
 import styles from './searchBar.module.scss';
 import Image from 'next/image';
+import { ChangeEvent, KeyboardEvent, MouseEvent } from 'react';
 
-export default function SearchBar() {
+interface SearchBarProps {
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onClick: (e: MouseEvent<HTMLButtonElement>) => void;
+  onKeyDown: (e: KeyboardEvent<HTMLInputElement>) => void;
+}
+
+export default function SearchBar({
+  value,
+  onChange,
+  onClick,
+  onKeyDown,
+}: SearchBarProps) {
   return (
     <div className={styles.wrapper}>
       <div className={styles.title}>무엇을 체험하고 싶으신가요?</div>
@@ -15,7 +28,13 @@ export default function SearchBar() {
             width={24}
           />
           <div>
-            <input placeholder="내가 원하는 체험은" />
+            <input
+              type="search"
+              placeholder="내가 원하는 체험은"
+              value={value}
+              onChange={onChange}
+              onKeyDown={onKeyDown}
+            />
           </div>
         </div>
         <div className={styles.button}>
@@ -24,6 +43,7 @@ export default function SearchBar() {
             buttonTitle="검색하기"
             radius={4}
             fontSize={1.6}
+            onClick={onClick}
           />
         </div>
       </div>
