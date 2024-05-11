@@ -3,6 +3,7 @@ import styles from './imageInput.module.scss';
 import subImageStyle from './subImageInput.module.scss';
 import Image from 'next/image';
 import { FormValues } from '../../MyClassTitle/MyClassTitle';
+// import { url } from 'inspector';
 // import { useState } from 'react';
 
 interface SubImageInputProps {
@@ -12,6 +13,8 @@ interface SubImageInputProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   imageSrc: string[];
   setImgURL: React.Dispatch<React.SetStateAction<string[]>>;
+  apiImgURL: string[];
+  setApiImgURL: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export default function SubImageInput({
@@ -19,12 +22,26 @@ export default function SubImageInput({
   register,
   errors,
   onChange,
-  imageSrc,
-  setImgURL,
+  // imageSrc,
+  // setImgURL,
+  apiImgURL,
+  setApiImgURL,
 }: SubImageInputProps) {
   const handleDeleteButton = (clickedId: string) => {
-    const newArray = imageSrc.filter((url) => url !== clickedId);
-    setImgURL(newArray);
+    // const newArray = imageSrc.filter((url) => url !== clickedId);
+    // setImgURL(newArray);
+
+    const newArray = apiImgURL.filter(
+      (url) => String(url) !== String(clickedId),
+    );
+    console.log(newArray);
+    setApiImgURL(newArray);
+
+    // const newApiArray = apiImgURL.filter((url) =>
+    //   url !== clickedId ? console.log(url) : console.log(url),
+    // );
+
+    // setApiImgURL(newApiArray);
   };
 
   return (
@@ -32,7 +49,7 @@ export default function SubImageInput({
       <label className={styles.inputTitle} htmlFor={id}>
         소개 이미지
       </label>
-      <div>{imageSrc}</div>
+      <div>{apiImgURL}</div>
       <div className={subImageStyle.imageContainer}>
         <div className={styles.addImgaeWapper} onChange={onChange}>
           <label className={styles.fakeInput} htmlFor="addSubImage">
@@ -65,25 +82,27 @@ export default function SubImageInput({
           />
         </div>
 
-        {imageSrc.map((url) => (
-          <div className={styles.imageWrapper} key={url}>
-            <Image
-              className={styles.image}
-              src={url}
-              alt="선택한 이미지"
-              width={167}
-              height={167}
-            />
-            <Image
-              onClick={() => handleDeleteButton(url)}
-              className={styles.deleteImageButton}
-              src="/assets/icons/delete-circle-btn.svg"
-              alt="이미지 삭제 버튼"
-              width={24}
-              height={24}
-            />
-          </div>
-        ))}
+        {apiImgURL
+          ? apiImgURL.map((url) => (
+              <div className={styles.imageWrapper} key={url}>
+                <Image
+                  className={styles.image}
+                  src={url}
+                  alt="선택한 이미지"
+                  width={167}
+                  height={167}
+                />
+                <Image
+                  onClick={() => handleDeleteButton(url)}
+                  className={styles.deleteImageButton}
+                  src="/assets/icons/delete-circle-btn.svg"
+                  alt="이미지 삭제 버튼"
+                  width={24}
+                  height={24}
+                />
+              </div>
+            ))
+          : ''}
       </div>
       {errors ? <p className={styles.error}>{errors.subImage?.message}</p> : ''}
     </div>

@@ -25,7 +25,7 @@ export default function ImageInputContainer({
     const file = files[0];
     const formData = new FormData();
     formData.append('image', file);
-
+    console.log(formData.values);
     const fileRead = new FileReader();
     fileRead.readAsDataURL(file);
     fileRead.onload = function () {
