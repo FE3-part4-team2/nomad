@@ -11,6 +11,7 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import TitleInput from '../MyClassInputs/TitleInput/TitleInput';
 import { useState } from 'react';
+import { postAddMyActivityApi } from '@/apis/activitiesApi';
 
 export interface FormValues {
   title: string;
@@ -54,11 +55,23 @@ export default function MyClassTitle() {
   // const [imgURL, setImgURL] = useState<string[]>([]);
   const [apiImgURL, setApiImgURL] = useState<string[]>([]);
   const [bannerApiImgURL, setBannerApiImgURL] = useState('');
-  const onSubmit = (data: FormValues) => {
-    // price number로 바꿔줘야함
+  const onSubmit = async (data: FormValues) => {
+    const dateArray = [data.mainSchedule];
+    const combinedDateArray = dateArray.concat(data.schedules);
     data.subImage = apiImgURL;
     data.image = bannerApiImgURL;
-    console.log(data);
+    const sendData = {
+      title: data.title,
+      category: data.category,
+      description: data.description,
+      address: data.address,
+      price: Number(data.price),
+      schedules: combinedDateArray,
+      bannerImageUrl: data.image,
+      subImageUrls: data.subImage,
+    };
+    const apiData = await postAddMyActivityApi(sendData);
+    console.log(apiData);
   };
 
   return (

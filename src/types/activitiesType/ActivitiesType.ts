@@ -50,3 +50,14 @@ export interface DetailReviewType {
 export interface ActivitiesImageType {
   activityImageUrl: string;
 }
+
+export interface AddMyActivityApiType {
+  title: string;
+  category: string;
+  description: string;
+  address: string;
+  price: number;
+  schedules: { date: string; startTime: string; endTime: string }[];
+  bannerImageUrl: string;
+  subImageUrls: string[];
+}

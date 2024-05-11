@@ -1,3 +1,4 @@
+import { AddMyActivityApiType } from '@/types/activitiesType/ActivitiesType';
 import axiosInstance from './axiosInstance';
 
 // 체험 리스트 조회
@@ -55,6 +56,18 @@ export const postActivitiesImageApi = async (image: FormData) => {
   const res = await axiosInstance.post(`activities/image`, image, {
     headers: {
       'Content-Type': 'multipart/form-data',
+    },
+  });
+  return res.data;
+};
+
+//체험 등록
+export const postAddMyActivityApi = async (
+  myActivity: AddMyActivityApiType,
+) => {
+  const res = await axiosInstance.post(`activities`, myActivity, {
+    headers: {
+      'Content-Type': 'application/json',
     },
   });
   return res.data;
