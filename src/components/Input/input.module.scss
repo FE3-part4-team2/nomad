@@ -13,6 +13,17 @@
   background: $white;
   margin-top: 16px;
 
+  input:read-only {
+    background: $white;
+    color: $gray_79747E;
+    cursor: not-allowed;
+  }
+
+  .error {
+    color: $red;
+    font-size: 0.8rem;
+  }
+
   .inputDefault {
     font-size: 1.6rem;
     display: flex;
@@ -24,6 +35,6 @@
   }
   input {
     border: none;
-    width: 50%;
+    width: 75%;
   }
 }
