@@ -1,8 +1,8 @@
 import styles from './reservation.module.scss';
 import Button from '@/components/Button/Button';
-import ReservationCalendar from '@/containers/ReservationCalendar/ReservationCalendar';
 import Image from 'next/image';
 import { useState } from 'react';
+import ReservationModal from '../reservationModal/ReservationModal';
 
 interface ReservationProps {
   openReservationModal: () => void;
@@ -23,7 +23,6 @@ export default function Reservation({
       setTotalPrice(newQuantity * price);
     }
   };
-
   const handleDecrease = () => {
     if (quantity > 1) {
       const newQuantity = quantity - 1;
@@ -46,9 +45,9 @@ export default function Reservation({
               날짜 선택하기
             </button>
             <div className={styles.calendarContainer}>
-              <ReservationCalendar />
+              <ReservationModal />
             </div>
-            <div className={styles.timeContainer}>
+            {/* <div className={styles.timeContainer}>
               <div className={styles.timeTitle}>예약 가능한 시간</div>
               <div className={styles.chooseTime}>
                 <Button
@@ -66,7 +65,7 @@ export default function Reservation({
                   radius={8}
                 />
               </div>
-            </div>
+            </div> */}
             <div className={styles.personNum}>참여 인원 수</div>
             <div className={styles.inputContainer}>
               <button className={styles.inputSubtract} onClick={handleDecrease}>

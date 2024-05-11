@@ -4,9 +4,11 @@ import moment from 'moment';
 export default function Calendar({
   fun,
   className,
+  onClickDay,
 }: {
   fun: any;
   className: string;
+  onClickDay: () => void;
 }) {
   return (
     <div>
@@ -16,6 +18,7 @@ export default function Calendar({
         formatDay={(locale, date) => moment(date).format('D')}
         onActiveStartDateChange={fun}
         className={className}
+        onClickDay={onClickDay}
       />
     </div>
   );

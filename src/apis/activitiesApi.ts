@@ -18,8 +18,8 @@ export const getClassListApi = async (params: GetClassDataParamsType) => {
 };
 
 // 체험 상세 조회
-export const getDetailClassApi = async (id: number = 776) => {
-  const detail = await axiosInstance.get(`activities/${id}`);
+export const getDetailClassApi = async (id: number) => {
+  const detail = await axiosInstance.get(`activities/776`);
 
   return detail.data;
 };
@@ -33,7 +33,7 @@ export const getAvailableScheduleApi = async (
   const res = await axiosInstance.get(
     `activities/${id}/available-schedule?year=${year}&month=${month}`,
   );
-  return res;
+  return res.data;
 };
 
 // 체험 리뷰 조회
