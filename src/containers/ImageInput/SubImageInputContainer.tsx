@@ -3,21 +3,27 @@ import SubImageInput from '@/components/MyClass/MyClassInputs/ImageInput/SubImga
 import { FormValues } from '@/components/MyClass/MyClassTitle/MyClassTitle';
 
 import React, { useState } from 'react';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
 interface SubImgaeInputContainerProps {
   id: string;
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
+  setValue: UseFormSetValue<FormValues>;
+  apiImgURL: string[];
+  setApiImgURL: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export default function SubImageInputContainer({
   id,
   register,
   errors,
+  setValue,
+  apiImgURL,
+  setApiImgURL,
 }: SubImgaeInputContainerProps) {
   const [imgURL, setImgURL] = useState<string[]>([]);
-  const [apiImgURL, setApiImgURL] = useState<string[]>([]);
+  // const [apiImgURL, setApiImgURL] = useState<string[]>([]);
 
   const handleImageChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -63,6 +69,7 @@ export default function SubImageInputContainer({
         setImgURL={setImgURL}
         apiImgURL={apiImgURL}
         setApiImgURL={setApiImgURL}
+        setValue={setValue}
       />
     </>
   );

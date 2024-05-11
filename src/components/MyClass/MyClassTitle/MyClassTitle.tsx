@@ -10,8 +10,9 @@ import SubImageInputContainer from '@/containers/ImageInput/SubImageInputContain
 import { useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import TitleInput from '../MyClassInputs/TitleInput/TitleInput';
+import { useState } from 'react';
 
-export type FormValues = {
+export interface FormValues {
   title: string;
   category: string;
   description: string;
@@ -25,20 +26,25 @@ export type FormValues = {
   plusEndTime: string;
   image: string;
   subImage: string[];
-};
+}
 
 export default function MyClassTitle() {
   const {
     control,
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormValues>({
     mode: 'onBlur',
   });
 
+  // const [imgURL, setImgURL] = useState<string[]>([]);
+  const [apiImgURL, setApiImgURL] = useState<string[]>([]);
+
   const onSubmit = (data: FormValues) => {
     // price number로 바꿔줘야함
+    data.subImage = apiImgURL;
     console.log(data);
   };
 
@@ -67,6 +73,9 @@ export default function MyClassTitle() {
             id="subImage"
             register={register}
             errors={errors}
+            setValue={setValue}
+            apiImgURL={apiImgURL}
+            setApiImgURL={setApiImgURL}
           />
         </div>
       </form>

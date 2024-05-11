@@ -1,4 +1,9 @@
-import { UseFormRegister, FieldErrors } from 'react-hook-form';
+import {
+  UseFormRegister,
+  FieldErrors,
+  // UseFormGetValues,
+  UseFormSetValue,
+} from 'react-hook-form';
 import styles from './imageInput.module.scss';
 import subImageStyle from './subImageInput.module.scss';
 import Image from 'next/image';
@@ -15,6 +20,8 @@ interface SubImageInputProps {
   setImgURL: React.Dispatch<React.SetStateAction<string[]>>;
   apiImgURL: string[];
   setApiImgURL: React.Dispatch<React.SetStateAction<string[]>>;
+  setValue: UseFormSetValue<FormValues>;
+  // getValues: UseFormGetValues<FormValues>;
 }
 
 export default function SubImageInput({
@@ -24,6 +31,7 @@ export default function SubImageInput({
   onChange,
   // imageSrc,
   // setImgURL,
+  setValue,
   apiImgURL,
   setApiImgURL,
 }: SubImageInputProps) {
@@ -36,6 +44,7 @@ export default function SubImageInput({
     );
     console.log(newArray);
     setApiImgURL(newArray);
+    setValue('subImage', newArray);
 
     // const newApiArray = apiImgURL.filter((url) =>
     //   url !== clickedId ? console.log(url) : console.log(url),
