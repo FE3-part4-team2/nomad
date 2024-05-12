@@ -17,3 +17,5 @@ const getReservations = async ({
   });
   return res.data;
 };
+
+export default getReservations;

@@ -1,12 +1,21 @@
 import axios from './axiosInstance';
 
 const patchReservationsUpdate = async ({
-  reservationId,
   activityId,
+  reservationId,
+  status,
 }: {
-  reservationId: number;
   activityId: number;
+  reservationId: number;
+  status: string;
 }) => {
-  const res = await axios.patch(`${activityId}/reservations/${reservationId}`);
+  const res = await axios.patch(
+    `my-activities/${activityId}/reservations/${reservationId}`,
+    {
+      status,
+    },
+  );
   return res.data;
 };
+
+export default patchReservationsUpdate;

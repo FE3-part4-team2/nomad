@@ -10,7 +10,6 @@ export default function Calendar({
   data: any;
   onClick: any;
 }) {
-  console.log(data);
   return (
     <div>
       <Cal
@@ -28,10 +27,17 @@ export default function Calendar({
                   confirmed,
                   pending,
                 }).filter(([key, value]) => value !== 0);
-                console.log(nonZeroValues);
+
                 return (
                   <div key={element.date}>
-                    <div>{`${nonZeroValues[0][0] === 'completed' ? '완료' : nonZeroValues[0][0] === 'confirmed' ? '승인' : nonZeroValues[0][0] === 'pending' ? '예약' : ''} ${nonZeroValues[0][1]}`}</div>
+                    {nonZeroValues.map((item) => {
+                      // Wrap the arrow function inside parentheses
+                      return (
+                        <div
+                          key={item}
+                        >{`${item[0] == 'completed' ? '완료' : item[0] == 'confirmed' ? '승인' : item[0] == 'pending' ? '예약' : ''} ${item[1]}`}</div>
+                      );
+                    })}
                   </div>
                 );
               }

@@ -8,6 +8,7 @@ interface Modal2BaseProps {
   xbutton: boolean;
   background: string;
   size: string;
+  onClose: () => void;
 }
 
 export default function ModalContainer({
@@ -16,12 +17,8 @@ export default function ModalContainer({
   children,
   background,
   size,
+  onClose,
 }: Modal2BaseProps) {
-  const [open, setOpen] = useState(true);
-  const onClose = () => {
-    setOpen(false);
-  };
-
   return (
     <>
       {open && (

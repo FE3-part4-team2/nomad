@@ -5,7 +5,6 @@ import styles from './index.module.scss';
 import postSignIn from '@/apis/postSignInApi';
 import { useMutation } from '@tanstack/react-query';
 import SelectContainer from '@/containers/SelectContainer/SelectContainer';
-import ModalContainer from '@/containers/ModalContainer/ModalContainer';
 
 export default function manageReservation() {
   const { mutate } = useMutation({
@@ -28,14 +27,6 @@ export default function manageReservation() {
           <SelectContainer />
           <CalendarContainer />
         </div>
-        <ModalContainer
-          title="모달 타이틀"
-          xbutton={true}
-          background="black"
-          size="large"
-        >
-          하이
-        </ModalContainer>
         <button onClick={() => mutate()}>로그인</button>
       </Layout>
     </>
