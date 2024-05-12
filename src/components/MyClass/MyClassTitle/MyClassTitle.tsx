@@ -10,8 +10,9 @@ import SubImageInputContainer from '@/containers/ImageInput/SubImageInputContain
 import { useFieldArray, useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import TitleInput from '../MyClassInputs/TitleInput/TitleInput';
-import { useState } from 'react';
-import { postAddMyActivityApi } from '@/apis/activitiesApi';
+import { useEffect, useState } from 'react';
+import { getDetailClassApi, postAddMyActivityApi } from '@/apis/activitiesApi';
+import { DetailClassType } from '@/types/activitiesType/ActivitiesType';
 
 export interface FormValues {
   title: string;
@@ -29,14 +30,19 @@ export interface FormValues {
     startTime: string;
     endTime: string;
   }[];
-  plusDate: string;
-  plusStartTime: string;
-  plusEndTime: string;
   image: string;
   subImage: string[];
 }
 
-export default function MyClassTitle() {
+interface MyClassTitleProps {
+  buttonTitle: string;
+  getActivityInfo?: DetailClassType;
+}
+
+export default function MyClassTitle({
+  buttonTitle,
+  // getActivityInfo,
+}: MyClassTitleProps) {
   const {
     control,
     register,
@@ -51,6 +57,33 @@ export default function MyClassTitle() {
     name: 'schedules',
     control: control,
   });
+
+  const [getActivityInfo, setGetActivityInfo] = useState<DetailClassType>();
+  const [getMainDateInfo, setGetMainDateInfo] = useState();
+  const [getPlusDateInfo, setGetPlusDateInfo] = useState<
+    {
+      id: number;
+      date: string;
+      startTime: string;
+      endTime: string;
+    }[]
+  >();
+
+  useEffect(() => {
+    const getDetailActivity = async () => {
+      const data = await getDetailClassApi(826);
+      const forPlusDate = data.schedules.slice();
+      const plusDate = forPlusDate.shift();
+      setGetMainDateInfo(data.schedules[0]);
+      setGetPlusDateInfo(plusDate);
+      console.log(data);
+      console.log(data.schedules[0]);
+      console.log('implus', forPlusDate);
+      setGetActivityInfo(data);
+      setBannerApiImgURL(data.bannerImageUrl);
+    };
+    getDetailActivity();
+  }, []);
 
   // const [imgURL, setImgURL] = useState<string[]>([]);
   const [apiImgURL, setApiImgURL] = useState<string[]>([]);
@@ -80,19 +113,40 @@ export default function MyClassTitle() {
         <div className={styles.myClassTitleWrapper}>
           <span className={styles.myClassSubtitle}>내 체험 등록</span>
           <div className={styles.button}>
-            <Button buttonTitle="등록하기" radius={4} fontSize={1.6} />
+            <Button buttonTitle={buttonTitle} radius={4} fontSize={1.6} />
           </div>
         </div>
         <div className={styles.inputContainer}>
-          <TitleInput id="title" register={register} errors={errors} />
-          <CategoryInput id="category" register={register} errors={errors} />
+          <TitleInput
+            id="title"
+            register={register}
+            errors={errors}
+            defaultValue={getActivityInfo?.title}
+          />
+          <CategoryInput
+            id="category"
+            register={register}
+            errors={errors}
+            defaultValue={getActivityInfo?.category}
+          />
           <DescriptionInput
             id="description"
             register={register}
             errors={errors}
+            defaultValue={getActivityInfo?.description}
           />
-          <PriceInput id="price" register={register} errors={errors} />
-          <AddressInput id="address" register={register} errors={errors} />
+          <PriceInput
+            id="price"
+            register={register}
+            errors={errors}
+            defaultValue={getActivityInfo?.price}
+          />
+          <AddressInput
+            id="address"
+            register={register}
+            errors={errors}
+            defaultValue={getActivityInfo?.address}
+          />
           <DateInput
             id="date"
             register={register}
@@ -100,6 +154,8 @@ export default function MyClassTitle() {
             fields={fields}
             append={append}
             remove={remove}
+            defaultValue={getMainDateInfo}
+            plusDefaultValue={getPlusDateInfo}
           />
           <ImageInputContainer
             id="image"
@@ -107,6 +163,7 @@ export default function MyClassTitle() {
             errors={errors}
             apiImgURL={bannerApiImgURL}
             setApiImgURL={setBannerApiImgURL}
+            defaultValue={getActivityInfo?.bannerImageUrl}
           />
           <SubImageInputContainer
             id="subImage"

@@ -18,6 +18,17 @@ interface DateInputProps {
   fields: FieldArrayWithId<FormValues, 'schedules', 'id'>[];
   append: UseFieldArrayAppend<FormValues, 'schedules'>;
   remove: UseFieldArrayRemove;
+  defaultValue?: {
+    date: string;
+    startTime: string;
+    endTime: string;
+  };
+  plusDefaultValue?: {
+    id: number;
+    date: string;
+    startTime: string;
+    endTime: string;
+  }[];
 }
 
 export default function DateInput({
@@ -27,6 +38,8 @@ export default function DateInput({
   fields,
   append,
   remove,
+  defaultValue,
+  // plusDefaultValue,s
 }: DateInputProps) {
   // const [dateInputArray, setDateInputArray] = useState<JSX.Element[]>([]);
 
@@ -58,6 +71,7 @@ export default function DateInput({
             className={`${styles.smallInput} ${styles.dateInput}`}
             id={id}
             type="date"
+            value={defaultValue?.date}
             {...register(`mainSchedule.date`, {
               required: '날짜 입력은 필수입니다.',
             })}
@@ -69,6 +83,8 @@ export default function DateInput({
             className={`${styles.smallInput} ${styles.timeInput}`}
             id={id}
             type="time"
+            // value={defaultValue![0].startTime}
+            value={defaultValue?.startTime}
             {...register(`mainSchedule.startTime`, {
               required: '시작 시간 입력은 필수입니다.',
             })}
@@ -80,6 +96,8 @@ export default function DateInput({
             className={`${styles.smallInput} ${styles.timeInput}`}
             id={id}
             type="time"
+            // value={defaultValue![0].endTime}
+            value={defaultValue?.endTime}
             {...register(`mainSchedule.endTime`, {
               required: '종료 시간 입력은 필수입니다.',
             })}
@@ -106,6 +124,7 @@ export default function DateInput({
       {/* {dateInputArray.map((element, index) => (
         <div key={index}>{element}</div>
       ))} */}
+
       <div className={styles.plusTimeBorder}>
         {fields.map((field, index) => {
           return (

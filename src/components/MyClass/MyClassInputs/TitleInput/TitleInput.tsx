@@ -6,9 +6,15 @@ interface TitleInputProps {
   id: string;
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
+  defaultValue?: string;
 }
 
-export default function TitleInput({ id, register, errors }: TitleInputProps) {
+export default function TitleInput({
+  id,
+  register,
+  errors,
+  defaultValue,
+}: TitleInputProps) {
   return (
     <div>
       <input
@@ -19,6 +25,7 @@ export default function TitleInput({ id, register, errors }: TitleInputProps) {
         {...register('title', {
           required: '제목 입력은 필수입니다.',
         })}
+        value={defaultValue}
       />
       {errors ? <p className={styles.error}>{errors.title?.message}</p> : ''}
     </div>

@@ -8,22 +8,23 @@ interface AddressInputProps {
   id: string;
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
+  defaultValue?: string;
 }
 
 export default function AddressInput({
   id,
   register,
   errors,
+  defaultValue,
 }: AddressInputProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [address, setAddress] = useState('');
+  const [getAddress, setGetAddress] = useState('');
   const onCompleteDaumPostcode = (data: { address: string }) => {
-    setAddress(data.address);
+    setGetAddress(data.address);
   };
 
   const toggleHandler = () => {
     setIsOpen((prevOpenState) => !prevOpenState);
-    setAddress('');
   };
 
   const closeHandler = (state: string) => {
@@ -45,7 +46,7 @@ export default function AddressInput({
           id={id}
           type="text"
           placeholder="주소"
-          value={address}
+          value={defaultValue ? defaultValue : getAddress}
           {...register('address', {
             required: '주소 입력은 필수입니다.',
           })}

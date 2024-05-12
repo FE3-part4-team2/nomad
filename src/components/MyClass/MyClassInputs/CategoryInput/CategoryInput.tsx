@@ -7,18 +7,21 @@ interface CategoryInputProps {
   id: string;
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
+  defaultValue?: string;
 }
 
 export default function CategoryInput({
   id,
   register,
   errors,
+  defaultValue,
 }: CategoryInputProps) {
   return (
     <div>
       <select
         className={styles.input}
         id={id}
+        value={defaultValue}
         {...register('category', {
           required: '카테고리 선택은 필수입니다.',
           validate: (fieldValue) => {

@@ -8,8 +8,9 @@ interface ImageInputProps {
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  imageSrc: string;
+  imageSrc: string | undefined;
   onClick: () => void;
+  defaultValue?: string;
 }
 
 export default function ImageInput({
@@ -19,6 +20,7 @@ export default function ImageInput({
   onChange,
   imageSrc,
   onClick,
+  defaultValue,
 }: ImageInputProps) {
   return (
     <div>
@@ -51,7 +53,7 @@ export default function ImageInput({
             <>
               <Image
                 className={styles.image}
-                src={imageSrc}
+                src={defaultValue ? defaultValue : imageSrc}
                 alt="선택한 이미지"
                 width={167}
                 height={167}
