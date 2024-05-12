@@ -39,7 +39,7 @@ interface MyClassTitleProps {
 
 export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
   // const [getActivityInfo, setGetActivityInfo] = useState<DetailClassType>();
-
+  const [getAddress, setGetAddress] = useState('');
   const {
     control,
     register,
@@ -95,7 +95,14 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
             errors={errors}
           />
           <PriceInput id="price" register={register} errors={errors} />
-          <AddressInput id="address" register={register} errors={errors} />
+          <AddressInput
+            id="address"
+            register={register}
+            errors={errors}
+            getAddress={getAddress}
+            setGetAddress={setGetAddress}
+            // defaultValue={getActivityInfo?.address}
+          />
           <DateInput
             id="date"
             register={register}

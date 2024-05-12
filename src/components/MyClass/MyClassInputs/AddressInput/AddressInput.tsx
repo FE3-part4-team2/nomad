@@ -1,7 +1,7 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import DaumPostcode from 'react-daum-postcode';
 import styles from './addressInput.module.scss';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { FormValues } from '../../MyClassTitle/MyClassTitle';
 
 interface AddressInputProps {
@@ -9,16 +9,20 @@ interface AddressInputProps {
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
   defaultValue?: string;
+  setGetAddress: Dispatch<SetStateAction<string>>;
+  getAddress: string;
 }
 
 export default function AddressInput({
   id,
   register,
   errors,
+  getAddress,
+  setGetAddress,
   // defaultValue,
 }: AddressInputProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [getAddress, setGetAddress] = useState('');
+  // const [getAddress, setGetAddress] = useState('');
   const onCompleteDaumPostcode = (data: { address: string }) => {
     setGetAddress(data.address);
   };

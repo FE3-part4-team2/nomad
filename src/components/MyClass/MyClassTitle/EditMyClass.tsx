@@ -6,13 +6,15 @@ import PriceInput from '../MyClassInputs/PriceInput/PriceInput';
 import DateInput from '../MyClassInputs/DateInput/DateInput';
 import AddressInput from '../MyClassInputs/AddressInput/AddressInput';
 import ImageInputContainer from '@/containers/ImageInput/ImageInputContainer';
-import SubImageInputContainer from '@/containers/ImageInput/SubImageInputContainer';
+// import SubImageInputContainer from '@/containers/ImageInput/SubImageInputContainer';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import TitleInput from '../MyClassInputs/TitleInput/TitleInput';
 import { useEffect, useState } from 'react';
 import { getDetailClassApi, postAddMyActivityApi } from '@/apis/activitiesApi';
 import { DetailClassType } from '@/types/activitiesType/ActivitiesType';
+import { patchEditMyActivityApi } from '@/apis/myActivitiesApi';
+import EditSubImageInputContainer from '@/containers/ImageInput/EditSubImageInputContainer';
 
 export interface FormValues {
   title: string;
@@ -39,6 +41,10 @@ interface MyClassTitleProps {
 }
 
 export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
+  const [deleteSubImageId, setDeleteSubImageId] = useState<number[]>([]);
+  const [addSubImageUrl, setAddSubImageUrl] = useState<string[]>([]);
+
+  console.log(deleteSubImageId);
   const [getActivityInfo, setGetActivityInfo] = useState<DetailClassType>();
   const [getMainDateInfo, setGetMainDateInfo] = useState();
   const [getPlusDateInfo, setGetPlusDateInfo] = useState<
@@ -49,7 +55,26 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
       endTime: string;
     }[]
   >();
+  const [getAddress, setGetAddress] = useState('');
+  const [idWithApiImgURL, setIdWithApiImgURL] = useState<
+    { id: number; imageUrl: string }[]
+  >([]);
+  console.log(idWithApiImgURL);
+  const addSubImages = idWithApiImgURL.filter(
+    (item) => typeof item.id === 'string',
+  );
+  const addSubImgUrl = addSubImages.map(
+    (item: { id: number; imageUrl: string }) => item.imageUrl,
+  );
 
+  const deleteSubImge = deleteSubImageId.filter(
+    (item) => typeof item === 'number',
+  );
+
+  console.log('얘를 추가할 이미지에 주면된다', addSubImgUrl);
+  // console.log('얘를 지울거 서브이미지 아이디에 주면 되고', deleteSubImageId);
+  console.log('얘를 지울거 서브이미지 아이디에 주면 되고', deleteSubImge);
+  // console.log('얘를 지울거 서브이미지 아이디에 주면 되고', delteSubImgUrl);
   useEffect(() => {
     const getDetailActivity = async () => {
       const data = await getDetailClassApi(826);
@@ -60,8 +85,18 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
       console.log(data);
       console.log(data.schedules[0]);
       console.log('implus', forPlusDate);
+      console.log(data.subImages);
       setGetActivityInfo(data);
       setBannerApiImgURL(data.bannerImageUrl);
+      const imgArray = data.subImages;
+      const newImgArray = imgArray.map(
+        (item: { id: number; imageUrl: string }) => item.imageUrl,
+      );
+      console.log(newImgArray);
+      setApiImgURL(newImgArray);
+      setIdWithApiImgURL(imgArray);
+
+      setGetAddress(data.address);
     };
     getDetailActivity();
   }, []);
@@ -70,7 +105,6 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
     control,
     register,
     handleSubmit,
-    setValue,
     formState: { errors },
   } = useForm<FormValues>({
     mode: 'onBlur',
@@ -112,17 +146,20 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
     const combinedDateArray = dateArray.concat(data.schedules);
     data.subImage = apiImgURL;
     data.image = bannerApiImgURL;
+    const activityId = getActivityInfo!.id;
     const sendData = {
       title: data.title,
       category: data.category,
       description: data.description,
       address: data.address,
       price: Number(data.price),
-      schedules: combinedDateArray,
       bannerImageUrl: data.image,
-      subImageUrls: data.subImage,
+      subImageIdsToRemove: deleteSubImge,
+      subImageUrlsToAdd: addSubImgUrl,
+      scheduleIdsToRemove: [2905],
+      schedulesToAdd: [],
     };
-    const apiData = await postAddMyActivityApi(sendData);
+    const apiData = await patchEditMyActivityApi(activityId, sendData);
     console.log(apiData);
   };
 
@@ -164,6 +201,8 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
             id="address"
             register={register}
             errors={errors}
+            getAddress={getAddress}
+            setGetAddress={setGetAddress}
             // defaultValue={getActivityInfo?.address}
           />
           <DateInput
@@ -184,13 +223,19 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
             setApiImgURL={setBannerApiImgURL}
             defaultValue={getActivityInfo?.bannerImageUrl}
           />
-          <SubImageInputContainer
+          <EditSubImageInputContainer
             id="subImage"
             register={register}
             errors={errors}
-            setValue={setValue}
             apiImgURL={apiImgURL}
             setApiImgURL={setApiImgURL}
+            setIdWithApiImgURL={setIdWithApiImgURL}
+            idWithApiImgURL={idWithApiImgURL}
+            setDeleteSubImageId={setDeleteSubImageId}
+            deleteSubImageId={deleteSubImageId}
+            setAddSubImageUrl={setAddSubImageUrl}
+
+            // defaultValue={getActivityInfo?.subImages}
           />
         </div>
       </form>
