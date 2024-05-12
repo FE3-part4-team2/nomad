@@ -1,23 +1,9 @@
-// import { getDetailClassApi } from '@/apis/activitiesApi';
-import MyClassTitle from '@/components/MyClass/MyClassTitle/MyClassTitle';
-// import { DetailClassType } from '@/types/activitiesType/ActivitiesType';
-// import { useEffect, useState } from 'react';
+import EditMyClass from '@/components/MyClass/MyClassTitle/EditMyClass';
 
 export default function MyClassContainer() {
-  //   const [getActivityInfo, setGetActivityInfo] = useState<DetailClassType>();
-
-  //   useEffect(() => {
-  //     const getDetailActivity = async () => {
-  //       const data = await getDetailClassApi(826);
-  //       console.log(data);
-  //       setGetActivityInfo(data);
-  //     };
-  //     getDetailActivity();
-  //   }, []);
-
   return (
     <>
-      <MyClassTitle buttonTitle="수정하기" />
+      <EditMyClass buttonTitle="수정하기" />
     </>
   );
 }

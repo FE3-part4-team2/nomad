@@ -23,7 +23,6 @@ export default function DateDeleteInput({
   register,
   index,
   remove,
-  defaultValue,
 }: DateDeleteInputProps) {
   const removeSelectTime = () => {
     remove(index);
@@ -37,7 +36,6 @@ export default function DateDeleteInput({
             className={`${deleteStyle.smallInput} ${deleteStyle.dateInput}`}
             id="plusDate"
             type="date"
-            value={defaultValue ? defaultValue.date : ''}
             {...register(`schedules.${index}.date`, {
               required: '날짜 입력은 필수입니다.',
             })}
@@ -48,7 +46,6 @@ export default function DateDeleteInput({
             className={`${deleteStyle.smallInput} ${deleteStyle.timeInput}`}
             id="plusStartTime"
             type="time"
-            value={defaultValue ? defaultValue.startTime : ''}
             {...register(`schedules.${index}.startTime`, {
               required: '시작 시간 입력은 필수입니다.',
             })}
@@ -59,7 +56,6 @@ export default function DateDeleteInput({
             className={`${deleteStyle.smallInput} ${deleteStyle.timeInput}`}
             id="plusEndTime"
             type="time"
-            value={defaultValue ? defaultValue.endTime : ''}
             {...register(`schedules.${index}.endTime`, {
               required: '종료 시간 입력은 필수입니다.',
             })}

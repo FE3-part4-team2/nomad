@@ -12,7 +12,7 @@ export default function PriceInput({
   id,
   register,
   errors,
-  defaultValue,
+  // defaultValue,
 }: PriceInputProps) {
   return (
     <div>
@@ -20,7 +20,6 @@ export default function PriceInput({
         가격
       </label>
       <input
-        value={defaultValue}
         className={styles.input}
         id={id}
         type="number"

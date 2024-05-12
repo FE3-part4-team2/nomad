@@ -13,7 +13,7 @@ export default function TitleInput({
   id,
   register,
   errors,
-  defaultValue,
+  // defaultValue,
 }: TitleInputProps) {
   return (
     <div>
@@ -25,7 +25,6 @@ export default function TitleInput({
         {...register('title', {
           required: '제목 입력은 필수입니다.',
         })}
-        value={defaultValue}
       />
       {errors ? <p className={styles.error}>{errors.title?.message}</p> : ''}
     </div>

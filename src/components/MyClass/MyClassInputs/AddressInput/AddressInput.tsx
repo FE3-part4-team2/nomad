@@ -15,7 +15,7 @@ export default function AddressInput({
   id,
   register,
   errors,
-  defaultValue,
+  // defaultValue,
 }: AddressInputProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [getAddress, setGetAddress] = useState('');
@@ -46,7 +46,7 @@ export default function AddressInput({
           id={id}
           type="text"
           placeholder="주소"
-          value={defaultValue ? defaultValue : getAddress}
+          value={getAddress}
           {...register('address', {
             required: '주소 입력은 필수입니다.',
           })}

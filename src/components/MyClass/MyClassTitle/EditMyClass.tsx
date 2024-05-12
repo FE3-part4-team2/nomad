@@ -10,8 +10,9 @@ import SubImageInputContainer from '@/containers/ImageInput/SubImageInputContain
 import { useFieldArray, useForm } from 'react-hook-form';
 import { DevTool } from '@hookform/devtools';
 import TitleInput from '../MyClassInputs/TitleInput/TitleInput';
-import { useState } from 'react';
-import { postAddMyActivityApi } from '@/apis/activitiesApi';
+import { useEffect, useState } from 'react';
+import { getDetailClassApi, postAddMyActivityApi } from '@/apis/activitiesApi';
+import { DetailClassType } from '@/types/activitiesType/ActivitiesType';
 
 export interface FormValues {
   title: string;
@@ -37,8 +38,33 @@ interface MyClassTitleProps {
   buttonTitle: string;
 }
 
-export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
-  // const [getActivityInfo, setGetActivityInfo] = useState<DetailClassType>();
+export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
+  const [getActivityInfo, setGetActivityInfo] = useState<DetailClassType>();
+  const [getMainDateInfo, setGetMainDateInfo] = useState();
+  const [getPlusDateInfo, setGetPlusDateInfo] = useState<
+    {
+      id: number;
+      date: string;
+      startTime: string;
+      endTime: string;
+    }[]
+  >();
+
+  useEffect(() => {
+    const getDetailActivity = async () => {
+      const data = await getDetailClassApi(826);
+      const forPlusDate = data.schedules.slice();
+      const plusDate = forPlusDate.shift();
+      setGetMainDateInfo(data.schedules[0]);
+      setGetPlusDateInfo(plusDate);
+      console.log(data);
+      console.log(data.schedules[0]);
+      console.log('implus', forPlusDate);
+      setGetActivityInfo(data);
+      setBannerApiImgURL(data.bannerImageUrl);
+    };
+    getDetailActivity();
+  }, []);
 
   const {
     control,
@@ -48,6 +74,29 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
     formState: { errors },
   } = useForm<FormValues>({
     mode: 'onBlur',
+    defaultValues: async () => {
+      const data: DetailClassType = await getDetailClassApi(826);
+      // const forPlusDate = data.schedules.slice();
+      // const plusDate = forPlusDate.shift();
+      // setGetPlusDateInfo(plusDate);
+      // console.log(data);
+      // console.log(data.schedules[0]);
+      // console.log('implus', forPlusDate);
+      setGetActivityInfo(data);
+      setBannerApiImgURL(data.bannerImageUrl);
+      return {
+        title: data.title,
+        category: data.category,
+        description: data.description,
+        price: data.price,
+        address: data.address,
+        mainSchedule: {
+          date: data.schedules[0].date,
+          startTime: data.schedules[0].startTime,
+          endTime: data.schedules[0].endTime,
+        },
+      };
+    },
   });
 
   const { fields, append, remove } = useFieldArray({
@@ -87,15 +136,36 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
           </div>
         </div>
         <div className={styles.inputContainer}>
-          <TitleInput id="title" register={register} errors={errors} />
-          <CategoryInput id="category" register={register} errors={errors} />
+          <TitleInput
+            id="title"
+            register={register}
+            errors={errors}
+            // defaultValue={getActivityInfo?.title}
+          />
+          <CategoryInput
+            id="category"
+            register={register}
+            errors={errors}
+            defaultValue={getActivityInfo?.category}
+          />
           <DescriptionInput
             id="description"
             register={register}
             errors={errors}
+            // defaultValue={getActivityInfo?.description}
           />
-          <PriceInput id="price" register={register} errors={errors} />
-          <AddressInput id="address" register={register} errors={errors} />
+          <PriceInput
+            id="price"
+            register={register}
+            errors={errors}
+            // defaultValue={getActivityInfo?.price}
+          />
+          <AddressInput
+            id="address"
+            register={register}
+            errors={errors}
+            // defaultValue={getActivityInfo?.address}
+          />
           <DateInput
             id="date"
             register={register}
@@ -103,6 +173,8 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
             fields={fields}
             append={append}
             remove={remove}
+            defaultValue={getMainDateInfo}
+            plusDefaultValue={getPlusDateInfo}
           />
           <ImageInputContainer
             id="image"
@@ -110,6 +182,7 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
             errors={errors}
             apiImgURL={bannerApiImgURL}
             setApiImgURL={setBannerApiImgURL}
+            defaultValue={getActivityInfo?.bannerImageUrl}
           />
           <SubImageInputContainer
             id="subImage"

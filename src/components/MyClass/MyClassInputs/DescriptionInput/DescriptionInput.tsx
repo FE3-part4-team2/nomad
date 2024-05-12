@@ -13,14 +13,13 @@ export default function DescriptionInput({
   id,
   register,
   errors,
-  defaultValue,
+  // defaultValue,
 }: DescriptionInputProps) {
   return (
     <div>
       <textarea
         className={styles.textArea}
         id={id}
-        value={defaultValue}
         placeholder="설명"
         {...register('description', {
           required: '설명 입력은 필수입니다.',
