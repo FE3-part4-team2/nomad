@@ -9,6 +9,8 @@ import styles from './dateInput.module.scss';
 import Image from 'next/image';
 import DateDeleteInput from './DatedeleteInput';
 import { FormValues } from '../../MyClassTitle/MyClassTitle';
+import EditDateDeleteInput from './EditDateDeleteInput';
+import { Dispatch, SetStateAction, useState } from 'react';
 // import { useState } from 'react';
 
 interface DateInputProps {
@@ -23,25 +25,41 @@ interface DateInputProps {
     startTime: string;
     endTime: string;
   };
-  plusDefaultValue?: {
+  plusDefaultValue: {
     id: number;
     date: string;
     startTime: string;
     endTime: string;
   }[];
+  setGetPlusDateInfo: Dispatch<
+    SetStateAction<
+      {
+        id: number;
+        date: string;
+        startTime: string;
+        endTime: string;
+      }[]
+    >
+  >;
+  setGonnaDeleteId: Dispatch<SetStateAction<number[]>>;
+  gonnaDeleteId: number[];
 }
 
-export default function DateInput({
+export default function EditDateInput({
   id,
   register,
   errors,
   fields,
   append,
   remove,
-  // plusDefaultValue,
+  plusDefaultValue,
+  setGetPlusDateInfo,
+  setGonnaDeleteId,
+  gonnaDeleteId,
 }: DateInputProps) {
   // const [dateInputArray, setDateInputArray] = useState<JSX.Element[]>([]);
-
+  const [isAdd, setIsAdd] = useState(false);
+  //   const [gonnaDeleteId, setGonnaDeleteId] = useState<number[]>([]);
   // const handlePop = () => {
   //   setDateInputArray((prevArray) => {
   //     const newArray = [...prevArray]; // Create a copy of the array
@@ -50,13 +68,40 @@ export default function DateInput({
   //   });
   // };
 
+  //   const deleteTime = (selectId: number) => {
+  //     const newArr = plusDefaultValue.filter((value) => value.id !== selectId);
+  //     const gonnaDeleteIdArr = plusDefaultValue.filter(
+  //       (value) => value.id == selectId,
+  //     );
+
+  //     const onlyIdArr = gonnaDeleteIdArr.map((item) => item.id);
+
+  //     console.log(newArr);
+  //     console.log(gonnaDeleteIdArr);
+  //     console.log(onlyIdArr);
+  //     setGonnaDeleteId((prev) => [...prev, ...onlyIdArr]);
+  //     setGetPlusDateInfo(newArr);
+  //     console.log(gonnaDeleteId);
+  //   };
+
+  const deleteTime = (selectId: number) => {
+    // 기존의 삭제될 아이디 목록에 새로운 아이디 추가
+    setGonnaDeleteId((prev) => [...prev, selectId]);
+
+    const newArr = plusDefaultValue.filter((value) => value.id !== selectId);
+    setGetPlusDateInfo(newArr);
+  };
+
   const addSelectTime = () => {
     append({ date: '', startTime: '', endTime: '' });
+    setIsAdd(true);
+
     // setDateInputArray((prev) => [
     //   ...prev,
     //   <DateDeleteInput onClick={handlePop} register={register} />,
     // ]);
   };
+  console.log(gonnaDeleteId);
 
   return (
     <div>
@@ -118,87 +163,42 @@ export default function DateInput({
       ) : (
         ''
       )}
-      {/* {dateInputArray ? dateInputArray : ''} */}
-      {/* {dateInputArray.map((element, index) => (
-        <div key={index}>{element}</div>
-      ))} */}
 
       <div className={styles.plusTimeBorder}>
-        {fields.map((field, index) => {
-          return (
-            <div key={field.id}>
-              <DateDeleteInput
-                index={index}
-                register={register}
-                remove={remove}
-              />
-            </div>
-          );
-        })}
+        {plusDefaultValue && !isAdd
+          ? plusDefaultValue.map((item, index) => (
+              <div key={item.id}>
+                <EditDateDeleteInput
+                  register={register}
+                  index={index}
+                  remove={remove}
+                  item={item}
+                  setGetPlusDateInfo={setGetPlusDateInfo}
+                  deleteTime={deleteTime}
+                />
+              </div>
+            ))
+          : ''}
       </div>
+      {isAdd ? (
+        <div className={styles.plusTimeBorder}>
+          {fields.map((field, index) => {
+            return (
+              <div key={field.id}>
+                <EditDateDeleteInput
+                  index={index}
+                  register={register}
+                  remove={remove}
+                  setGetPlusDateInfo={setGetPlusDateInfo}
+                  deleteTime={deleteTime}
+                />
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        ''
+      )}
     </div>
   );
 }
-
-// return (
-//   <div>
-//     <label className={styles.inputTitle} htmlFor={id}>
-//       예약 가능한 시간대
-//     </label>
-//     <div className={styles.isAdd}>
-//       <div className={styles.smallInputWrapper}>
-//         <label className={styles.inputSubtitle}>날짜</label>
-//         <input
-//           className={`${styles.smallInput} ${styles.dateInput}`}
-//           id={id}
-//           type="date"
-//           {...register('schedules.  date', {
-//             required: '날짜 입력은 필수입니다.',
-//           })}
-//         />
-//       </div>
-//       <div className={styles.smallInputWrapper}>
-//         <label className={styles.inputSubtitle}>시작 시간</label>
-//         <input
-//           className={`${styles.smallInput} ${styles.timeInput}`}
-//           id={id}
-//           type="time"
-//           {...register('schedules.0.startTime', {
-//             required: '시작 시간 입력은 필수입니다.',
-//           })}
-//         />
-//       </div>
-//       <div className={styles.smallInputWrapper}>
-//         <label className={styles.inputSubtitle}>종료 시간</label>
-//         <input
-//           className={`${styles.smallInput} ${styles.timeInput}`}
-//           id={id}
-//           type="time"
-//           {...register('endTime', {
-//             required: '종료 시간 입력은 필수입니다.',
-//           })}
-//         />
-//       </div>
-//       <div>
-//         <Image
-//           className={styles.timePlusIcon}
-//           src="/assets/icons/plus-time-btn.svg"
-//           width={44}
-//           height={44}
-//           alt="시간 추가 버튼"
-//           onClick={addSelectTime}
-//         />
-//       </div>
-//     </div>
-//     {errors.date ? (
-//       <p className={styles.error}>{errors.date?.message}</p>
-//     ) : (
-//       ''
-//     )}
-//     {/* {dateInputArray ? dateInputArray : ''} */}
-//     {dateInputArray.map((element, index) => (
-//       <div key={index}>{element}</div>
-//     ))}
-//   </div>
-// );
-// }

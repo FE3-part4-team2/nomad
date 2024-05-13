@@ -13,7 +13,7 @@ export const patchEditMyActivityApi = async (
   id: number,
   editMyActivity: PatchEditMyActivityApiType,
 ) => {
-  const res = await axiosInstance.post(`my-activities/${id}`, editMyActivity, {
+  const res = await axiosInstance.patch(`my-activities/${id}`, editMyActivity, {
     headers: {
       'Content-Type': 'application/json',
     },

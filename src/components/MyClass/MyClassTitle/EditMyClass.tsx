@@ -15,6 +15,7 @@ import { getDetailClassApi, postAddMyActivityApi } from '@/apis/activitiesApi';
 import { DetailClassType } from '@/types/activitiesType/ActivitiesType';
 import { patchEditMyActivityApi } from '@/apis/myActivitiesApi';
 import EditSubImageInputContainer from '@/containers/ImageInput/EditSubImageInputContainer';
+import EditDateInput from '../MyClassInputs/DateInput/EditDateInput';
 
 export interface FormValues {
   title: string;
@@ -54,7 +55,7 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
       startTime: string;
       endTime: string;
     }[]
-  >();
+  >([]);
   const [getAddress, setGetAddress] = useState('');
   const [idWithApiImgURL, setIdWithApiImgURL] = useState<
     { id: number; imageUrl: string }[]
@@ -77,15 +78,16 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
   // console.log('얘를 지울거 서브이미지 아이디에 주면 되고', delteSubImgUrl);
   useEffect(() => {
     const getDetailActivity = async () => {
-      const data = await getDetailClassApi(826);
+      const data = await getDetailClassApi(830);
       const forPlusDate = data.schedules.slice();
       const plusDate = forPlusDate.shift();
       setGetMainDateInfo(data.schedules[0]);
-      setGetPlusDateInfo(plusDate);
+      setGetPlusDateInfo(forPlusDate);
       console.log(data);
       console.log(data.schedules[0]);
       console.log('implus', forPlusDate);
-      console.log(data.subImages);
+      console.log('implus', forPlusDate);
+      console.log(plusDate);
       setGetActivityInfo(data);
       setBannerApiImgURL(data.bannerImageUrl);
       const imgArray = data.subImages;
@@ -109,13 +111,15 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
   } = useForm<FormValues>({
     mode: 'onBlur',
     defaultValues: async () => {
-      const data: DetailClassType = await getDetailClassApi(826);
-      // const forPlusDate = data.schedules.slice();
-      // const plusDate = forPlusDate.shift();
+      const data: DetailClassType = await getDetailClassApi(830);
+      const forPlusDate = data.schedules.slice();
+      const plusDate = forPlusDate.shift();
+      console.log(plusDate);
       // setGetPlusDateInfo(plusDate);
       // console.log(data);
       // console.log(data.schedules[0]);
       // console.log('implus', forPlusDate);
+
       setGetActivityInfo(data);
       setBannerApiImgURL(data.bannerImageUrl);
       return {
@@ -142,12 +146,15 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
   const [apiImgURL, setApiImgURL] = useState<string[]>([]);
   const [bannerApiImgURL, setBannerApiImgURL] = useState('');
   const onSubmit = async (data: FormValues) => {
+    console.log(data);
     const dateArray = [data.mainSchedule];
     const combinedDateArray = dateArray.concat(data.schedules);
     data.subImage = apiImgURL;
     data.image = bannerApiImgURL;
-    const activityId = getActivityInfo!.id;
-    const sendData = {
+    console.log('새로 얻은 값', data.schedules);
+    const id = getActivityInfo!.id;
+    console.log(id);
+    const editMyActivity = {
       title: data.title,
       category: data.category,
       description: data.description,
@@ -156,12 +163,16 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
       bannerImageUrl: data.image,
       subImageIdsToRemove: deleteSubImge,
       subImageUrlsToAdd: addSubImgUrl,
-      scheduleIdsToRemove: [2905],
-      schedulesToAdd: [],
+      scheduleIdsToRemove: deleteDateId,
+      schedulesToAdd: data.schedules,
     };
-    const apiData = await patchEditMyActivityApi(activityId, sendData);
+    const apiData = await patchEditMyActivityApi(id, editMyActivity);
     console.log(apiData);
   };
+
+  const [gonnaDeleteId, setGonnaDeleteId] = useState<number[]>([]);
+  const deleteDateId = gonnaDeleteId.filter((item) => typeof item === 'number');
+  console.log(deleteDateId);
 
   return (
     <div>
@@ -205,15 +216,17 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
             setGetAddress={setGetAddress}
             // defaultValue={getActivityInfo?.address}
           />
-          <DateInput
+          <EditDateInput
             id="date"
             register={register}
             errors={errors}
             fields={fields}
             append={append}
             remove={remove}
-            defaultValue={getMainDateInfo}
             plusDefaultValue={getPlusDateInfo}
+            setGetPlusDateInfo={setGetPlusDateInfo}
+            setGonnaDeleteId={setGonnaDeleteId}
+            gonnaDeleteId={gonnaDeleteId}
           />
           <ImageInputContainer
             id="image"
