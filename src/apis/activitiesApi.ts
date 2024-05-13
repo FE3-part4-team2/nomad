@@ -1,3 +1,4 @@
+import { AddMyActivityApiType } from '@/types/activitiesType/ActivitiesType';
 import { GetClassDataParamsType } from '@/types/type';
 import axiosInstance from './axiosInstance';
 
@@ -52,6 +53,18 @@ export const postActivitiesImageApi = async (image: FormData) => {
   const res = await axiosInstance.post(`activities/image`, image, {
     headers: {
       'Content-Type': 'multipart/form-data',
+    },
+  });
+  return res.data;
+};
+
+//체험 등록
+export const postAddMyActivityApi = async (
+  myActivity: AddMyActivityApiType,
+) => {
+  const res = await axiosInstance.post(`activities`, myActivity, {
+    headers: {
+      'Content-Type': 'application/json',
     },
   });
   return res.data;

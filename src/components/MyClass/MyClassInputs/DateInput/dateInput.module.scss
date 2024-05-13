@@ -60,13 +60,13 @@
 //예약 가능한 시간대 추가했을때 스타일
 .isAdd {
   @extend .smallInputContainer;
-  padding-bottom: 16px;
-  border-bottom: 1px solid $gray_DDDDDD;
-  margin-bottom: 16px;
+  // padding-bottom: 16px;
+  // border-bottom: 1px solid $gray_DDDDDD;
+  // margin-bottom: 16px;
 
   @media screen and (min-width: 768px) {
-    margin-bottom: 21px;
-    padding-bottom: 21px;
+    // margin-bottom: 21px;
+    // padding-bottom: 21px;
   }
 }
 
@@ -87,4 +87,9 @@
   @extend .error;
   padding-top: 0px;
   padding-bottom: 15px;
+}
+
+.plusTimeBorder {
+  border-top: 1px solid $gray_DDDDDD;
+  padding-top: 16px;
 }
