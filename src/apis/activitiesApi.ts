@@ -1,6 +1,5 @@
 import { AddMyActivityApiType } from '@/types/activitiesType/ActivitiesType';
 import { GetClassDataParamsType } from '@/types/type';
-// import axios from './axiosInstance';
 import axiosInstance from './axiosInstance';
 
 // 체험 리스트 조회
