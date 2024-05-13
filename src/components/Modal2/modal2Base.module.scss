@@ -1,0 +1,37 @@
+.blackBackground {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+
+.whiteBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.closeButton {
+  background-image: url('/assets/images/close.svg');
+  width: 24px;
+  height: 24px;
+}
+
+.large {
+  width: 500px;
+  height: 300px;
+  background-color: white;
+}
