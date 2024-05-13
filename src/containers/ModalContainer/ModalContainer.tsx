@@ -1,6 +1,5 @@
 import Modal2Base from '@/components/Modal2/Modal2Base';
 import { ReactNode } from 'react';
-import { useState } from 'react';
 
 interface Modal2BaseProps {
   children: ReactNode;
@@ -8,6 +7,7 @@ interface Modal2BaseProps {
   xbutton: boolean;
   background: string;
   size: string;
+  onClose: () => void;
 }
 
 export default function ModalContainer({
@@ -16,25 +16,19 @@ export default function ModalContainer({
   children,
   background,
   size,
+  onClose,
 }: Modal2BaseProps) {
-  const [open, setOpen] = useState(true);
-  const onClose = () => {
-    setOpen(false);
-  };
-
   return (
     <>
-      {open && (
-        <Modal2Base
-          title={title}
-          xbutton={xbutton}
-          background={background}
-          size={size}
-          onClose={onClose}
-        >
-          {children}
-        </Modal2Base>
-      )}
+      <Modal2Base
+        title={title}
+        xbutton={xbutton}
+        background={background}
+        size={size}
+        onClose={onClose}
+      >
+        {children}
+      </Modal2Base>
     </>
   );
 }
