@@ -46,3 +46,13 @@ export const getDetailClassReviewApi = async (
   );
   return review.data;
 };
+
+//체험 이미지 url생성
+export const postActivitiesImageApi = async (image: FormData) => {
+  const res = await axiosInstance.post(`activities/image`, image, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return res.data;
+};

@@ -82,3 +82,9 @@
     height: 56px;
   }
 }
+
+.error {
+  @extend .error;
+  padding-top: 0px;
+  padding-bottom: 15px;
+}
