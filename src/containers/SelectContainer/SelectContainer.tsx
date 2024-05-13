@@ -1,6 +1,8 @@
 import Select from '@/components/Select/Select';
 import getMyActivities from '@/apis/myActivitiesApi';
 import { useQuery } from '@tanstack/react-query';
+import { useRecoilState } from 'recoil';
+import { totalCountAtom } from '@/store/atoms/idState';
 
 interface ActivityData {
   activities: {
@@ -21,16 +23,8 @@ interface ActivityData {
   totalCount: number;
 }
 
-export default function SelectCon() {
+export default function SelectCon({ data }: { data: ActivityData }) {
   // const [options, setOptions] = useState([]);
-  const { data, isLoading } = useQuery<ActivityData>({
-    queryKey: ['myActivities'],
-    queryFn: () => getMyActivities(),
-  });
-
-  if (isLoading || !data) {
-    return <div>Loading...</div>;
-  }
 
   const dataArray = Object.values(data);
 
