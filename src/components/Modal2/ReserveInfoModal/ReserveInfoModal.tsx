@@ -46,7 +46,7 @@ export default function ReserveInfoModal({
   const dec = info[option].count.declined;
 
   const { data } = useQuery<ReservationData>({
-    queryKey: ['reservation', status, option],
+    queryKey: ['reservation', status, option, scheduleId],
     queryFn: () => getReservations({ activityId, scheduleId, status }),
   });
 

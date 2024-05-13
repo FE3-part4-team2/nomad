@@ -12,6 +12,66 @@
    */
 }
 
+.react-calendar .blackDot {
+  margin-left: 5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: black;
+  margin-right: 5px;
+  margin-top: -5px;
+}
+
+.react-calendar .blueDot {
+  margin-left: 5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--blue_0085FF, #0085ff);
+  margin-right: 5px;
+  margin-top: -5px;
+}
+
+.react-calendar .colorBox {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.react-calendar .blue {
+  border-radius: 4px;
+  background: var(--blue_0085FF, #0085ff);
+  color: white;
+  font-size: 1.4rem;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+}
+
+.react-calendar .gray {
+  border-radius: 4px;
+  background: var(--gray_969696, #969696);
+  color: white;
+  font-size: 1.4rem;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+}
+
+.react-calendar .orange {
+  border-radius: 4px;
+  background: var(--orange_FF6C00, #ff6c00);
+  color: white;
+  font-size: 1.4rem;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+}
+
 .react-calendar__tile {
   text-align: left;
   vertical-align: top;
@@ -19,6 +79,12 @@
   display: flex;
   font-size: 2.1rem;
   padding: 15px;
+  color: #969696;
+  position: relative;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+  color: white;
 }
 
 .react-calendar button {
@@ -39,7 +105,14 @@
   align-items: center;
   padding: 10px;
   background-color: #f5f5f5;
-  margin: none;
+  margin: 0;
+  padding-bottom: 30px;
+}
+
+.react-calendar__navigation__label {
+  font-size: 2.1rem;
+  font-weight: 700;
+  line-height: 26px;
 }
 
 .react-calendar__navigation button {
@@ -74,6 +147,7 @@ abbr {
 }
 
 /* 상세 페이지 캘린더 */
+/*/////////////////////////////////////////////////////////*/
 
 .small {
   width: 34rem;
@@ -118,11 +192,11 @@ abbr {
 }
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus,
-.react-calendar__tile--active {
+.small .react-calendar__tile--active {
   background-color: #0b3b2d;
   border-radius: 0.3rem;
 }
-.react-calendar__navigation__label__labelText {
+.small .react-calendar__navigation__label__labelText {
   font-size: 1.6rem;
   font-weight: 400;
 }
