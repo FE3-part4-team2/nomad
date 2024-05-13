@@ -23,7 +23,6 @@ export default function SubImageInputContainer({
   setApiImgURL,
 }: SubImgaeInputContainerProps) {
   const [imgURL, setImgURL] = useState<string[]>([]);
-  // const [apiImgURL, setApiImgURL] = useState<string[]>([]);
 
   const handleImageChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -43,17 +42,10 @@ export default function SubImageInputContainer({
         const formData = new FormData();
         formData.append(`image`, imgFiles[i]);
 
-        // const file = imgFiles.item(i);
-        // formData.append(`subImage${i}`, imgFiles[i]);
-        console.log(imgFiles[i], i);
         const data = await postActivitiesImageApi(formData);
         setApiImgURL((prev) => [...prev, data.activityImageUrl]);
       }
     }
-
-    // if (imgFiles) {
-    //   imgFiles[0].map((img, index) => console.log(img, [index]));
-    // }
   };
 
   return (

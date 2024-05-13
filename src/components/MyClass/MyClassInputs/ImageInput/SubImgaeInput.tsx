@@ -8,8 +8,6 @@ import styles from './imageInput.module.scss';
 import subImageStyle from './subImageInput.module.scss';
 import Image from 'next/image';
 import { FormValues } from '../../MyClassTitle/MyClassTitle';
-// import { url } from 'inspector';
-// import { useState } from 'react';
 
 interface SubImageInputProps {
   id: string;
@@ -21,7 +19,6 @@ interface SubImageInputProps {
   apiImgURL: string[];
   setApiImgURL: React.Dispatch<React.SetStateAction<string[]>>;
   setValue: UseFormSetValue<FormValues>;
-  // getValues: UseFormGetValues<FormValues>;
 }
 
 export default function SubImageInput({
@@ -29,28 +26,17 @@ export default function SubImageInput({
   register,
   errors,
   onChange,
-  // imageSrc,
-  // setImgURL,
   setValue,
   apiImgURL,
   setApiImgURL,
 }: SubImageInputProps) {
   const handleDeleteButton = (clickedId: string) => {
-    // const newArray = imageSrc.filter((url) => url !== clickedId);
-    // setImgURL(newArray);
-
     const newArray = apiImgURL.filter(
       (url) => String(url) !== String(clickedId),
     );
-    console.log(newArray);
+
     setApiImgURL(newArray);
     setValue('subImage', newArray);
-
-    // const newApiArray = apiImgURL.filter((url) =>
-    //   url !== clickedId ? console.log(url) : console.log(url),
-    // );
-
-    // setApiImgURL(newApiArray);
   };
 
   return (
@@ -77,10 +63,6 @@ export default function SubImageInput({
             hidden
             multiple
             {...register('subImage', {
-              // required: {
-              //   value: false,
-              //   message: 'Email is invalid.',
-              // },
               validate: (fieldValue) => {
                 return (
                   fieldValue.length < 5 ||
@@ -114,6 +96,7 @@ export default function SubImageInput({
           : ''}
       </div>
       {errors ? <p className={styles.error}>{errors.subImage?.message}</p> : ''}
+      <div>*이미지는 최대 4개까지 등록 가능합니다.</div>
     </div>
   );
 }
