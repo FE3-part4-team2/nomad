@@ -1,14 +1,19 @@
-import Cal from 'react-calendar';
+import Cal, { OnArgs } from 'react-calendar';
 import moment from 'moment';
 
 export default function Calendar({
-  fun,
+  monthReceiver,
   data,
   onClick,
 }: {
-  fun: any;
-  data: any;
-  onClick: any;
+  monthReceiver: ({ action, activeStartDate, value, view }: OnArgs) => void;
+  data: [
+    {
+      date: string;
+      reservations: { completed: number; confirmed: number; pending: number };
+    },
+  ];
+  onClick: (value: Date) => void;
 }) {
   return (
     <div>
@@ -16,10 +21,10 @@ export default function Calendar({
         locale="ko-KR" //showNeighboringMonth={false}
         calendarType="gregory"
         formatDay={(locale, date) => moment(date).format('D')}
-        onActiveStartDateChange={fun}
+        onActiveStartDateChange={monthReceiver}
         tileContent={({ date, view }) => {
           if (view == 'month' && data && data.length > 0) {
-            const content = data.map((element: any) => {
+            const content = data.map((element) => {
               if (moment(date).format('YYYY-MM-DD') == element.date) {
                 const { completed, confirmed, pending } = element.reservations;
                 const nonZeroValues = Object.entries({
@@ -34,7 +39,7 @@ export default function Calendar({
                       // Wrap the arrow function inside parentheses
                       return (
                         <div
-                          key={item}
+                          key={element.date + item[0]}
                         >{`${item[0] == 'completed' ? '완료' : item[0] == 'confirmed' ? '승인' : item[0] == 'pending' ? '예약' : ''} ${item[1]}`}</div>
                       );
                     })}

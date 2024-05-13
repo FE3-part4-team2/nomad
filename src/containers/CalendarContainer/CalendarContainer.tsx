@@ -8,6 +8,7 @@ import moment from 'moment';
 import getReservedSchedule from '@/apis/getReservedScheduleApi';
 import ModalContainer from '../ModalContainer/ModalContainer';
 import ReserveInfoModal from '@/components/Modal2/ReserveInfoModal/ReserveInfoModal';
+import { OnArgs } from 'react-calendar';
 
 export default function CalendarContainer() {
   // interface IProps {
@@ -23,22 +24,22 @@ export default function CalendarContainer() {
   const activityId = useRecoilValue(idAtom);
   const { data } = useQuery({
     queryKey: ['calendar', month, activityId],
-    queryFn: () => getREservationDashboard({ activityId, year, month } as any),
+    queryFn: () => getREservationDashboard({ activityId, year, month }),
   });
   console.log(data);
   const { data: scheduleData, isSuccess } = useQuery({
     queryKey: ['schedule', date],
-    queryFn: () => getReservedSchedule({ activityId, date } as any),
+    queryFn: () => getReservedSchedule({ activityId, date }),
   });
 
-  function getDates(value: any) {
-    const data = new Date(value.activeStartDate);
+  function getDates({ action, activeStartDate, value, view }: OnArgs): void {
+    const data = activeStartDate;
     console.log(data);
     setMonth(`${moment(data).format('MM')}`);
-    setYear(`${data.getFullYear()}`);
+    setYear(`${moment(data).format('YYYY')}`);
   }
 
-  function onClick(value: any) {
+  function onClick(value: Date): void {
     setDate(moment(value).format('YYYY-MM-DD'));
     setModalVisible(true);
   }
@@ -50,7 +51,7 @@ export default function CalendarContainer() {
 
   return (
     <>
-      <Calendar fun={getDates} data={data} onClick={onClick} />;
+      <Calendar monthReceiver={getDates} data={data} onClick={onClick} />;
       {scheduleData?.length != 0 && modalVisible && date != '' && (
         <ModalContainer
           title="예약정보"

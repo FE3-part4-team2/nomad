@@ -6,12 +6,33 @@ import { useState } from 'react';
 import patchReservationsUpdate from '@/apis/patchReservationsUpdateApi';
 import { useMutation } from '@tanstack/react-query';
 
+interface ScheduleInfo {
+  scheduleId: number;
+  startTime: string;
+  endTime: string;
+  count: {
+    declined: number;
+    confirmed: number;
+    pending: number;
+  };
+}
+
+interface ReservationData {
+  reservations: {
+    id: number;
+    nickname: string;
+    headCount: number;
+  }[];
+  totalCount: number;
+  cursorId: number;
+}
+
 export default function ReserveInfoModal({
   info,
   date,
 }: {
-  info: any;
-  date: any;
+  info: ScheduleInfo[];
+  date: string;
 }) {
   const [option, setOption] = useState(0);
   const [status, setStatus] = useState('pending');
@@ -25,9 +46,9 @@ export default function ReserveInfoModal({
   const con = info[option].count.confirmed;
   const dec = info[option].count.declined;
 
-  const { data } = useQuery({
+  const { data } = useQuery<ReservationData>({
     queryKey: ['reservation', status, option],
-    queryFn: () => getReservations({ activityId, scheduleId, status } as any),
+    queryFn: () => getReservations({ activityId, scheduleId, status }),
   });
   console.log(data);
 
@@ -57,20 +78,20 @@ export default function ReserveInfoModal({
     },
   });
 
-  const handleOptionChange = (e: any) => {
-    setOption(e.target.value);
+  const handleOptionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setOption(Number(e.target.value));
   };
 
   const autodecline = () => {
-    const otherReservations = data.reservations.filter((item: any) => {
+    const otherReservations = data?.reservations.filter((item) => {
       item.id !== id;
     });
-    otherReservations.map((item: any) => {
+    otherReservations?.map((item) => {
       decline({
         activityId,
         reservationId: item.id,
         status: 'declined',
-      } as any);
+      });
     });
   };
 
@@ -88,7 +109,7 @@ export default function ReserveInfoModal({
         <div>예약날짜</div>
         <div>{date}</div>
         <select onChange={handleOptionChange}>
-          {info.map((item: any, index: number) => (
+          {info.map((item, index: number) => (
             <option
               value={index}
               key={item.scheduleId}
@@ -99,8 +120,8 @@ export default function ReserveInfoModal({
       <div>
         <div>예약내역 </div>
         {status == 'pending' &&
-          data?.reservations.map((item: any) => (
-            <div>
+          data?.reservations.map((item) => (
+            <div key={item.id}>
               <div>닉네임 {item.nickname}</div>
               <div>인원 {item.headCount}</div>
               <div>
@@ -110,7 +131,7 @@ export default function ReserveInfoModal({
                       activityId,
                       reservationId: item.id,
                       status: 'confirmed',
-                    } as any)
+                    })
                   }
                 >
                   승인하기
@@ -121,7 +142,7 @@ export default function ReserveInfoModal({
                       activityId,
                       reservationId: item.id,
                       status: 'declined',
-                    } as any)
+                    })
                   }
                 >
                   거절하기
@@ -130,7 +151,7 @@ export default function ReserveInfoModal({
             </div>
           ))}
         {status == 'confirmed' &&
-          data?.reservations.map((item: any) => (
+          data?.reservations.map((item) => (
             <div>
               <div>닉네임 {item.nickname}</div>
               <div>인원 {item.headCount}</div>
@@ -138,7 +159,7 @@ export default function ReserveInfoModal({
             </div>
           ))}
         {status == 'declined' &&
-          data?.reservations.map((item: any) => (
+          data?.reservations.map((item) => (
             <div>
               <div>닉네임 {item.nickname}</div>
               <div>인원 {item.headCount}</div>
