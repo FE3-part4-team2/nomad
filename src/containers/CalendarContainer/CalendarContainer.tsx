@@ -6,7 +6,9 @@ import getREservationDashboard from '@/apis/getReservationDashboardApi';
 import { useState } from 'react';
 import moment from 'moment';
 import getReservedSchedule from '@/apis/getReservedScheduleApi';
-import Modal from '@/components/Modal/ModalBase';
+import ModalContainer from '../ModalContainer/ModalContainer';
+import ReserveInfoModal from '@/components/Modal2/ReserveInfoModal/ReserveInfoModal';
+import { OnArgs } from 'react-calendar';
 
 export default function CalendarContainer() {
   // interface IProps {
@@ -18,38 +20,47 @@ export default function CalendarContainer() {
   const [month, setMonth] = useState<string>(`${moment().format('MM')}`);
   const [year, setYear] = useState<string>(`${moment().format('YYYY')}`);
   const [date, setDate] = useState<string>(`${moment().format('YYYY-MM-DD')}`);
+  const [modalVisible, setModalVisible] = useState(false);
   const activityId = useRecoilValue(idAtom);
-  const { data, isLoading } = useQuery({
+  const { data } = useQuery({
     queryKey: ['calendar', month, activityId],
-    queryFn: () => getREservationDashboard({ activityId, year, month } as any),
+    queryFn: () => getREservationDashboard({ activityId, year, month }),
   });
-  const { data: scheduleData } = useQuery({
+  const { data: scheduleData, isSuccess } = useQuery({
     queryKey: ['schedule', date],
-    queryFn: () => getReservedSchedule({ activityId, date } as any),
+    queryFn: () => getReservedSchedule({ activityId, date }),
   });
-  console.log(scheduleData);
 
-  console.log(activityId);
-  console.log(data);
-  function getDates(value: any) {
-    const data = new Date(value.activeStartDate);
-    console.log(data);
-    setMonth(`0${data.getMonth() + 1}`);
-    setYear(`${data.getFullYear()}`);
-    console.log(month, year);
+  function getDates({ action, activeStartDate, value, view }: OnArgs): void {
+    const data = activeStartDate;
+    setMonth(`${moment(data).format('MM')}`);
+    setYear(`${moment(data).format('YYYY')}`);
   }
 
-  function onClick(value: any) {
+  function onClick(value: Date): void {
     setDate(moment(value).format('YYYY-MM-DD'));
-    console.log(date);
+    setModalVisible(true);
+  }
+
+  function closeModal() {
+    setModalVisible(false);
+    setDate('');
   }
 
   return (
     <>
-      {/* <Modal title="예약정보" type="reservation">
-          하이
-        </Modal> */}
-      <Calendar fun={getDates} data={data} onClick={onClick} />;
+      <Calendar monthReceiver={getDates} data={data} onClick={onClick} />;
+      {scheduleData?.length != 0 && modalVisible && date != '' && (
+        <ModalContainer
+          title="예약정보"
+          xbutton={true}
+          background="white"
+          size="reserveInfo"
+          onClose={closeModal}
+        >
+          {scheduleData && <ReserveInfoModal info={scheduleData} date={date} />}
+        </ModalContainer>
+      )}
     </>
   );
 }

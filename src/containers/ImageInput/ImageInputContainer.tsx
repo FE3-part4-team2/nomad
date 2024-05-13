@@ -4,19 +4,23 @@ import { FormValues } from '@/components/MyClass/MyClassTitle/MyClassTitle';
 import React, { useState } from 'react';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-interface FImgaeInputProps {
+interface ImgaeInputContainerProps {
   id: string;
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
+  apiImgURL: string;
+  setApiImgURL: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function ImageInputContainer({
   id,
   register,
   errors,
-}: FImgaeInputProps) {
+  apiImgURL,
+  setApiImgURL,
+}: ImgaeInputContainerProps) {
   const [imgURL, setImgURL] = useState('');
-  const [apiImgURL, setApiImgURL] = useState('');
+  // const [apiImgURL, setApiImgURL] = useState('');
 
   const handleImageChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -25,7 +29,7 @@ export default function ImageInputContainer({
     const file = files[0];
     const formData = new FormData();
     formData.append('image', file);
-
+    console.log(formData.values);
     const fileRead = new FileReader();
     fileRead.readAsDataURL(file);
     fileRead.onload = function () {

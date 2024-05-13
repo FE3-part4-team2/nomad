@@ -1,0 +1,56 @@
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+.blackBackground {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+
+.whiteBackground {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.closeButton {
+  background-image: url('/assets/images/close.svg');
+  width: 24px;
+  height: 24px;
+}
+
+.large {
+  width: 500px;
+  height: 300px;
+  background-color: white;
+}
+
+.reserveInfo {
+  position: absolute;
+  top: 20px; /* 상단으로부터의 거리 */
+  left: 20px; /* 좌측으로부터의 거리 */
+  width: 429px; /* 모달의 너비 */
+  height: 697px;
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
