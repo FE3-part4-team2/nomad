@@ -2,7 +2,7 @@ import { postActivitiesImageApi } from '@/apis/activitiesApi';
 import ImageInput from '@/components/MyClass/MyClassInputs/ImageInput/ImageInput';
 import { FormValues } from '@/components/MyClass/MyClassTitle/MyClassTitle';
 import React, { useState } from 'react';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
 interface ImgaeInputContainerProps {
   id: string;
@@ -10,6 +10,7 @@ interface ImgaeInputContainerProps {
   errors: FieldErrors<FormValues>;
   apiImgURL: string;
   setApiImgURL: React.Dispatch<React.SetStateAction<string>>;
+  setValue: UseFormSetValue<FormValues>;
 }
 
 export default function ImageInputContainer({
@@ -18,6 +19,7 @@ export default function ImageInputContainer({
   errors,
   apiImgURL,
   setApiImgURL,
+  setValue,
 }: ImgaeInputContainerProps) {
   const [imgURL, setImgURL] = useState('');
 
@@ -40,20 +42,20 @@ export default function ImageInputContainer({
   };
 
   const handleClickDeleteButton = () => {
+    setValue('image', '');
     setImgURL('');
     setApiImgURL('');
   };
 
   return (
     <>
-      <div>{apiImgURL}</div>
+      {/* <div>{apiImgURL}</div> */}
       <ImageInput
         id={id}
         register={register}
         errors={errors}
         onChange={handleImageChange}
         imageSrc={apiImgURL ? apiImgURL : imgURL}
-        // defaultValue={defaultValue}
         onClick={handleClickDeleteButton}
       />
     </>

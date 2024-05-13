@@ -34,7 +34,7 @@ export default function EditSubImageInput({
   register,
   errors,
   onChange,
-  apiImgURL,
+  // apiImgURL,
   idWithApiImgURL,
   setIdWithApiImgURL,
   setDeleteSubImageId,
@@ -57,7 +57,7 @@ export default function EditSubImageInput({
       <label className={styles.inputTitle} htmlFor={id}>
         소개 이미지
       </label>
-      <div>{apiImgURL}</div>
+      {/* <div>{apiImgURL}</div> */}
       <div className={subImageStyle.imageContainer}>
         <div className={styles.addImgaeWapper} onChange={onChange}>
           <label className={styles.fakeInput} htmlFor="addSubImage">
@@ -109,6 +109,7 @@ export default function EditSubImageInput({
           : ''}
       </div>
       {errors ? <p className={styles.error}>{errors.subImage?.message}</p> : ''}
+      <div>*이미지는 최대 4개까지 등록 가능합니다.</div>
     </div>
   );
 }

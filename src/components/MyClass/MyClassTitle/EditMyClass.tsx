@@ -111,6 +111,7 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
       setValue('price', getActivityInfo.price);
       setValue('address', getActivityInfo.address);
       setValue('mainSchedule', getActivityInfo.schedules[0]);
+      setValue('image', getActivityInfo.bannerImageUrl);
     }
   }, [getActivityInfo, setValue]);
 
@@ -186,6 +187,7 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
             errors={errors}
             apiImgURL={bannerApiImgURL}
             setApiImgURL={setBannerApiImgURL}
+            setValue={setValue}
           />
           <EditSubImageInputContainer
             id="subImage"

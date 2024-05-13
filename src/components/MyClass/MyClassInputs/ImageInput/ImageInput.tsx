@@ -10,7 +10,6 @@ interface ImageInputProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   imageSrc: string | undefined;
   onClick: () => void;
-  defaultValue?: string;
 }
 
 export default function ImageInput({
@@ -20,7 +19,6 @@ export default function ImageInput({
   onChange,
   imageSrc,
   onClick,
-  defaultValue,
 }: ImageInputProps) {
   return (
     <div>
@@ -53,7 +51,7 @@ export default function ImageInput({
             <>
               <Image
                 className={styles.image}
-                src={defaultValue ? defaultValue : imageSrc}
+                src={imageSrc}
                 alt="선택한 이미지"
                 width={167}
                 height={167}

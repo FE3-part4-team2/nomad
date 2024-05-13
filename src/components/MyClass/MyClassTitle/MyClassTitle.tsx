@@ -38,7 +38,6 @@ interface MyClassTitleProps {
 }
 
 export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
-  // const [getActivityInfo, setGetActivityInfo] = useState<DetailClassType>();
   const [getAddress, setGetAddress] = useState('');
   const {
     control,
@@ -55,7 +54,6 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
     control: control,
   });
 
-  // const [imgURL, setImgURL] = useState<string[]>([]);
   const [apiImgURL, setApiImgURL] = useState<string[]>([]);
   const [bannerApiImgURL, setBannerApiImgURL] = useState('');
   const onSubmit = async (data: FormValues) => {
@@ -101,7 +99,6 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
             errors={errors}
             getAddress={getAddress}
             setGetAddress={setGetAddress}
-            // defaultValue={getActivityInfo?.address}
           />
           <DateInput
             id="date"
@@ -112,6 +109,7 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
             remove={remove}
           />
           <ImageInputContainer
+            setValue={setValue}
             id="image"
             register={register}
             errors={errors}

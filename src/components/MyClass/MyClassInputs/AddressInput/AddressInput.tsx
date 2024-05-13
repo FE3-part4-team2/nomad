@@ -20,6 +20,7 @@ export default function AddressInput({
   setGetAddress,
 }: AddressInputProps) {
   const [isOpen, setIsOpen] = useState(false);
+
   const onCompleteDaumPostcode = (data: { address: string }) => {
     setGetAddress(data.address);
   };

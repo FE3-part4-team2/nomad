@@ -72,8 +72,8 @@ export default function EditSubImageInputContainer({
 
   return (
     <>
-      <div>{apiImgURL}</div>
-      <div>{imgURL}</div>
+      {/* <div>{apiImgURL}</div>
+      <div>{imgURL}</div> */}
       <EditSubImageInput
         id={id}
         register={register}
