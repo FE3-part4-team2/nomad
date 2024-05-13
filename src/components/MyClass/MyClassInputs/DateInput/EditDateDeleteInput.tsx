@@ -6,23 +6,16 @@ import { UseFieldArrayRemove, UseFormRegister } from 'react-hook-form';
 import { Dispatch, SetStateAction } from 'react';
 
 interface DateDeleteInputProps {
-  // id: string;
-  // onClick: () => void;
   remove: UseFieldArrayRemove;
   index: number;
   register: UseFormRegister<FormValues>;
-  defaultValue?: {
-    id: number;
-    date: string;
-    startTime: string;
-    endTime: string;
-  };
   plusDefaultValue?: {
     id: number;
     date: string;
     startTime: string;
     endTime: string;
-  };
+  }[];
+
   item?: {
     id: number;
     date: string;
@@ -44,7 +37,6 @@ interface DateDeleteInputProps {
 }
 
 export default function EditDateDeleteInput({
-  // onClick,
   register,
   index,
   remove,
@@ -54,17 +46,17 @@ export default function EditDateDeleteInput({
   deleteTime,
 }: DateDeleteInputProps) {
   const removeSelectTime = () => {
-    // remove(index);
     remove(index);
-    // const newArr = plusDefaultValue?.filter((value) => value !== item?.id);
-    // setGetPlusDateInfo(newArr);
 
     if (plusDefaultValue) {
       // plusDefaultValue 배열에서 해당 item을 찾아서 필터링
       const newArr = plusDefaultValue.filter((value) => value.id !== item?.id);
       setGetPlusDateInfo(newArr);
+      console.log(newArr);
     }
-    deleteTime(item?.id);
+    if (item) {
+      deleteTime(item?.id);
+    }
   };
 
   return (
@@ -109,7 +101,7 @@ export default function EditDateDeleteInput({
             src="/assets/icons/minus-time-btn.svg"
             width={44}
             height={44}
-            alt="시간 추가 버튼"
+            alt="시간 뺴기 버튼"
             onClick={removeSelectTime}
           />
         </div>

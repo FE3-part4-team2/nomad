@@ -13,7 +13,6 @@ interface EditSubImageInputProps {
   imageSrc: string[];
   setImgURL: React.Dispatch<React.SetStateAction<string[]>>;
   apiImgURL: string[];
-  setApiImgURL: React.Dispatch<React.SetStateAction<string[]>>;
   idWithApiImgURL: {
     id: number;
     imageUrl: string;
@@ -28,8 +27,6 @@ interface EditSubImageInputProps {
     >
   >;
   setDeleteSubImageId: Dispatch<SetStateAction<number[]>>;
-  deleteSubImageId: number[];
-  setAddSubImageUrl: Dispatch<SetStateAction<string[]>>;
 }
 
 export default function EditSubImageInput({
@@ -37,34 +34,11 @@ export default function EditSubImageInput({
   register,
   errors,
   onChange,
-  // imageSrc,
-  // setImgURL,
   apiImgURL,
-  setApiImgURL,
   idWithApiImgURL,
   setIdWithApiImgURL,
   setDeleteSubImageId,
-  deleteSubImageId,
-  setAddSubImageUrl,
 }: EditSubImageInputProps) {
-  const handleDeleteButton = (clickedId: string) => {
-    // const newArray = imageSrc.filter((url) => url !== clickedId);
-    // setImgURL(newArray);
-
-    const newArray = apiImgURL.filter(
-      (url) => String(url) !== String(clickedId),
-    );
-    console.log(idWithApiImgURL);
-    console.log(newArray);
-    setApiImgURL(newArray);
-
-    // const newApiArray = apiImgURL.filter((url) =>
-    //   url !== clickedId ? console.log(url) : console.log(url),
-    // );
-
-    // setApiImgURL(newApiArray);
-  };
-
   const handleDeleteButtonWithId = (clickedId: number) => {
     setDeleteSubImageId((prev) => [...prev, clickedId]);
     const gonnaDeleteArray = idWithApiImgURL?.filter(
@@ -74,14 +48,8 @@ export default function EditSubImageInput({
       (item: { id: number; imageUrl: string }) => item.imageUrl,
     );
     if (newArray) {
-      //   setApiImgURL(newArray);
       setIdWithApiImgURL(gonnaDeleteArray);
     }
-
-    console.log(gonnaDeleteArray);
-    console.log(idWithApiImgURL);
-    // setApiImgURL(newArray);
-    // setValue('subImage', newArray);
   };
 
   return (
@@ -108,10 +76,6 @@ export default function EditSubImageInput({
             hidden
             multiple
             {...register('subImage', {
-              // required: {
-              //   value: false,
-              //   message: 'Email is invalid.',
-              // },
               validate: (fieldValue) => {
                 return (
                   fieldValue.length < 5 ||

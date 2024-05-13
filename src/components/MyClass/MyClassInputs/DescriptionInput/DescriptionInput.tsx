@@ -6,14 +6,12 @@ interface DescriptionInputProps {
   id: string;
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
-  defaultValue?: string;
 }
 
 export default function DescriptionInput({
   id,
   register,
   errors,
-  // defaultValue,
 }: DescriptionInputProps) {
   return (
     <div>

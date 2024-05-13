@@ -7,11 +7,9 @@ import {
 } from 'react-hook-form';
 import styles from './dateInput.module.scss';
 import Image from 'next/image';
-import DateDeleteInput from './DatedeleteInput';
 import { FormValues } from '../../MyClassTitle/MyClassTitle';
 import EditDateDeleteInput from './EditDateDeleteInput';
 import { Dispatch, SetStateAction, useState } from 'react';
-// import { useState } from 'react';
 
 interface DateInputProps {
   id: string;
@@ -20,11 +18,6 @@ interface DateInputProps {
   fields: FieldArrayWithId<FormValues, 'schedules', 'id'>[];
   append: UseFieldArrayAppend<FormValues, 'schedules'>;
   remove: UseFieldArrayRemove;
-  defaultValue?: {
-    date: string;
-    startTime: string;
-    endTime: string;
-  };
   plusDefaultValue: {
     id: number;
     date: string;
@@ -42,7 +35,6 @@ interface DateInputProps {
     >
   >;
   setGonnaDeleteId: Dispatch<SetStateAction<number[]>>;
-  gonnaDeleteId: number[];
 }
 
 export default function EditDateInput({
@@ -55,34 +47,8 @@ export default function EditDateInput({
   plusDefaultValue,
   setGetPlusDateInfo,
   setGonnaDeleteId,
-  gonnaDeleteId,
 }: DateInputProps) {
-  // const [dateInputArray, setDateInputArray] = useState<JSX.Element[]>([]);
   const [isAdd, setIsAdd] = useState(false);
-  //   const [gonnaDeleteId, setGonnaDeleteId] = useState<number[]>([]);
-  // const handlePop = () => {
-  //   setDateInputArray((prevArray) => {
-  //     const newArray = [...prevArray]; // Create a copy of the array
-  //     newArray.pop(); // Remove the last element
-  //     return newArray;
-  //   });
-  // };
-
-  //   const deleteTime = (selectId: number) => {
-  //     const newArr = plusDefaultValue.filter((value) => value.id !== selectId);
-  //     const gonnaDeleteIdArr = plusDefaultValue.filter(
-  //       (value) => value.id == selectId,
-  //     );
-
-  //     const onlyIdArr = gonnaDeleteIdArr.map((item) => item.id);
-
-  //     console.log(newArr);
-  //     console.log(gonnaDeleteIdArr);
-  //     console.log(onlyIdArr);
-  //     setGonnaDeleteId((prev) => [...prev, ...onlyIdArr]);
-  //     setGetPlusDateInfo(newArr);
-  //     console.log(gonnaDeleteId);
-  //   };
 
   const deleteTime = (selectId: number) => {
     // 기존의 삭제될 아이디 목록에 새로운 아이디 추가
@@ -95,13 +61,7 @@ export default function EditDateInput({
   const addSelectTime = () => {
     append({ date: '', startTime: '', endTime: '' });
     setIsAdd(true);
-
-    // setDateInputArray((prev) => [
-    //   ...prev,
-    //   <DateDeleteInput onClick={handlePop} register={register} />,
-    // ]);
   };
-  console.log(gonnaDeleteId);
 
   return (
     <div>
@@ -126,8 +86,6 @@ export default function EditDateInput({
             className={`${styles.smallInput} ${styles.timeInput}`}
             id={id}
             type="time"
-            // value={defaultValue![0].startTime}
-
             {...register(`mainSchedule.startTime`, {
               required: '시작 시간 입력은 필수입니다.',
             })}
@@ -139,8 +97,6 @@ export default function EditDateInput({
             className={`${styles.smallInput} ${styles.timeInput}`}
             id={id}
             type="time"
-            // value={defaultValue![0].endTime}
-
             {...register(`mainSchedule.endTime`, {
               required: '종료 시간 입력은 필수입니다.',
             })}
@@ -169,12 +125,13 @@ export default function EditDateInput({
           ? plusDefaultValue.map((item, index) => (
               <div key={item.id}>
                 <EditDateDeleteInput
-                  register={register}
                   index={index}
+                  register={register}
                   remove={remove}
-                  item={item}
                   setGetPlusDateInfo={setGetPlusDateInfo}
                   deleteTime={deleteTime}
+                  item={item}
+                  plusDefaultValue={plusDefaultValue}
                 />
               </div>
             ))

@@ -5,15 +5,9 @@ interface PriceInputProps {
   id: string;
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
-  defaultValue?: number;
 }
 
-export default function PriceInput({
-  id,
-  register,
-  errors,
-  // defaultValue,
-}: PriceInputProps) {
+export default function PriceInput({ id, register, errors }: PriceInputProps) {
   return (
     <div>
       <label className={styles.inputTitle} htmlFor={id}>

@@ -8,7 +8,6 @@ interface AddressInputProps {
   id: string;
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
-  defaultValue?: string;
   setGetAddress: Dispatch<SetStateAction<string>>;
   getAddress: string;
 }
@@ -19,10 +18,8 @@ export default function AddressInput({
   errors,
   getAddress,
   setGetAddress,
-  // defaultValue,
 }: AddressInputProps) {
   const [isOpen, setIsOpen] = useState(false);
-  // const [getAddress, setGetAddress] = useState('');
   const onCompleteDaumPostcode = (data: { address: string }) => {
     setGetAddress(data.address);
   };

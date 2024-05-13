@@ -7,14 +7,12 @@ interface CategoryInputProps {
   id: string;
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
-  defaultValue?: string;
 }
 
 export default function CategoryInput({
   id,
   register,
   errors,
-  // defaultValue,
 }: CategoryInputProps) {
   return (
     <div>

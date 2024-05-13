@@ -6,15 +6,9 @@ interface TitleInputProps {
   id: string;
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
-  defaultValue?: string;
 }
 
-export default function TitleInput({
-  id,
-  register,
-  errors,
-  // defaultValue,
-}: TitleInputProps) {
+export default function TitleInput({ id, register, errors }: TitleInputProps) {
   return (
     <div>
       <input
