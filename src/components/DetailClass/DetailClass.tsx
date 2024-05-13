@@ -4,18 +4,14 @@ import ShowArrow from '@/components/DetailClass/showArrow/ShowArrow';
 import ClassTitle from '@/components/DetailClass/classTitle/ClassTitle';
 import Map from '@/components/DetailClass/map/Map';
 import Review from '@/components/DetailClass/review_/Review';
-import Reservation from '@/components/DetailClass/reservation/Reservation';
 import { useEffect, useState } from 'react';
-import ReservationModal from './reservationModal/ReservationModal';
-import Modal from './modal/Modal';
 import { getDetailClassApi } from '@/apis/activitiesApi';
 import ImageComponent from './image_/Image';
 import { DetailClassType } from '@/types/activitiesType/ActivitiesType';
+import CalendarReservation from '../CalendarReservation/CalendarReservation';
 
 export default function DetailClass({ id }: { id: number }) {
   const [detail, setDetail] = useState<DetailClassType>();
-
-  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
 
   useEffect(() => {
     const getDetailClassInfo = async () => {
@@ -25,23 +21,6 @@ export default function DetailClass({ id }: { id: number }) {
 
     getDetailClassInfo();
   }, []);
-
-  const openReservationModal = () => {
-    setIsOpenModal(true);
-  };
-
-  // const closeReservationModal = () => {
-  //   setIsOpenModal(false);
-  // };
-
-  useEffect(() => {
-    document.documentElement.style.scrollbarGutter = 'stable';
-
-    if (isOpenModal === true) document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isOpenModal]);
 
   return (
     <>
@@ -53,24 +32,17 @@ export default function DetailClass({ id }: { id: number }) {
           rating={detail?.rating || 0}
           reviewCount={detail?.reviewCount || 0}
           address={detail?.address || ''}
+          id={id}
         />
         <ImageComponent imageUrl={detail?.bannerImageUrl || ''} />
         <div className={styles.responsiveContainer || ''}>
-          <div>
+          <div className={styles.responsiveLeft}>
             <Description description={detail?.description || ''} />
             <div className={styles.line}></div>
             <Map address={detail?.address || ''} title={detail?.title || ''} />
             <Review id={id} />
           </div>
-          {isOpenModal && (
-            <Modal isOpen={true} title={'예약'} setIsOpenModal={setIsOpenModal}>
-              <ReservationModal />
-            </Modal>
-          )}
-          <Reservation
-            openReservationModal={openReservationModal}
-            price={detail?.price}
-          />
+          <CalendarReservation detail={detail as DetailClassType} />
         </div>
       </div>
     </>
