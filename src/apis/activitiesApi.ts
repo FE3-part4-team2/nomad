@@ -1,11 +1,11 @@
+import { AddMyActivityApiType } from '@/types/activitiesType/ActivitiesType';
 import { GetClassDataParamsType } from '@/types/type';
-import axios from './axiosInstance';
 import axiosInstance from './axiosInstance';
 import { toast } from 'react-toastify';
 
 // 체험 리스트 조회
 export const getClassListApi = async (params: GetClassDataParamsType) => {
-  const res = await axios.get('activities', {
+  const res = await axiosInstance.get('activities', {
     headers: {
       Accept: 'application/json',
     },
@@ -67,4 +67,26 @@ export const postReservationApi = async (
       toast.error(e.response.data.message);
     }
   }
+};
+
+//체험 이미지 url생성
+export const postActivitiesImageApi = async (image: FormData) => {
+  const res = await axiosInstance.post(`activities/image`, image, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  return res.data;
+};
+
+//체험 등록
+export const postAddMyActivityApi = async (
+  myActivity: AddMyActivityApiType,
+) => {
+  const res = await axiosInstance.post(`activities`, myActivity, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  return res.data;
 };

@@ -70,6 +70,7 @@ abbr {
 
 .react-calendar__navigation__label {
   flex-grow: 0;
+  pointer-events: none;
 }
 
 /* 상세 페이지 캘린더 */
