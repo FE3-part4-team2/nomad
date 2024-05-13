@@ -1,13 +1,12 @@
 import axios from './axiosInstance';
 import { AxiosError } from 'axios';
+import { getMyReservationType } from '../types/type';
 
-interface props {
-  cursorId?: number;
-  size?: number;
-  status?: string;
-}
-
-const getMyReservation = async ({ cursorId, size, status }: props) => {
+const getMyReservation = async ({
+  cursorId,
+  size,
+  status,
+}: getMyReservationType) => {
   try {
     const res = await axios.get(`my-reservations`, {
       params: { cursorId: cursorId, size: size, status: status },

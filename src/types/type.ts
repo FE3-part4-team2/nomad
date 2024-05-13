@@ -38,9 +38,10 @@ export interface ReservationCardType {
   endTime: string;
   headCount: number; //총 모집인원
   price: number;
-  //   reviewSubmitted: boolean; //리뷰 썼는지 안썼는지 , 이거는 페이지에서
-  buttonStatus: string;
-  buttonTitle: string;
+  reviewSubmitted?: boolean; //리뷰 썼는지 안썼는지
+  buttonStatus?: string;
+  buttonTitle?: string;
+  isButtonHidden?: boolean;
 }
 
 export interface getMyReservationType {

@@ -14,6 +14,7 @@ export default function ReservationCard({
   price,
   buttonStatus,
   buttonTitle,
+  isButtonHidden,
 }: ReservationCardType) {
   return (
     <div className={res.reservationCardContainer}>
@@ -40,7 +41,11 @@ export default function ReservationCard({
           <div className="priceAndButtonArea">
             <div className="price">₩{price.toLocaleString('ko-KR')}</div>
             <div className="buttonDiv">
-              <Button status={buttonStatus} buttonTitle={buttonTitle} />
+              <Button
+                status={buttonStatus}
+                buttonTitle={buttonTitle}
+                hidden={isButtonHidden}
+              />
             </div>
           </div>
         </div>

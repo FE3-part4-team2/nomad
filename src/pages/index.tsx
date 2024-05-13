@@ -5,6 +5,7 @@ import styles from './index.module.scss';
 import BestCardList from '@/containers/mainPage/BestClassList/BestCardList';
 import ClassCardList from '@/containers/mainPage/ClassCardList/ClassCardList';
 import SearchBarContainer from '@/containers/mainPage/SearchBarContainer/SearchBarContainer';
+import MyReservation from './my-page/my-reservation/index';
 
 export default function Home() {
   return (
