@@ -26,7 +26,6 @@ export default function CalendarContainer() {
     queryKey: ['calendar', month, activityId],
     queryFn: () => getREservationDashboard({ activityId, year, month }),
   });
-  console.log(data);
   const { data: scheduleData, isSuccess } = useQuery({
     queryKey: ['schedule', date],
     queryFn: () => getReservedSchedule({ activityId, date }),
@@ -34,7 +33,6 @@ export default function CalendarContainer() {
 
   function getDates({ action, activeStartDate, value, view }: OnArgs): void {
     const data = activeStartDate;
-    console.log(data);
     setMonth(`${moment(data).format('MM')}`);
     setYear(`${moment(data).format('YYYY')}`);
   }

@@ -37,11 +37,10 @@ export default function ReserveInfoModal({
   const [option, setOption] = useState(0);
   const [status, setStatus] = useState('pending');
   const [id, setId] = useState(0);
-  console.log(info);
-  console.log(date);
+
   const activityId = useRecoilValue(idAtom);
   const scheduleId = info[option].scheduleId;
-  console.log(scheduleId);
+
   const app = info[option].count.pending;
   const con = info[option].count.confirmed;
   const dec = info[option].count.declined;
@@ -50,7 +49,6 @@ export default function ReserveInfoModal({
     queryKey: ['reservation', status, option],
     queryFn: () => getReservations({ activityId, scheduleId, status }),
   });
-  console.log(data);
 
   const { mutate } = useMutation({
     mutationFn: patchReservationsUpdate,

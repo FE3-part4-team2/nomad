@@ -32,11 +32,10 @@ export default function SelectCon() {
     return <div>Loading...</div>;
   }
 
-  console.log(data);
   const dataArray = Object.values(data);
-  console.log(dataArray);
+
   const options = dataArray[0];
-  console.log(options);
+
   return <Select options={options} />;
 }
 

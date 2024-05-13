@@ -39,7 +39,6 @@ export default function Select({
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setID(parseInt(event.target.value));
   };
-  console.log(ID);
 
   return (
     <div id={styles.selectContainer}>
