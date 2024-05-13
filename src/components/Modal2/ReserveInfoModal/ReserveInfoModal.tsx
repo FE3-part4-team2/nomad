@@ -5,6 +5,7 @@ import { idAtom } from '@/store/atoms/idState';
 import { useState } from 'react';
 import patchReservationsUpdate from '@/apis/patchReservationsUpdateApi';
 import { useMutation } from '@tanstack/react-query';
+import styles from './reserveInfoModal.module.scss';
 
 interface ScheduleInfo {
   scheduleId: number;
@@ -95,18 +96,30 @@ export default function ReserveInfoModal({
 
   return (
     <>
-      <div>
-        <button onClick={() => setStatus('pending')}>
-          신청
-          {app}
+      <div className={styles.buttonBox}>
+        <button
+          onClick={() => setStatus('pending')}
+          className={status === 'pending' ? styles.underline : ''}
+        >
+          {`신청 ${app}`}
         </button>
-        <button onClick={() => setStatus('confirmed')}>승인{con}</button>
-        <button onClick={() => setStatus('declined')}>거절{dec}</button>
+        <button
+          onClick={() => setStatus('confirmed')}
+          className={status === 'confirmed' ? styles.underline : ''}
+        >
+          {`승인 ${con}`}
+        </button>
+        <button
+          onClick={() => setStatus('declined')}
+          className={status === 'declined' ? styles.underline : ''}
+        >
+          {`거절 ${dec}`}
+        </button>
       </div>
-      <div>
-        <div>예약날짜</div>
+      <div className={styles.infoBox}>
+        <div className={styles.dateHeader}>예약날짜</div>
         <div>{date}</div>
-        <select onChange={handleOptionChange}>
+        <select className={styles.selector} onChange={handleOptionChange}>
           {info.map((item, index: number) => (
             <option
               value={index}
@@ -115,15 +128,22 @@ export default function ReserveInfoModal({
           ))}
         </select>
       </div>
-      <div>
-        <div>예약내역 </div>
+      <div className={styles.infoBox}>
+        <div className={styles.dateHeader}>예약내역 </div>
         {status == 'pending' &&
           data?.reservations.map((item) => (
-            <div key={item.id}>
-              <div>닉네임 {item.nickname}</div>
-              <div>인원 {item.headCount}</div>
-              <div>
+            <div key={item.id} className={styles.card}>
+              <div className={styles.cardInfo}>
+                <div>닉네임</div>
+                <div className={styles.cardData}> {item.nickname}</div>
+              </div>
+              <div className={styles.cardInfo}>
+                <div>인원</div>{' '}
+                <div className={styles.cardData}> {item.headCount}명</div>
+              </div>
+              <div className={styles.patchButtonBox}>
                 <button
+                  className={styles.approveButton}
                   onClick={() =>
                     mutate({
                       activityId,
@@ -135,6 +155,7 @@ export default function ReserveInfoModal({
                   승인하기
                 </button>
                 <button
+                  className={styles.declineButton}
                   onClick={() =>
                     mutate({
                       activityId,
@@ -150,10 +171,16 @@ export default function ReserveInfoModal({
           ))}
         {status == 'confirmed' &&
           data?.reservations.map((item) => (
-            <div>
-              <div>닉네임 {item.nickname}</div>
-              <div>인원 {item.headCount}</div>
-              <div>예약 승인</div>
+            <div className={styles.card}>
+              <div className={styles.cardInfo}>
+                <div>닉네임</div>
+                <div className={styles.cardData}> {item.nickname}</div>
+              </div>
+              <div className={styles.cardInfo}>
+                <div>인원</div>{' '}
+                <div className={styles.cardData}> {item.headCount}명</div>
+              </div>
+              <div className={styles.confirmedDiv}>예약 승인</div>
             </div>
           ))}
         {status == 'declined' &&
