@@ -1,34 +1,56 @@
 import styles from './reservation.module.scss';
 import Button from '@/components/Button/Button';
-import ReservationCalendar from '@/containers/ReservationCalendar/ReservationCalendar';
 import Image from 'next/image';
 import { useState } from 'react';
+import MiniCalendarContainer from '../miniCalendarContainer/MiniCalendarContainer';
 
 interface ReservationProps {
   openReservationModal: () => void;
+  setCalendarId: any;
+  headCount: number;
+  setHeadCount: any;
   price: number;
+  submitReservation: () => void;
+  calendarId: number;
+  selectedDate: string;
+  selectedStartTime: string;
+  selectedEndTime: string;
+  setSelectedDate: any;
+  setSelectedStartTime: any;
+  setSelectedEndTime: any;
+  closeModal: () => void;
 }
 
 export default function Reservation({
   openReservationModal,
+  setCalendarId,
+  headCount,
+  setHeadCount,
   price,
+  submitReservation,
+  calendarId,
+  selectedDate,
+  selectedStartTime,
+  selectedEndTime,
+  setSelectedDate,
+  setSelectedStartTime,
+  setSelectedEndTime,
+  closeModal,
 }: ReservationProps) {
-  const [quantity, setQuantity] = useState(1);
-  const [totalPrice, setTotalPrice] = useState(price);
+  const [totalPrice, setTotalPrice] = useState(price || 0);
 
   const handleIncrease = () => {
-    if (quantity < 10) {
-      const newQuantity = quantity + 1;
-      setQuantity(newQuantity);
-      setTotalPrice(newQuantity * price);
+    if (headCount < 10) {
+      const newHeadCount = headCount + 1;
+      setHeadCount(newHeadCount);
+      setTotalPrice(newHeadCount * price);
     }
   };
-
   const handleDecrease = () => {
-    if (quantity > 1) {
-      const newQuantity = quantity - 1;
-      setQuantity(newQuantity);
-      setTotalPrice(newQuantity * price);
+    if (headCount > 1) {
+      const newHeadCount = headCount - 1;
+      setHeadCount(newHeadCount);
+      setTotalPrice(newHeadCount * price);
     }
   };
 
@@ -41,32 +63,34 @@ export default function Reservation({
               <div className={styles.price}>₩ {price}</div>
               <div className={styles.per}>/ 인</div>
             </div>
-            <div className={styles.dateTitle}>날짜</div>
-            <button className={styles.datePick} onClick={openReservationModal}>
-              날짜 선택하기
-            </button>
+            <div className={styles.titleContainer}>
+              <div className={styles.dateTitle}>날짜</div>
+            </div>
+            {calendarId ? (
+              <button
+                onClick={openReservationModal}
+                className={styles.selectedDateContainer}
+              >
+                {selectedDate} {selectedStartTime}~{selectedEndTime}
+              </button>
+            ) : (
+              <button
+                className={styles.datePick}
+                onClick={openReservationModal}
+              >
+                날짜 선택하기
+              </button>
+            )}
             <div className={styles.calendarContainer}>
-              <ReservationCalendar />
+              <MiniCalendarContainer
+                setCalendarId={setCalendarId}
+                setSelectedDate={setSelectedDate}
+                setSelectedStartTime={setSelectedStartTime}
+                setSelectedEndTime={setSelectedEndTime}
+                closeModal={closeModal}
+              />
             </div>
-            <div className={styles.timeContainer}>
-              <div className={styles.timeTitle}>예약 가능한 시간</div>
-              <div className={styles.chooseTime}>
-                <Button
-                  status="black"
-                  buttonTitle="14:00~15:00"
-                  onClick={openReservationModal}
-                  fontSize={1.6}
-                  radius={8}
-                />
-                <Button
-                  status="white"
-                  buttonTitle="15:00~~16:00"
-                  onClick={openReservationModal}
-                  fontSize={1.6}
-                  radius={8}
-                />
-              </div>
-            </div>
+
             <div className={styles.personNum}>참여 인원 수</div>
             <div className={styles.inputContainer}>
               <button className={styles.inputSubtract} onClick={handleDecrease}>
@@ -80,7 +104,7 @@ export default function Reservation({
               <input
                 className={styles.chooseNum}
                 type="number"
-                defaultValue={quantity}
+                value={headCount}
               />
               <button className={styles.inputAdd} onClick={handleIncrease}>
                 <Image
@@ -93,14 +117,23 @@ export default function Reservation({
             </div>
           </div>
           <div className={styles.submitButton}>
-            {/* 날짜 선택해야 활성화 */}
-            <Button
-              status="disable"
-              buttonTitle="예약하기"
-              onClick={openReservationModal}
-              fontSize={1.6}
-              radius={6}
-            />
+            {selectedStartTime ? (
+              <Button
+                status="black"
+                buttonTitle="예약하기"
+                onClick={submitReservation}
+                fontSize={1.6}
+                radius={6}
+              />
+            ) : (
+              <Button
+                status="disable"
+                buttonTitle="예약하기"
+                onClick={submitReservation}
+                fontSize={1.6}
+                radius={6}
+              />
+            )}
           </div>
           <div className={styles.totalContainer}>
             <div className={styles.totalTitle}>총 합계</div>

@@ -29,14 +29,16 @@ export interface FormValues {
     startTime: string;
     endTime: string;
   }[];
-  plusDate: string;
-  plusStartTime: string;
-  plusEndTime: string;
   image: string;
   subImage: string[];
 }
 
-export default function MyClassTitle() {
+interface MyClassTitleProps {
+  buttonTitle: string;
+}
+
+export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
+  const [getAddress, setGetAddress] = useState('');
   const {
     control,
     register,
@@ -52,7 +54,6 @@ export default function MyClassTitle() {
     control: control,
   });
 
-  // const [imgURL, setImgURL] = useState<string[]>([]);
   const [apiImgURL, setApiImgURL] = useState<string[]>([]);
   const [bannerApiImgURL, setBannerApiImgURL] = useState('');
   const onSubmit = async (data: FormValues) => {
@@ -80,7 +81,7 @@ export default function MyClassTitle() {
         <div className={styles.myClassTitleWrapper}>
           <span className={styles.myClassSubtitle}>내 체험 등록</span>
           <div className={styles.button}>
-            <Button buttonTitle="등록하기" radius={4} fontSize={1.6} />
+            <Button buttonTitle={buttonTitle} radius={4} fontSize={1.6} />
           </div>
         </div>
         <div className={styles.inputContainer}>
@@ -92,7 +93,13 @@ export default function MyClassTitle() {
             errors={errors}
           />
           <PriceInput id="price" register={register} errors={errors} />
-          <AddressInput id="address" register={register} errors={errors} />
+          <AddressInput
+            id="address"
+            register={register}
+            errors={errors}
+            getAddress={getAddress}
+            setGetAddress={setGetAddress}
+          />
           <DateInput
             id="date"
             register={register}
@@ -102,6 +109,7 @@ export default function MyClassTitle() {
             remove={remove}
           />
           <ImageInputContainer
+            setValue={setValue}
             id="image"
             register={register}
             errors={errors}

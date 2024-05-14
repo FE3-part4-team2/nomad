@@ -78,7 +78,7 @@ export default function Map({ address, title }: MapProps) {
     <>
       <section className={styles.mapSection}>
         {/* <div className={styles.mapContainer}> */}
-        <div id="map" style={{ height: '450px' }}></div>
+        <div id="map" className={styles.mapContainer}></div>
         <div className={styles.infoWrapper}>
           <Image
             src="/assets/images/location.svg"

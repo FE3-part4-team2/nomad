@@ -10,6 +10,18 @@ interface DateDeleteInputProps {
   remove: UseFieldArrayRemove;
   index: number;
   register: UseFormRegister<FormValues>;
+  defaultValue?: {
+    id: number;
+    date: string;
+    startTime: string;
+    endTime: string;
+  };
+  plusDefaultValue?: {
+    id: number;
+    date: string;
+    startTime: string;
+    endTime: string;
+  };
 }
 
 export default function DateDeleteInput({

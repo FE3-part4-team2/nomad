@@ -4,7 +4,7 @@ import MyClassTitle from '@/components/MyClass/MyClassTitle/MyClassTitle';
 export default function AddClass() {
   return (
     <Layout>
-      <MyClassTitle />
+      <MyClassTitle buttonTitle="등록하기" />
     </Layout>
   );
 }

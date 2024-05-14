@@ -8,7 +8,7 @@ interface ImageInputProps {
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  imageSrc: string;
+  imageSrc: string | undefined;
   onClick: () => void;
 }
 
