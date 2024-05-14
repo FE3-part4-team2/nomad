@@ -37,6 +37,7 @@ export interface getAvailableScheduleType {
     },
   ];
 }
+[];
 
 export interface DetailReviewType {
   averageRating: number;

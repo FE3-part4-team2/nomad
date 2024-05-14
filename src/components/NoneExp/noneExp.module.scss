@@ -1,0 +1,18 @@
+.pageBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 800px;
+  padding-top: 80px;
+}
+
+.text {
+  color: var(--gray-gray_79747E, #79747e);
+  font-family: Pretendard;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  margin-top: 50px;
+}

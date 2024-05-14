@@ -1,6 +1,7 @@
 import { AddMyActivityApiType } from '@/types/activitiesType/ActivitiesType';
 import { GetClassDataParamsType } from '@/types/type';
 import axiosInstance from './axiosInstance';
+import { toast } from 'react-toastify';
 
 // 체험 리스트 조회
 export const getClassListApi = async (params: GetClassDataParamsType) => {
@@ -18,7 +19,7 @@ export const getClassListApi = async (params: GetClassDataParamsType) => {
 };
 
 // 체험 상세 조회
-export const getDetailClassApi = async (id: number = 776) => {
+export const getDetailClassApi = async (id: number) => {
   const detail = await axiosInstance.get(`activities/${id}`);
 
   return detail.data;
@@ -33,7 +34,7 @@ export const getAvailableScheduleApi = async (
   const res = await axiosInstance.get(
     `activities/${id}/available-schedule?year=${year}&month=${month}`,
   );
-  return res;
+  return res.data;
 };
 
 // 체험 리뷰 조회
@@ -46,6 +47,26 @@ export const getDetailClassReviewApi = async (
     `activities/${id}/reviews?page=${page}&size=${size}`,
   );
   return review.data;
+};
+
+// 체험 예약 신청
+export const postReservationApi = async (
+  id: number,
+  scheduleId: number,
+  headCount: number,
+) => {
+  try {
+    const res = await axiosInstance.post(`activities/${id}/reservations`, {
+      scheduleId,
+      headCount,
+    });
+    toast.success('예약 성공!');
+    return res.data;
+  } catch (e: any) {
+    if (e.response.status === 409) {
+      toast.error(e.response.data.message);
+    }
+  }
 };
 
 //체험 이미지 url생성
