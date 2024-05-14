@@ -1,32 +1,37 @@
+import { toast } from 'react-toastify';
 import axios from './axiosInstance';
 
-export interface loginType {
-  accessToken: string;
-  refreshToken: string;
-  user: {
-    id: number;
-    email: string;
-    nickname: string;
-    profileImageUrl: string | null;
-    createdAt: string;
-    updatedAt: string;
-  };
-}
+// 로그인
 
 export const loginApi = async (
-  email: string = 'asd@asd.com',
-  password: string = 'asdasdasd',
+  email: string = '1234@1234.com',
+  password: string = '123412341234',
 ) => {
   try {
     const res = await axios.post(`auth/login`, {
-      email: email,
-      password: password,
+      email,
+      password,
     });
-
     localStorage.setItem('accessToken', res.data.accessToken);
     localStorage.setItem('refreshToken', res.data.refreshToken);
+
     return res.data;
-  } catch (error) {
-    console.error(error);
+  } catch (e: any) {
+    console.error('로그인 실패:', e);
+    toast.error(e.response.data.message);
+  }
+};
+
+// 토큰 재발급
+
+export const refreshTokenApi = async () => {
+  try {
+    const res = await axios.post(`auth/tokens`);
+    localStorage.setItem('accessToken', res.data.accessToken);
+    localStorage.setItem('refreshToken', res.data.refreshToken);
+
+    return res.data;
+  } catch (e) {
+    console.error('토큰 재발급 실패:', e);
   }
 };
