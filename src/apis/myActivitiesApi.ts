@@ -1,14 +1,30 @@
+
+import { PatchEditMyActivityApiType } from '@/types/activitiesType/MyActivityType';
+import axiosInstance from './axiosInstance';
+=======
 import { toast } from 'react-toastify';
 import axiosInstance from './axiosInstance';
 import axios from './axiosInstance';
 
 const getMyActivities = async () => {
-  const res = await axios.get('my-activities');
+  const res = await axiosInstance.get('my-activities');
   return res.data;
 };
 
 export default getMyActivities;
 
+//내 체험 수정
+export const patchEditMyActivityApi = async (
+  id: number,
+  editMyActivity: PatchEditMyActivityApiType,
+) => {
+  const res = await axiosInstance.patch(`my-activities/${id}`, editMyActivity, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+  return res.data;
+  
 // 내 체험 삭제
 
 export const deleteActivitiesApi = async (id: number) => {

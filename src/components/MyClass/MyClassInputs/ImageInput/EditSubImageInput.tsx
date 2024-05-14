@@ -1,15 +1,11 @@
-import {
-  UseFormRegister,
-  FieldErrors,
-  // UseFormGetValues,
-  UseFormSetValue,
-} from 'react-hook-form';
+import { UseFormRegister, FieldErrors } from 'react-hook-form';
 import styles from './imageInput.module.scss';
 import subImageStyle from './subImageInput.module.scss';
 import Image from 'next/image';
 import { FormValues } from '../../MyClassTitle/MyClassTitle';
+import { Dispatch, SetStateAction } from 'react';
 
-interface SubImageInputProps {
+interface EditSubImageInputProps {
   id: string;
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
@@ -17,26 +13,43 @@ interface SubImageInputProps {
   imageSrc: string[];
   setImgURL: React.Dispatch<React.SetStateAction<string[]>>;
   apiImgURL: string[];
-  setApiImgURL: React.Dispatch<React.SetStateAction<string[]>>;
-  setValue: UseFormSetValue<FormValues>;
+  idWithApiImgURL: {
+    id: number;
+    imageUrl: string;
+  }[];
+
+  setIdWithApiImgURL: Dispatch<
+    SetStateAction<
+      {
+        id: number;
+        imageUrl: string;
+      }[]
+    >
+  >;
+  setDeleteSubImageId: Dispatch<SetStateAction<number[]>>;
 }
 
-export default function SubImageInput({
+export default function EditSubImageInput({
   id,
   register,
   errors,
   onChange,
-  setValue,
-  apiImgURL,
-  setApiImgURL,
-}: SubImageInputProps) {
-  const handleDeleteButton = (clickedId: string) => {
-    const newArray = apiImgURL.filter(
-      (url) => String(url) !== String(clickedId),
+  // apiImgURL,
+  idWithApiImgURL,
+  setIdWithApiImgURL,
+  setDeleteSubImageId,
+}: EditSubImageInputProps) {
+  const handleDeleteButtonWithId = (clickedId: number) => {
+    setDeleteSubImageId((prev) => [...prev, clickedId]);
+    const gonnaDeleteArray = idWithApiImgURL?.filter(
+      (idWithApiImg) => idWithApiImg.id !== clickedId,
     );
-
-    setApiImgURL(newArray);
-    setValue('subImage', newArray);
+    const newArray = gonnaDeleteArray?.map(
+      (item: { id: number; imageUrl: string }) => item.imageUrl,
+    );
+    if (newArray) {
+      setIdWithApiImgURL(gonnaDeleteArray);
+    }
   };
 
   return (
@@ -44,7 +57,7 @@ export default function SubImageInput({
       <label className={styles.inputTitle} htmlFor={id}>
         소개 이미지
       </label>
-      <div>{apiImgURL}</div>
+      {/* <div>{apiImgURL}</div> */}
       <div className={subImageStyle.imageContainer}>
         <div className={styles.addImgaeWapper} onChange={onChange}>
           <label className={styles.fakeInput} htmlFor="addSubImage">
@@ -73,18 +86,18 @@ export default function SubImageInput({
           />
         </div>
 
-        {apiImgURL
-          ? apiImgURL.map((url) => (
-              <div className={styles.imageWrapper} key={url}>
+        {idWithApiImgURL
+          ? idWithApiImgURL.map((url) => (
+              <div className={styles.imageWrapper} key={url.id}>
                 <Image
                   className={styles.image}
-                  src={url}
+                  src={url.imageUrl}
                   alt="선택한 이미지"
                   width={167}
                   height={167}
                 />
                 <Image
-                  onClick={() => handleDeleteButton(url)}
+                  onClick={() => handleDeleteButtonWithId(url.id)}
                   className={styles.deleteImageButton}
                   src="/assets/icons/delete-circle-btn.svg"
                   alt="이미지 삭제 버튼"

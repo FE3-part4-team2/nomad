@@ -1,29 +1,32 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 import DaumPostcode from 'react-daum-postcode';
 import styles from './addressInput.module.scss';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { FormValues } from '../../MyClassTitle/MyClassTitle';
 
 interface AddressInputProps {
   id: string;
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
+  setGetAddress: Dispatch<SetStateAction<string>>;
+  getAddress: string;
 }
 
 export default function AddressInput({
   id,
   register,
   errors,
+  getAddress,
+  setGetAddress,
 }: AddressInputProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [address, setAddress] = useState('');
+
   const onCompleteDaumPostcode = (data: { address: string }) => {
-    setAddress(data.address);
+    setGetAddress(data.address);
   };
 
   const toggleHandler = () => {
     setIsOpen((prevOpenState) => !prevOpenState);
-    setAddress('');
   };
 
   const closeHandler = (state: string) => {
@@ -45,7 +48,7 @@ export default function AddressInput({
           id={id}
           type="text"
           placeholder="주소"
-          value={address}
+          value={getAddress}
           {...register('address', {
             required: '주소 입력은 필수입니다.',
           })}

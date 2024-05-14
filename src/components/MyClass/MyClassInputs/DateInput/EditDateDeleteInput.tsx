@@ -3,35 +3,60 @@ import deleteStyle from './dateDeleteInput.module.scss';
 import Image from 'next/image';
 import { FormValues } from '../../MyClassTitle/MyClassTitle';
 import { UseFieldArrayRemove, UseFormRegister } from 'react-hook-form';
+import { Dispatch, SetStateAction } from 'react';
 
 interface DateDeleteInputProps {
-  // id: string;
-  // onClick: () => void;
   remove: UseFieldArrayRemove;
   index: number;
   register: UseFormRegister<FormValues>;
-  defaultValue?: {
-    id: number;
-    date: string;
-    startTime: string;
-    endTime: string;
-  };
   plusDefaultValue?: {
     id: number;
     date: string;
     startTime: string;
     endTime: string;
+  }[];
+
+  item?: {
+    id: number;
+    date: string;
+    startTime: string;
+    endTime: string;
   };
+
+  setGetPlusDateInfo: Dispatch<
+    SetStateAction<
+      {
+        id: number;
+        date: string;
+        startTime: string;
+        endTime: string;
+      }[]
+    >
+  >;
+  deleteTime: (selectId: number) => void;
 }
 
-export default function DateDeleteInput({
-  // onClick,
+export default function EditDateDeleteInput({
   register,
   index,
   remove,
+  item,
+  setGetPlusDateInfo,
+  plusDefaultValue,
+  deleteTime,
 }: DateDeleteInputProps) {
   const removeSelectTime = () => {
     remove(index);
+
+    if (plusDefaultValue) {
+      // plusDefaultValue 배열에서 해당 item을 찾아서 필터링
+      const newArr = plusDefaultValue.filter((value) => value.id !== item?.id);
+      setGetPlusDateInfo(newArr);
+      console.log(newArr);
+    }
+    if (item) {
+      deleteTime(item?.id);
+    }
   };
 
   return (
@@ -42,6 +67,7 @@ export default function DateDeleteInput({
             className={`${deleteStyle.smallInput} ${deleteStyle.dateInput}`}
             id="plusDate"
             type="date"
+            value={item?.date}
             {...register(`schedules.${index}.date`, {
               required: '날짜 입력은 필수입니다.',
             })}
@@ -52,6 +78,7 @@ export default function DateDeleteInput({
             className={`${deleteStyle.smallInput} ${deleteStyle.timeInput}`}
             id="plusStartTime"
             type="time"
+            value={item?.startTime}
             {...register(`schedules.${index}.startTime`, {
               required: '시작 시간 입력은 필수입니다.',
             })}
@@ -62,6 +89,7 @@ export default function DateDeleteInput({
             className={`${deleteStyle.smallInput} ${deleteStyle.timeInput}`}
             id="plusEndTime"
             type="time"
+            value={item?.endTime}
             {...register(`schedules.${index}.endTime`, {
               required: '종료 시간 입력은 필수입니다.',
             })}
@@ -73,7 +101,7 @@ export default function DateDeleteInput({
             src="/assets/icons/minus-time-btn.svg"
             width={44}
             height={44}
-            alt="시간 추가 버튼"
+            alt="시간 뺴기 버튼"
             onClick={removeSelectTime}
           />
         </div>
