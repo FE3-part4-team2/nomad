@@ -1,13 +1,23 @@
 import Cal from 'react-calendar';
 import moment from 'moment';
 
+interface MiniCalenderProps {
+  onChange?: (e: any) => void;
+  onClickDay?: (e: any) => void;
+  titleContent?: ({
+    date,
+    view,
+  }: {
+    date: Date;
+    view: string;
+  }) => React.ReactNode;
+  value?: any;
+}
+
 export default function MiniCalendar({
   onClickDay,
   titleContent,
-}: {
-  onClickDay: () => void;
-  titleContent: () => void;
-}) {
+}: MiniCalenderProps) {
   return (
     <div>
       <Cal

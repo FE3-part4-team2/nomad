@@ -1,5 +1,4 @@
 import { createPortal } from 'react-dom';
-import Button from '@/components/Button/Button';
 import styles from './modal.module.scss';
 import Image from 'next/image';
 import React from 'react';

@@ -1,10 +1,6 @@
-
 import { PatchEditMyActivityApiType } from '@/types/activitiesType/MyActivityType';
-import axiosInstance from './axiosInstance';
-=======
 import { toast } from 'react-toastify';
 import axiosInstance from './axiosInstance';
-import axios from './axiosInstance';
 
 const getMyActivities = async () => {
   const res = await axiosInstance.get('my-activities');
@@ -24,7 +20,7 @@ export const patchEditMyActivityApi = async (
     },
   });
   return res.data;
-  
+};
 // 내 체험 삭제
 
 export const deleteActivitiesApi = async (id: number) => {

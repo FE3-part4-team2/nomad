@@ -28,14 +28,14 @@ export default function CalendarContainer() {
   });
   const {
     data: scheduleData,
-    isLoading,
+    // isLoading,
     isFetching,
   } = useQuery({
     queryKey: ['schedule', date],
     queryFn: () => getReservedSchedule({ activityId, date }),
   });
 
-  function getDates({ action, activeStartDate, value, view }: OnArgs): void {
+  function getDates({ activeStartDate }: OnArgs): void {
     const data = activeStartDate;
     setMonth(`${moment(data).format('MM')}`);
     setYear(`${moment(data).format('YYYY')}`);

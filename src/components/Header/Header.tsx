@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import styles from './header.module.scss';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { loginApi, loginType } from '../../apis/authApi';
 
 export default function Header() {

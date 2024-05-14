@@ -4,7 +4,7 @@ export default function ReservationCalendar() {
   return (
     <>
       <div className="small">
-        <MiniCalendar fun={undefined} className={''} />;
+        <MiniCalendar />;
       </div>
     </>
   );

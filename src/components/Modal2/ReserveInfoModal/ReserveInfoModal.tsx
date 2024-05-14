@@ -1,10 +1,9 @@
 import getReservations from '@/apis/getReservationsApi';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { useRecoilValue } from 'recoil';
 import { idAtom } from '@/store/atoms/idState';
 import { useState } from 'react';
 import patchReservationsUpdate from '@/apis/patchReservationsUpdateApi';
-import { useMutation } from '@tanstack/react-query';
 import styles from './reserveInfoModal.module.scss';
 
 interface ScheduleInfo {
