@@ -58,6 +58,14 @@
   display: none;
 }
 
+.selectedDateContainer {
+  font-size: 1.6rem;
+  border: none;
+  background-color: $white;
+  display: flex;
+  margin: 0px 24px 8px 24px;
+}
+
 @media screen and (min-width: 768px) {
   .dateTitle,
   .personNum,
@@ -113,16 +121,20 @@
   .reservationSection {
     position: inherit;
     display: flex;
-    width: 25rem;
-    height: 50rem;
+    width: 50%;
+    height: 60%;
     border: 1px solid $gray_DDDDDD;
     border-radius: 12px;
     padding: 0;
+
+    Button {
+      width: auto;
+    }
   }
 
   .submitButton {
     Button {
-      width: 20.3rem;
+      width: 100%;
       height: 5.6rem;
       margin-bottom: 40px;
     }
@@ -135,6 +147,7 @@
   .reservationContainer {
     flex-direction: column;
     justify-content: flex-start;
+    width: 100%;
   }
 
   .inputContainer {
@@ -146,20 +159,13 @@
     border-radius: 6px;
     color: $gray_4B4B4B;
     margin-bottom: 20px;
-    // margin-top: 0;
   }
-
-  // .inputContainer div {
-  //   display: flex;
-  //   align-items: center;
-  //   margin: 0 auto;
-  //   padding: 10px;
-  //   width: 4rem;
-  // }
 
   .inputSubtract,
   .inputAdd {
     border: none;
+    width: 33.3%;
+    margin: 0 auto;
     background-color: $white;
     cursor: pointer;
   }
@@ -184,9 +190,10 @@
 
   .totalContainer {
     display: flex;
+    width: 100%;
     justify-content: space-between;
     border-top: 1px solid $gray_DDDDDD;
-    padding: 36px 24px 18px 24px;
+    padding: 24px 24px 18px 24px;
   }
 }
 
@@ -197,7 +204,6 @@
 @media screen and (min-width: 1200px) {
   .reservationSection {
     width: 38.4rem;
-    height: 85rem;
     position: relative;
   }
 
@@ -239,4 +245,11 @@
     display: flex;
     justify-content: center;
   }
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 2.5rem;
 }

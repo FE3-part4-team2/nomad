@@ -1,10 +1,10 @@
-import Calendar from '@/components/Calendar/Calendar';
+import MiniCalendar from '@/components/Calendar/MiniCalendar/MiniCalendar';
 
 export default function ReservationCalendar() {
   return (
     <>
       <div className="small">
-        <Calendar fun={undefined} className={''} />;
+        <MiniCalendar fun={undefined} className={''} />;
       </div>
     </>
   );

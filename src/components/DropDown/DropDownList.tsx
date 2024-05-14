@@ -3,7 +3,7 @@ import styles from './dropDownList.module.scss';
 interface DropDownListProps {
   isBig?: boolean;
   dropDownList: string[];
-  onClick: () => void;
+  onClick: (item: string) => void;
 }
 
 export default function DropDownList({
@@ -19,8 +19,12 @@ export default function DropDownList({
           : styles.dropDownList_container
       }
     >
-      {dropDownList.map((item) => (
-        <li className={styles.dropDownList} onClick={onClick}>
+      {dropDownList.map((item, index) => (
+        <li
+          key={index}
+          className={styles.dropDownList}
+          onClick={() => onClick(item)}
+        >
           {item}
         </li>
       ))}
