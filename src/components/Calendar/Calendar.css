@@ -178,10 +178,11 @@ abbr {
 }
 
 .small .react-calendar__month-view__days__day {
-  height: 3rem;
+  height: 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .react-calendar__tile--now {
@@ -194,7 +195,11 @@ abbr {
 .react-calendar__tile:enabled:focus,
 .small .react-calendar__tile--active {
   background-color: #0b3b2d;
+  opacity: 50%;
   border-radius: 0.3rem;
+  abbr {
+    color: white;
+  }
 }
 .small .react-calendar__navigation__label__labelText {
   font-size: 1.6rem;

@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import styles from './classTitle.module.scss';
 import Kebab from '@/components/DropDown/Kebab';
+import { useRouter } from 'next/router';
+import { deleteActivitiesApi } from '@/apis/myActivitiesApi';
 
 interface TitleProps {
   title: string;
@@ -8,6 +10,7 @@ interface TitleProps {
   rating: number;
   reviewCount: number;
   address: string;
+  id: number;
 }
 
 export default function ClassTitle({
@@ -16,8 +19,31 @@ export default function ClassTitle({
   rating,
   reviewCount,
   address,
+  id,
 }: TitleProps) {
-  const onClick = () => {};
+  const router = useRouter();
+
+  const onClickKebab = (action: string) => {
+    switch (action) {
+      case '수정하기':
+        handleEdit();
+        break;
+      case '삭제하기':
+        handleDelete();
+        break;
+      default:
+        break;
+    }
+  };
+
+  const handleEdit = () => {
+    router.push(`/class-edit/${id}`);
+  };
+  const handleDelete = () => {
+    deleteActivitiesApi(id);
+    router.push('/');
+  };
+
   return (
     <>
       <section className={styles.titleSection}>
@@ -49,7 +75,10 @@ export default function ClassTitle({
             </div>
           </div>
           {/* 본인 글에만 보이게 */}
-          <Kebab dropDownList={['수정하기', '삭제하기']} onClick={onClick} />
+          <Kebab
+            dropDownList={['수정하기', '삭제하기']}
+            onClick={() => onClickKebab}
+          />
         </div>
       </section>
     </>

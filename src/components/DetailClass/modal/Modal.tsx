@@ -39,15 +39,7 @@ const Modal: React.FC<ModalProps> = ({
           </button>
         </div>
         <div className={styles.contentContainer}>{children}</div>
-        <div className={styles.buttonContainer}>
-          <Button
-            status="disable"
-            buttonTitle="예약"
-            radius={6}
-            fontSize={1.6}
-            className={styles.submitButton}
-          />
-        </div>
+        <div className={styles.buttonContainer}></div>
       </div>
     </div>
   );
