@@ -26,7 +26,7 @@ export default function SideBar() {
         <Link href="/" className={styles.list}>
           <Image
             className={styles.icon}
-            src="assets/images/my-info.svg"
+            src="/assets/images/my-info.svg"
             width={24}
             height={24}
             alt="내정보"
@@ -36,7 +36,7 @@ export default function SideBar() {
         <Link href="/" className={styles.list}>
           <Image
             className={styles.icon}
-            src="assets/images/reserve-info.svg"
+            src="/assets/images/reserve-info.svg"
             width={24}
             height={24}
             alt="예약 내역"
@@ -46,7 +46,7 @@ export default function SideBar() {
         <Link href="/" className={styles.list}>
           <Image
             className={styles.icon}
-            src="assets/images/setting.svg"
+            src="/assets/images/setting.svg"
             width={24}
             height={24}
             alt="내 채험 관리"
@@ -56,7 +56,7 @@ export default function SideBar() {
         <Link href="/" className={styles.list}>
           <Image
             className={styles.icon}
-            src="assets/images/reserve-check.svg"
+            src="/assets/images/reserve-check.svg"
             width={24}
             height={24}
             alt="예약 현황"

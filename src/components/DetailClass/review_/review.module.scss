@@ -50,6 +50,49 @@
   text-align: justify;
 }
 
+.noReview {
+  font-size: 1.4rem;
+}
+
+@media screen and (min-width: 768px) {
+  .reviewWrapper:nth-child(2) {
+    width: 375px;
+  }
+  .reviewerWrapper,
+  .reviewerWrapper div {
+    font-size: 2.4rem;
+  }
+
+  .reviewTitle {
+    font-size: 3rem;
+  }
+
+  .reviewCal {
+    font-size: 6rem;
+  }
+
+  .reviewMost {
+    font-size: 2.4rem;
+  }
+  .reviewNum {
+    font-size: 1.8rem;
+  }
+
+  .reviewContainer {
+    font-size: 2.4rem;
+  }
+}
+
+.noReview {
+  font-size: 2rem;
+}
+
+@media screen and (min-width: 1200px) {
+  .reviewWrapper:nth-child(2) {
+    width: 600px;
+  }
+}
+
 .profileImage {
   border-radius: 50%;
   background-color: bisque;
@@ -82,4 +125,14 @@
   background-color: $nomad-black;
   opacity: 0.25;
   margin: 16px auto 16px auto;
+}
+
+.reviewListContainer {
+  overflow: scroll;
+}
+
+.scrollContainer {
+  height: 1px;
+  width: 100%;
+  background-color: $white;
 }

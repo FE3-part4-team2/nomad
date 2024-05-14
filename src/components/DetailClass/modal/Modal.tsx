@@ -1,5 +1,4 @@
 import { createPortal } from 'react-dom';
-import Button from '@/components/Button/Button';
 import styles from './modal.module.scss';
 import Image from 'next/image';
 import React from 'react';
@@ -39,17 +38,8 @@ const Modal: React.FC<ModalProps> = ({
           </button>
         </div>
         <div className={styles.contentContainer}>{children}</div>
-        <div className={styles.buttonContainer}>
-          <Button
-            status="disable"
-            buttonTitle="예약"
-            radius={6}
-            fontSize={1.6}
-            className={styles.submitButton}
-          />
-        </div>
+        <div className={styles.buttonContainer}></div>
       </div>
-      //{' '}
     </div>
   );
   return createPortal(modal, document.body);

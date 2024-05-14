@@ -1,13 +1,8 @@
 @import 'src/styles/_variables';
 
 .mapContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-
-  :nth-child(1) {
-    border-radius: 16px;
-  }
+  width: 100%;
+  height: 400px;
 }
 
 .infoWrapper {
@@ -16,4 +11,16 @@
   gap: 6px;
   font-size: 1.4rem;
   opacity: 0.75;
+  margin-top: 15px;
+}
+
+@media screen and (min-width: 768px) {
+  .mapContainer {
+    height: 380px;
+  }
+}
+@media screen and (min-width: 1200px) {
+  .mapContainer {
+    height: 600px;
+  }
 }

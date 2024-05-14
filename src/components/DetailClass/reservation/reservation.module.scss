@@ -1,3 +1,4 @@
+@import 'react-calendar/dist/Calendar.css';
 @import 'src/styles/_variables';
 
 .reservationSection {
@@ -44,7 +45,8 @@
   font-weight: 600;
   color: $primary;
   text-decoration: underline;
-  margin-top: 8px;
+  background: none;
+  border: none;
 }
 
 .dateTitle,
@@ -54,6 +56,14 @@
 .totalContainer,
 .timeContainer {
   display: none;
+}
+
+.selectedDateContainer {
+  font-size: 1.6rem;
+  border: none;
+  background-color: $white;
+  display: flex;
+  margin: 0px 24px 8px 24px;
 }
 
 @media screen and (min-width: 768px) {
@@ -94,7 +104,6 @@
     font-size: 1.4rem;
     text-align: center;
     width: 2.4rem;
-    height: 2.4rem;
     border: none;
   }
 
@@ -102,6 +111,7 @@
     font-size: 1.6rem;
     margin-top: 0;
     padding-bottom: 30px;
+    cursor: pointer;
   }
 
   .per {
@@ -111,16 +121,20 @@
   .reservationSection {
     position: inherit;
     display: flex;
-    width: 25rem;
-    height: 50rem;
+    width: 50%;
+    height: 60%;
     border: 1px solid $gray_DDDDDD;
     border-radius: 12px;
     padding: 0;
+
+    Button {
+      width: auto;
+    }
   }
 
   .submitButton {
     Button {
-      width: 20.3rem;
+      width: 100%;
       height: 5.6rem;
       margin-bottom: 40px;
     }
@@ -133,28 +147,27 @@
   .reservationContainer {
     flex-direction: column;
     justify-content: flex-start;
+    width: 100%;
   }
 
   .inputContainer {
     display: flex;
-    align-items: center;
     width: 12rem;
-    height: 3rem;
     box-shadow:
       0px 0px 0px 1px #cdd0dc inset,
-      0px 2px 4px 0px rgba(5, 16, 55, 0.06);
+      0px 2px 4px 0px rgba(5, 16, 55, 0.15);
     border-radius: 6px;
     color: $gray_4B4B4B;
     margin-bottom: 20px;
-    margin-top: 0;
   }
 
-  .inputContainer div {
-    display: flex;
-    align-items: center;
+  .inputSubtract,
+  .inputAdd {
+    border: none;
+    width: 33.3%;
     margin: 0 auto;
-    padding: 10px;
-    width: 4rem;
+    background-color: $white;
+    cursor: pointer;
   }
 
   .inputSubtract {
@@ -177,16 +190,21 @@
 
   .totalContainer {
     display: flex;
+    width: 100%;
     justify-content: space-between;
     border-top: 1px solid $gray_DDDDDD;
-    padding: 36px 24px 18px 24px;
+    padding: 24px 24px 18px 24px;
   }
+}
+
+.calendarContainer {
+  display: none;
 }
 
 @media screen and (min-width: 1200px) {
   .reservationSection {
     width: 38.4rem;
-    height: 56rem;
+    position: relative;
   }
 
   .timeContainer {
@@ -222,4 +240,16 @@
       width: 33.6rem;
     }
   }
+
+  .calendarContainer {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 2.5rem;
 }
