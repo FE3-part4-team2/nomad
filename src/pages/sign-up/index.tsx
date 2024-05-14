@@ -28,13 +28,9 @@ export default function SignUp() {
               placeholder="비밀번호를 한번 더 입력해주세요"
             />
           </div>
-          <Button
-            status="disable"
-            buttonTitle="회원가입 하기"
-            radius={6}
-            fontSize={1.6}
-            className={styles.joinButton}
-          />
+          <div className={styles.joinButton}>
+            <Button buttonTitle="회원가입 하기" radius={6} fontSize={1.6} />
+          </div>
         </div>
         <div className={styles.linkContainer}>
           <span>회원이신가요?</span>

@@ -17,13 +17,9 @@ export default function SignIn() {
             <span>비밀번호</span>
             <input type="password" placeholder="비밀번호를 입력해주세요" />
           </div>
-          <Button
-            status="disable"
-            buttonTitle="로그인 하기"
-            radius={6}
-            fontSize={1.6}
-            className={styles.loginButton}
-          />
+          <div className={styles.loginButton}>
+            <Button buttonTitle="로그인 하기" radius={6} fontSize={1.6} />
+          </div>
         </div>
         <div className={styles.linkContainer}>
           <span>회원이 아니신가요?</span>
