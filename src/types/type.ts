@@ -45,7 +45,6 @@ export interface ReservationCardType {
 }
 
 export interface getMyReservationType {
-  cursorId?: number;
+  status: string;
   size?: number;
-  status?: string;
 }

@@ -2,16 +2,13 @@ import axios from './axiosInstance';
 import { AxiosError } from 'axios';
 import { getMyReservationType } from '../types/type';
 
-const getMyReservation = async ({
-  cursorId,
-  size,
-  status,
-}: getMyReservationType) => {
+export const getMyReservation = async (size: number) => {
   try {
     const res = await axios.get(`my-reservations`, {
-      params: { cursorId: cursorId, size: size, status: status },
+      // params: { cursorId: cursorId, size: size, status: status },
+      params: { size },
     });
-    const responseData = await res.data;
+    const responseData = res.data;
     return responseData;
   } catch (e) {
     const error = e as AxiosError;
@@ -19,4 +16,20 @@ const getMyReservation = async ({
   }
 };
 
-export default getMyReservation;
+export const getRevStatusMyReservation = async ({
+  status,
+  size,
+}: getMyReservationType) => {
+  try {
+    console.log(status);
+    console.log(size);
+    const res = await axios.get(`my-reservations`, {
+      params: { size, status },
+    });
+    const responseData = res.data;
+    return responseData;
+  } catch (e) {
+    const error = e as AxiosError;
+    return error.response;
+  }
+};
