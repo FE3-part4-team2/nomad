@@ -1,26 +1,13 @@
-import Image from 'next/image';
 import styles from './index.module.scss';
 import Button from '@/components/Button/Button';
 import Link from 'next/link';
+import AuthLogoImage from '@/components/logo/AuthLogoImage';
 
 export default function SignIn() {
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.logoContainer}>
-          <Image
-            src="/assets/icons/logo-icon.svg"
-            alt="로고 이미지"
-            width={100}
-            height={100}
-          />
-          <Image
-            src="/assets/icons/logo2.svg"
-            alt="로고 이미지"
-            width={250}
-            height={28}
-          />
-        </div>
+        <AuthLogoImage />
         <div className={styles.inputContainer}>
           <div className={styles.inputWrapper}>
             <span>이메일</span>
