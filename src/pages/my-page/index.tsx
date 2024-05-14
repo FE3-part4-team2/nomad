@@ -3,9 +3,8 @@ import ProfileInfoChangeForm from '@/containers/ProfileInfoChangeForm/ProfileInf
 
 export default function MyPage() {
   return (
-    <div>마이페이지</div>
-    // <Layout>
-    //   <ProfileInfoChangeForm />
-    // </Layout>
+    <Layout>
+      <ProfileInfoChangeForm />
+    </Layout>
   );
 }
