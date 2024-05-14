@@ -1,4 +1,4 @@
-import instance from '@/utils/instance';
+import axiosInstance from './axiosInstance';
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 
@@ -14,7 +14,7 @@ export const handleChangeInfo = async ({
   password,
 }: ChangeInfoProps) => {
   try {
-    const response = await instance.patch('users/me', {
+    const response = await axiosInstance.patch('users/me', {
       image,
       nickname,
       password,
@@ -30,7 +30,7 @@ export const handleChangeInfo = async ({
 
 export const handleGetUserInfo = async () => {
   try {
-    const response = await instance.get('users/me');
+    const response = await axiosInstance.get('users/me');
     return response.data;
   } catch (e) {
     const error = e as AxiosError;

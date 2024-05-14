@@ -10,7 +10,7 @@ export default function ReservationCardContainer({
   endTime,
   headCount,
   price,
-  buttonTitle,
+  reviewSubmitted,
 }: ReservationCardType) {
   const bStatusArray = {
     confirmed: 'white',
@@ -18,7 +18,17 @@ export default function ReservationCardContainer({
     default: 'disabled',
   } as { [key: string]: string };
 
+  const bTitleArray = {
+    confirmed: '예약 취소',
+    default: '후기 작성',
+  } as { [key: string]: string };
+
   const bStatus = bStatusArray[revStatus] || bStatusArray.default;
+
+  const bTitle = bTitleArray[revStatus] || bTitleArray.default;
+
+  const isButtonHidden =
+    !reviewSubmitted && !['confirmed', 'completed'].includes(revStatus);
 
   return (
     <ReservationCard
@@ -30,8 +40,9 @@ export default function ReservationCardContainer({
       endTime={endTime}
       headCount={headCount}
       price={price}
-      buttonTitle={buttonTitle}
+      buttonTitle={bTitle}
       buttonStatus={bStatus}
+      isButtonHidden={isButtonHidden}
     ></ReservationCard>
   );
 }
