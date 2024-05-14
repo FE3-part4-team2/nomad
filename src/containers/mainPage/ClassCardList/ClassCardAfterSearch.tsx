@@ -37,7 +37,7 @@ export default function ClassCardAfterSearch(params: GetClassDataParamsType) {
       {/* <div className={styles.classCardWrapper}> */}
       <div className={styles.classCards}>
         {cardList.map((data) => (
-          <ClassCard key={data.id} classData={data} />
+          <ClassCard id={data.id} classData={data} />
         ))}
       </div>
       {/* </div> */}

@@ -24,12 +24,12 @@ interface Props {
  */
 
 const Input = ({
-  placeholder,
+  // placeholder,
   id,
   classname = 'inputDefault',
   defaultValue,
   error,
-  readOnly,
+  // readOnly,
   ...rest
 }: Props) => {
   return (

@@ -31,7 +31,7 @@ export default function Calendar({
                   completed,
                   confirmed,
                   pending,
-                }).filter(([key, value]) => value !== 0);
+                }).filter(([value]) => value !== '0');
                 console.log(nonZeroValues);
                 return (
                   <>

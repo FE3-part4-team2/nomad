@@ -1,8 +1,4 @@
 import Select from '@/components/Select/Select';
-import getMyActivities from '@/apis/myActivitiesApi';
-import { useQuery } from '@tanstack/react-query';
-import { useRecoilState } from 'recoil';
-import { totalCountAtom } from '@/store/atoms/idState';
 
 interface ActivityData {
   activities: {

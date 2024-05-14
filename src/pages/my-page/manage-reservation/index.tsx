@@ -3,11 +3,10 @@ import Layout from '@/components/Layout/Layout';
 // import Select from '@/components/Select/Select';
 import styles from './index.module.scss';
 import postSignIn from '@/apis/postSignInApi';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import SelectContainer from '@/containers/SelectContainer/SelectContainer';
 import NoneExp from '@/components/NoneExp/NoneExp';
 import getMyActivities from '@/apis/myActivitiesApi';
-import { useQuery } from '@tanstack/react-query';
 
 interface ActivityData {
   activities: {

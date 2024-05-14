@@ -1,12 +1,7 @@
 import { useEffect, useState } from 'react';
 import ReservationCardContainer from '../../../containers/ReservationCardContainer/ReservationCardContainer';
-import { getMyReservationType } from '../../../types/type';
-import {
-  getMyReservation,
-  getRevStatusMyReservation,
-} from '../../../apis/getMyReservation';
+import { getMyReservation } from '../../../apis/getMyReservation';
 import Layout from '@/components/Layout/Layout';
-import DropDown from '@/components/DropDown/DropDown';
 // import useWindowSize from '../../../hooks/useWindowSize';
 
 export default function MyReservation() {
@@ -98,36 +93,36 @@ export default function MyReservation() {
     };
   }, [handleScroll, totalCount, isLoading]);
 
-  const handleDropDownClick = (status: string) => {
-    if (status === '필터') {
-      // 아무 동작도 하지 않고 드롭다운 리스트만 펼치기
-      // if (width >= 1024) {
-      // }
-      return;
-    }
+  // const handleDropDownClick = (status: string) => {
+  //   if (status === '필터') {
+  //     // 아무 동작도 하지 않고 드롭다운 리스트만 펼치기
+  //     // if (width >= 1024) {
+  //     // }
+  //     return;
+  //   }
 
-    let selectedStatus = '';
-    switch (status) {
-      case '예약 신청':
-        selectedStatus = 'pending';
-        break;
-      case '예약 취소':
-        selectedStatus = 'canceled';
-        break;
-      case '예약 승인':
-        selectedStatus = 'confirmed';
-        break;
-      case '예약 거절':
-        selectedStatus = 'declined';
-        break;
-      case '예약 완료':
-        selectedStatus = 'completed';
-        break;
-      default:
-        selectedStatus = '';
-    }
-    // setSelectedStatus(selectedStatus);
-  };
+  //   let selectedStatus = '';
+  //   switch (status) {
+  //     case '예약 신청':
+  //       selectedStatus = 'pending';
+  //       break;
+  //     case '예약 취소':
+  //       selectedStatus = 'canceled';
+  //       break;
+  //     case '예약 승인':
+  //       selectedStatus = 'confirmed';
+  //       break;
+  //     case '예약 거절':
+  //       selectedStatus = 'declined';
+  //       break;
+  //     case '예약 완료':
+  //       selectedStatus = 'completed';
+  //       break;
+  //     default:
+  //       selectedStatus = '';
+  //   }
+  //   // setSelectedStatus(selectedStatus);
+  // };
 
   // console.log(selectedStatus);
 
