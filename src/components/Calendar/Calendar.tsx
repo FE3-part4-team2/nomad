@@ -32,18 +32,37 @@ export default function Calendar({
                   confirmed,
                   pending,
                 }).filter(([key, value]) => value !== 0);
-
+                console.log(nonZeroValues);
                 return (
-                  <div key={element.date}>
-                    {nonZeroValues.map((item) => {
-                      // Wrap the arrow function inside parentheses
-                      return (
-                        <div
-                          key={element.date + item[0]}
-                        >{`${item[0] == 'completed' ? '완료' : item[0] == 'confirmed' ? '승인' : item[0] == 'pending' ? '예약' : ''} ${item[1]}`}</div>
-                      );
-                    })}
-                  </div>
+                  <>
+                    <div
+                      key={`${element.date}+dot`}
+                      className={`${
+                        nonZeroValues.some((item) => item[0] == 'completed')
+                          ? 'blackDot'
+                          : 'blueDot'
+                      }`}
+                    />
+                    <div key={element.date} className="colorBox">
+                      {nonZeroValues.map((item) => {
+                        // Wrap the arrow function inside parentheses
+                        return (
+                          <div
+                            className={`${
+                              item[0] == 'completed'
+                                ? 'gray'
+                                : item[0] == 'confirmed'
+                                  ? 'orange'
+                                  : item[0] == 'pending'
+                                    ? 'blue'
+                                    : ''
+                            }`}
+                            key={element.date + item[0]}
+                          >{`${item[0] == 'completed' ? '완료' : item[0] == 'confirmed' ? '승인' : item[0] == 'pending' ? '예약' : ''} ${item[1]}`}</div>
+                        );
+                      })}
+                    </div>
+                  </>
                 );
               }
               return null;
