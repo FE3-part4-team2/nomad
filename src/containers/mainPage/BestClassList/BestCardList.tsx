@@ -25,10 +25,13 @@ export default function BestCardList(params: GetClassDataParamsType) {
       <h2 className={styles.title}>
         <span>🔥</span> 인기 체험
       </h2>
-      <div className={styles.bestCards}>
-        {cardList.map((data) => (
-          <BestClassCard key={data.id} classData={data} id={data.id} />
-        ))}
+      <div className={styles.cardWrapper}>
+        <div className={styles.overlay}></div>
+        <div className={styles.bestCards}>
+          {cardList.map((data) => (
+            <BestClassCard key={data.id} classData={data} id={data.id} />
+          ))}
+        </div>
       </div>
     </div>
   );
