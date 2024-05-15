@@ -16,9 +16,6 @@ export default function Header() {
       const data = await loginApi('1234@1234.com', '123412341234');
       setUser(data);
       localStorage.setItem('user', JSON.stringify(data));
-      const res = await loginApi('1234@1234.com', '123412341234');
-      setUserInfo(res);
-
     };
     getUserInfo();
   }, [setUser]);
