@@ -1,11 +1,10 @@
 import Layout from '@/components/Layout/Layout';
-
-import MyClassContainer from '@/containers/MyClass/MyClassContainer';
+import EditMyClass from '@/components/MyClass/MyClassTitle/EditMyClass';
 
 export default function EditClass() {
   return (
     <Layout>
-      <MyClassContainer />
+      <EditMyClass buttonTitle="수정하기" />
     </Layout>
   );
 }

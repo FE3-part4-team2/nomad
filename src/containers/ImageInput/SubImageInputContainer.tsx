@@ -50,8 +50,6 @@ export default function SubImageInputContainer({
 
   return (
     <>
-      <div>{apiImgURL}</div>
-      <div>{imgURL}</div>
       <SubImageInput
         id={id}
         register={register}

@@ -26,16 +26,8 @@ export const patchEditMyActivityApi = async (
     );
     return res;
   } catch (e: any) {
-    if (e.response.status === 401) {
-      toast.error('로그인 해주세요.');
-    } else if (e.response.status === 400) {
-      toast.error('올바른 값을 입력해주세요.');
-    } else if (e.response.status === 409) {
-      toast.error('겹치는 예약 가능 시간대가 존재합니다.');
-    } else if (e.response.status === 403) {
-      toast.error('본인의 체험만 수정할 수 있습니다.');
-    } else if (e.response.status === 404) {
-      toast.error('존재하지 않는 체험입니다.');
+    if (e.response.status >= 400) {
+      toast.error(e.response.data.message);
     }
   }
 };

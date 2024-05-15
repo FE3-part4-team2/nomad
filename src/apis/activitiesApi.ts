@@ -91,12 +91,8 @@ export const postAddMyActivityApi = async (
     });
     return res;
   } catch (e: any) {
-    if (e.response.status === 401) {
-      toast.error('로그인 해주세요.');
-    } else if (e.response.status === 400) {
-      toast.error('올바른 값을 입력해주세요.');
-    } else if (e.response.status === 409) {
-      toast.error('겹치는 예약 가능 시간대가 존재합니다.');
+    if (e.response.status >= 400) {
+      toast.error(e.response.data.message);
     }
   }
 };
