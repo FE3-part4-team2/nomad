@@ -61,8 +61,7 @@ export default function manageReservation() {
             )}
           </div>
         </div>
-
-        <button onClick={() => mutate()}>로그인</button>
+        {/* <button onClick={() => mutate()}>로그인</button>*/}
       </Layout>
     </>
   );

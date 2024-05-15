@@ -14,8 +14,8 @@ export interface loginType {
 }
 
 export const loginApi = async (
-  email: string = 'asd@asd.com',
-  password: string = 'asdasdasd',
+  email: string = '1234@1234.com',
+  password: string = '123412341234',
 ) => {
   try {
     const res = await axios.post(`auth/login`, {

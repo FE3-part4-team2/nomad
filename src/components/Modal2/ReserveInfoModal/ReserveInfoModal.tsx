@@ -187,7 +187,7 @@ export default function ReserveInfoModal({
             <div>
               <div>닉네임 {item.nickname}</div>
               <div>인원 {item.headCount}</div>
-              <div>예약 거절</div>
+              <div className={styles.declineDiv}>예약 거절</div>
             </div>
           ))}
       </div>

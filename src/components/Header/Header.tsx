@@ -3,18 +3,45 @@ import styles from './header.module.scss';
 import Image from 'next/image';
 import { useState } from 'react';
 import { loginApi, loginType } from '../../apis/authApi';
+import getMyNotifications from '@/apis/getMyNotificationsApi';
+import { useQuery } from '@tanstack/react-query';
+import AlarmContainer from '@/containers/AlarmContainer/AlarmContainer';
+
+interface Notification {
+  totalCount: number;
+  notifications: {
+    id: number;
+    teamId: string;
+    userId: number;
+    content: string;
+    createdAt: Date;
+    updatedAt: Date;
+    deletedAt: Date | null;
+  }[];
+  cursorId: number;
+}
 
 export default function Header() {
   const [userInfo, setUserInfo] = useState<loginType>();
+  const [open, setOpen] = useState<boolean>(false);
+
+  const { data: noti } = useQuery<Notification>({
+    queryKey: ['myNotifications'],
+    queryFn: () => getMyNotifications(),
+  });
 
   const onclick = () => {
     // useEffect(() => {
     const getUserInfo = async () => {
-      const res = await loginApi('asd@asd.com', 'asdasdasd');
+      const res = await loginApi();
       setUserInfo(res);
     };
     getUserInfo();
     // }, []);
+  };
+
+  const handleAlarm = () => {
+    setOpen(!open);
   };
 
   return (
@@ -28,14 +55,12 @@ export default function Header() {
             height={28}
           />
         </Link>
+
         {userInfo ? (
           <div className={styles.userContainer}>
-            <Image
-              src="/assets/icons/notification.svg"
-              alt="알림 아이콘"
-              width={20}
-              height={20}
-            />
+            {open ? <AlarmContainer data={noti} onClick={handleAlarm} /> : null}
+            <button className={styles.alarm} onClick={handleAlarm} />
+
             <Image
               src="/assets/icons/line.svg"
               alt="구분선 아이콘"
