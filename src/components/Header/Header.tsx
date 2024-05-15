@@ -18,7 +18,6 @@ export default function Header() {
       localStorage.setItem('user', JSON.stringify(data));
       const res = await loginApi('1234@1234.com', '123412341234');
       setUserInfo(res);
-
     };
     getUserInfo();
   }, [setUser]);
@@ -33,7 +32,7 @@ export default function Header() {
             src="/assets/images/logo.png"
             alt="로고 이미지"
             width={165}
-            height={28}
+            height={42}
           />
         </Link>
         {userInfo ? (
