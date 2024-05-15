@@ -2,7 +2,7 @@
 
 .reservationCardContainer {
   display: flex;
-  margin: 12px 15px 8px 15px;
+  margin: 12px 15px 8px 16px;
   width: 344px;
   height: 128px;
   // justify-content: center;
@@ -11,68 +11,135 @@
   background: $white;
   border-radius: 24px;
 
+  @media (min-width: 769px) {
+    width: 429px;
+    height: 156px;
+  }
+  @media (min-width: 1248px) {
+    width: 792px;
+    height: 204px;
+  }
+
   .mainBox {
     display: flex;
     align-items: center;
     gap: 8px;
     position: absolute;
+    @media (min-width: 769px) {
+      gap: 16px;
+    }
+    @media (min-width: 1248px) {
+      gap: 24px;
+    }
 
     .imageDiv {
-      border-radius: 24px;
+      position: relative;
+      width: 132px;
+      height: 128px;
       overflow: 'hidden';
+      @media (min-width: 769px) {
+        width: 163px;
+        height: 156px;
+      }
+      @media (min-width: 1248px) {
+        width: 250px;
+        height: 204px;
+      }
     }
 
     .reservationDetail {
       padding: 9px 14px 9px 0px;
 
-      #revStatus {
-        font-family: Pretendard;
-        font-size: 1.4rem;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 26px;
+      @media (min-width: 769px) {
+        width: 243px;
+        height: 132px;
       }
-      .pending {
-        //pending 예약승인을 기다리는중
-        color: $orange;
+      @media (min-width: 1248px) {
+        width: 500px;
+        height: 153px;
       }
-      .confirmed {
-        //     confirmed 예약완료
-        color: $blue_vivid;
-      }
-      .declined {
-        //     declined 예약거절
-        color: $red;
-      }
-      .canceled,
-      .completed {
-        // canceled 예약취소
-        // completed 체험완료
-        color: $gray_79747E;
-      }
-      .title {
-        color: $nomad-black;
-        font-family: Pretendard;
-        font-size: 1.4rem;
-        font-style: normal;
-        font-weight: 700;
-        line-height: 26px;
-      }
-      .datebox {
-        display: flex;
-        color: $nomad-black;
-        font-family: Pretendard;
-        font-size: 1.2rem;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 24px;
-        gap: 2px;
 
-        .headCount {
-          width: 47px;
-          flex-shrink: 0;
+      .detailMainArea {
+        padding-bottom: 0px;
+        @media (min-width: 769px) {
+          padding-bottom: 10px;
+        }
+        @media (min-width: 1248px) {
+          padding-bottom: 16px;
+        }
+
+        #revStatus {
+          font-family: Pretendard;
+          font-size: 1.4rem;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 26px;
+          @media (min-width: 769px) {
+            font-size: 1.6rem;
+          }
+          @media (min-width: 769px) {
+            font-size: 1.6rem;
+            padding-bottom: 8px;
+          }
+        }
+        .pending {
+          //pending 예약승인을 기다리는중
+          color: $orange;
+        }
+        .confirmed {
+          //     confirmed 예약완료
+          color: $blue_vivid;
+        }
+        .declined {
+          //     declined 예약거절
+          color: $red;
+        }
+        .canceled,
+        .completed {
+          // canceled 예약취소
+          // completed 체험완료
+          color: $gray_79747E;
+        }
+        .title {
+          color: $nomad-black;
+          font-family: Pretendard;
+          font-size: 1.4rem;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 26px;
+          @media (min-width: 769px) {
+            font-size: 1.8rem;
+          }
+          @media (min-width: 1248px) {
+            font-size: 2rem;
+            padding-bottom: 12px;
+          }
+        }
+        .datebox {
+          display: flex;
+          color: $nomad-black;
+          font-family: Pretendard;
+          font-size: 1.2rem;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 24px;
+          gap: 2px;
+          @media (min-width: 769px) {
+            font-size: 1.4rem;
+            gap: 4px;
+          }
+          @media (min-width: 1248px) {
+            font-size: 1.8rem;
+            gap: 8px;
+          }
+
+          .headCount {
+            width: 47px;
+            flex-shrink: 0;
+          }
         }
       }
+
       .priceAndButtonArea {
         display: flex;
         align-items: center;
@@ -90,6 +157,12 @@
         line-height: normal;
         position: absolute;
         left: 0;
+        @media (min-width: 769px) {
+          font-size: 2rem;
+        }
+        @media (min-width: 1248px) {
+          font-size: 2.4rem;
+        }
       }
 
       .buttonDiv {
@@ -113,12 +186,26 @@
           font-style: normal;
           font-weight: 500;
           line-height: normal;
+          @media (min-width: 769px) {
+            font-size: 2rem;
+          }
+          @media (min-width: 1248px) {
+            font-size: 2.4rem;
+          }
         }
         .buttonDiv {
           width: 80px;
           height: 32px;
           justify-content: center;
           align-items: center;
+          @media (min-width: 769px) {
+            width: 112px;
+            height: 40px;
+          }
+          @media (min-width: 1248px) {
+            width: 143px;
+            height: 40px;
+          }
         }
       }
     }
@@ -130,9 +217,13 @@
 //     font-weight: 700;
 
 //     @media (min-width : 769px){
-//       font-size: 2rem;
+//
 //     }
 //     @media (min-width: 1248px){
-//       font-size: 2.4rem;
+//
 //     }
 //   }
+// @media (min-width: 769px) {
+// }
+// @media (min-width: 1248px) {
+// }

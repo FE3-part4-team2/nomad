@@ -1,9 +1,7 @@
 @import 'src/styles/_variables';
 
-// @media screen and (max-width: 767px) {
 .container {
   width: 100%;
-  // height: 40rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -34,8 +32,8 @@
 }
 
 .choose_time {
-  width: 11.7rem;
-  height: 4.6rem;
+  width: 117px;
+  height: 46px;
   background-color: $primary;
   color: $white;
   font-size: 1.6rem;
@@ -71,11 +69,9 @@
 }
 
 .mark {
-  width: 2rem;
-  height: 2rem;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   background-color: $green;
   opacity: 40%;
 }
-
-// }
