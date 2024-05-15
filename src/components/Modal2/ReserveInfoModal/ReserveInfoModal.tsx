@@ -5,6 +5,7 @@ import { idAtom } from '@/store/atoms/idState';
 import { useState } from 'react';
 import patchReservationsUpdate from '@/apis/patchReservationsUpdateApi';
 import styles from './reserveInfoModal.module.scss';
+import { QueryClient } from '@tanstack/react-query';
 
 interface ScheduleInfo {
   scheduleId: number;
@@ -34,6 +35,7 @@ export default function ReserveInfoModal({
   info: ScheduleInfo[];
   date: string;
 }) {
+  const queryClient = new QueryClient();
   const [option, setOption] = useState(0);
   const [status, setStatus] = useState('pending');
   const [id, setId] = useState(0);
@@ -69,6 +71,7 @@ export default function ReserveInfoModal({
     onSuccess: (data) => {
       alert('거절 성공');
       console.log(data);
+      queryClient.invalidateQueries({ queryKey: ['reservation'] });
     },
     onError: (error) => {
       alert('거절 실패');
@@ -184,10 +187,16 @@ export default function ReserveInfoModal({
           ))}
         {status == 'declined' &&
           data?.reservations.map((item) => (
-            <div>
-              <div>닉네임 {item.nickname}</div>
-              <div>인원 {item.headCount}</div>
-              <div className={styles.declineDiv}>예약 거절</div>
+            <div className={styles.card}>
+              <div className={styles.cardInfo}>
+                <div>닉네임 </div>
+                <div className={styles.cardData}> {item.nickname}</div>
+              </div>
+              <div className={styles.cardInfo}>
+                <div>인원</div>{' '}
+                <div className={styles.cardData}> {item.headCount}명</div>
+              </div>
+              <div className={styles.declinedDiv}>예약 거절</div>
             </div>
           ))}
       </div>
