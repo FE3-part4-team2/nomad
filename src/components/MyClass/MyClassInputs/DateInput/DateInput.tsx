@@ -9,7 +9,6 @@ import styles from './dateInput.module.scss';
 import Image from 'next/image';
 import DateDeleteInput from './DatedeleteInput';
 import { FormValues } from '../../MyClassTitle/MyClassTitle';
-// import { useState } from 'react';
 
 interface DateInputProps {
   id: string;
@@ -113,21 +112,12 @@ export default function DateInput({
         </div>
       </div>
 
-      {errors.schedules ? (
-        <p className={styles.error}>{errors.schedules?.message}</p>
-      ) : (
-        ''
-      )}
-      {/* {dateInputArray ? dateInputArray : ''} */}
-      {/* {dateInputArray.map((element, index) => (
-        <div key={index}>{element}</div>
-      ))} */}
-
       <div className={styles.plusTimeBorder}>
         {fields.map((field, index) => {
           return (
             <div key={field.id}>
               <DateDeleteInput
+                errors={errors}
                 index={index}
                 register={register}
                 remove={remove}
@@ -136,6 +126,11 @@ export default function DateInput({
           );
         })}
       </div>
+      {(errors.mainSchedule?.date ||
+        errors.mainSchedule?.startTime ||
+        errors.mainSchedule?.endTime) && (
+        <p className={styles.error}>날짜 입력은 필수입니다.</p>
+      )}
     </div>
   );
 }
