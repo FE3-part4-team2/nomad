@@ -224,8 +224,6 @@ export default function MiniCalendarContainer({
     }
   }, [data]);
 
-  console.log(data);
-
   const handleChange = (e: Value) => {
     onChange(e);
   };

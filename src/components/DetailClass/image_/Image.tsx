@@ -3,15 +3,19 @@ import styles from './image.module.scss';
 
 interface ImageProps {
   imageUrl: string;
+  subImage?: { id: number; imageUrl: string }[];
 }
 
-export default function ImageComponent({ imageUrl }: ImageProps) {
-  const images = [
-    {
-      original: imageUrl,
-      thumbnail: imageUrl,
-    },
-  ];
+export default function ImageComponent({ imageUrl, subImage }: ImageProps) {
+  const images =
+    subImage && Array.isArray(subImage)
+      ? subImage.map((subImage) => ({
+          original: subImage.imageUrl,
+          thumbnail: subImage.imageUrl,
+        }))
+      : [];
+
+  images.unshift({ original: imageUrl, thumbnail: imageUrl });
 
   return (
     <>
