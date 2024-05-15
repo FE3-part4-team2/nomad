@@ -4,7 +4,7 @@ import styles from './kebab.module.scss';
 
 interface KebabProps {
   dropDownList: string[];
-  onClick: () => void;
+  onClick: (item: string) => void;
 }
 
 export default function Kebab({ dropDownList, onClick }: KebabProps) {

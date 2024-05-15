@@ -38,9 +38,10 @@ export default function ReservationCard({
       <div className={res.mainBox}>
         <div className={res.imageDiv}>
           <Image
-            width={132}
-            height={128}
+            // width={132}
+            // height={128}
             objectFit="cover"
+            fill
             style={{
               borderBottomLeftRadius: '24px',
               borderTopLeftRadius: '24px',
@@ -50,18 +51,20 @@ export default function ReservationCard({
           />
         </div>
         <div className={res.reservationDetail}>
-          <div className={`${res[revStatus]}`} id={res.revStatus}>
-            {getKoreanRevStatus(revStatus)}
-          </div>
-          <div className={res.title}>{title}</div>
-          <div className={res.datebox}>
-            <div>{date}</div>
-            <div>·</div>
-            <div>
-              {startTime} - {endTime}
+          <div className={res.detailMainArea}>
+            <div className={`${res[revStatus]}`} id={res.revStatus}>
+              {getKoreanRevStatus(revStatus)}
             </div>
-            <div>·</div>
-            <div className={res.headCount}>{headCount}명</div>
+            <div className={res.title}>{title}</div>
+            <div className={res.datebox}>
+              <div>{date}</div>
+              <div>·</div>
+              <div>
+                {startTime} - {endTime}
+              </div>
+              <div>·</div>
+              <div className={res.headCount}>{headCount}명</div>
+            </div>
           </div>
           <div className={res.priceAndButtonArea}>
             <div className={res.price}>₩{price.toLocaleString('ko-KR')}</div>

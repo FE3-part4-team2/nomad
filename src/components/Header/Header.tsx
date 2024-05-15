@@ -30,15 +30,16 @@ export default function Header() {
     queryFn: () => getMyNotifications(),
   });
 
-  const onclick = () => {
-    // useEffect(() => {
+
+  useEffect(() => {
     const getUserInfo = async () => {
       const res = await loginApi();
       setUserInfo(res);
     };
     getUserInfo();
-    // }, []);
-  };
+  }, [setUser]);
+
+  const onclick = () => {};
 
   const handleAlarm = () => {
     setOpen(!open);

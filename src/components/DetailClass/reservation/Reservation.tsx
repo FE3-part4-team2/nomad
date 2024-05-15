@@ -60,7 +60,9 @@ export default function Reservation({
         <div className={styles.reservationContainer}>
           <div>
             <div className={styles.priceWrapper}>
-              <div className={styles.price}>₩ {price}</div>
+              <div className={styles.price}>
+                ₩ {price && price.toLocaleString()}
+              </div>
               <div className={styles.per}>/ 인</div>
             </div>
             <div className={styles.titleContainer}>
@@ -137,7 +139,9 @@ export default function Reservation({
           </div>
           <div className={styles.totalContainer}>
             <div className={styles.totalTitle}>총 합계</div>
-            <div className={styles.totalPrice}>₩ {totalPrice}</div>
+            <div className={styles.totalPrice}>
+              ₩ {totalPrice.toLocaleString()}
+            </div>
           </div>
         </div>
       </section>
