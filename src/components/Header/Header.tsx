@@ -1,21 +1,26 @@
 import Link from 'next/link';
 import styles from './header.module.scss';
 import Image from 'next/image';
-import { useState } from 'react';
-import { loginApi, loginType } from '../../apis/authApi';
+import { useEffect } from 'react';
+import { loginApi } from '../../apis/authApi';
+import { loginType } from '@/types/authType/AuthType';
+import { userState } from '@/store/atoms/userState';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
 export default function Header() {
-  const [userInfo, setUserInfo] = useState<loginType>();
+  const setUser = useSetRecoilState(userState);
+  const userInfo = useRecoilValue(userState);
 
-  const onclick = () => {
-    // useEffect(() => {
+  useEffect(() => {
     const getUserInfo = async () => {
-      const res = await loginApi('1234@1234.com', '123412341234');
-      setUserInfo(res);
+      const data = await loginApi('1234@1234.com', '123412341234');
+      setUser(data);
+      localStorage.setItem('user', JSON.stringify(data));
     };
     getUserInfo();
-    // }, []);
-  };
+  }, [setUser]);
+
+  const onclick = () => {};
 
   return (
     <div className={styles.wrapper}>
