@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { useRouter } from 'next/router';
 import MyClassCard from '@/components/MyClass/MyClassCard/MyClassCard';
 import Layout from '@/components/Layout/Layout';
 import styles from './index.module.scss';
@@ -16,6 +17,7 @@ export default function MyClass() {
   const [isLoading, setIsLoading] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
   const lastItemRef = useRef<HTMLDivElement | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     getInitialData();
@@ -103,7 +105,9 @@ export default function MyClass() {
     }
   };
 
-  console.log(cursorId);
+  const handleAddClass = async () => {
+    router.push('/my-page/my-class/add-class');
+  };
 
   return (
     <div>
@@ -112,10 +116,7 @@ export default function MyClass() {
           <div className={styles.titlaArea}>
             <div className={styles.title}>내 체험 관리</div>
             <div className={styles.buttonArea}>
-              <Button
-                buttonTitle={'체험 등록하기'}
-                // onClick={}
-              />
+              <Button buttonTitle={'체험 등록하기'} onClick={handleAddClass} />
             </div>
           </div>
           <InfiniteScroll
