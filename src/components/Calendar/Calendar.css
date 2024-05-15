@@ -196,6 +196,7 @@ abbr {
 .small .react-calendar__tile--active {
   background-color: #0b3b2d;
   opacity: 50%;
+  border: none;
   border-radius: 0.3rem;
   abbr {
     color: white;

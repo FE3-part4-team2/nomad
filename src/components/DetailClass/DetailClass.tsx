@@ -9,10 +9,15 @@ import { getDetailClassApi } from '@/apis/activitiesApi';
 import ImageComponent from './image_/Image';
 import { DetailClassType } from '@/types/activitiesType/ActivitiesType';
 import CalendarReservation from '../CalendarReservation/CalendarReservation';
+import { useRecoilValue } from 'recoil';
+import { userState } from '@/store/atoms/userState';
 
 export default function DetailClass({ id }: { id: number }) {
   const [detail, setDetail] = useState<DetailClassType>();
 
+  const loggedInUserId = useRecoilValue(userState);
+
+  console.log(loggedInUserId?.user?.id, detail?.userId);
   useEffect(() => {
     const getDetailClassInfo = async () => {
       const res = await getDetailClassApi(id);
@@ -32,9 +37,13 @@ export default function DetailClass({ id }: { id: number }) {
           rating={detail?.rating || 0}
           reviewCount={detail?.reviewCount || 0}
           address={detail?.address || ''}
-          id={id}
+          id={detail?.id}
+          userId={detail?.userId || 0}
         />
-        <ImageComponent imageUrl={detail?.bannerImageUrl || ''} />
+        <ImageComponent
+          imageUrl={detail?.bannerImageUrl || ''}
+          subImage={detail?.subImages}
+        />
         <div className={styles.responsiveContainer || ''}>
           <div className={styles.responsiveLeft}>
             <Description description={detail?.description || ''} />
@@ -42,7 +51,9 @@ export default function DetailClass({ id }: { id: number }) {
             <Map address={detail?.address || ''} title={detail?.title || ''} />
             <Review id={id} />
           </div>
-          <CalendarReservation detail={detail as DetailClassType} />
+          {loggedInUserId?.user?.id === detail?.userId ? null : (
+            <CalendarReservation detail={detail as DetailClassType} />
+          )}
         </div>
       </div>
     </>

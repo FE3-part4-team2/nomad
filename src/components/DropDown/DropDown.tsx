@@ -6,7 +6,7 @@ interface DropDownProps {
   isBig?: boolean;
   dropDownName: string;
   dropDownList: string[];
-  onClick: () => void;
+  onClick: (() => void) | ((status: string) => void); //기존에있던 onclick & status를 둘중 하나를 받을수있게 변경
 }
 // 메인화면에 들어가는 드랍다운은 작고 예약내역의 드랍다운은 커서 스타일을 다르게 해주기 위해서 isBig prop을 만들었습니다.
 // 예약내역에서는 isBig = true로 주면 됩니다.
@@ -23,6 +23,18 @@ export default function DropDown({
   const handleOnClick = () => {
     setIsOpen((prev) => !prev);
   };
+
+  //기존에 쓰던 onclick방식 & string(status)가 들어오는 방식 둘다 처리하기위해 만듬
+  const handleItemClick = (status: string) => {
+    if (typeof onClick === 'function') {
+      if (onClick.length === 1) {
+        (onClick as (status: string) => void)(status);
+      } else {
+        (onClick as () => void)();
+      }
+    }
+  };
+
   return (
     <div className={styles.center}>
       <div
@@ -41,7 +53,7 @@ export default function DropDown({
         <DropDownList
           dropDownList={dropDownList}
           isBig={isBig}
-          onClick={onClick}
+          onClick={handleItemClick}
         />
       ) : (
         ''
