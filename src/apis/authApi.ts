@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-import axios from './axiosInstance';
+import axiosInstance from './axiosInstance';
 
 // 로그인
 
@@ -8,7 +8,7 @@ export const loginApi = async (
   password: string = '123412341234',
 ) => {
   try {
-    const res = await axios.post(`auth/login`, {
+    const res = await axiosInstance.post(`auth/login`, {
       email,
       password,
     });
@@ -26,7 +26,7 @@ export const loginApi = async (
 
 export const refreshTokenApi = async () => {
   try {
-    const res = await axios.post(`auth/tokens`);
+    const res = await axiosInstance.post(`auth/tokens`);
     localStorage.setItem('accessToken', res.data.accessToken);
     localStorage.setItem('refreshToken', res.data.refreshToken);
 
