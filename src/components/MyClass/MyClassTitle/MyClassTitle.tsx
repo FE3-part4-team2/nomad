@@ -13,6 +13,10 @@ import TitleInput from '../MyClassInputs/TitleInput/TitleInput';
 import { useState } from 'react';
 import { postAddMyActivityApi } from '@/apis/activitiesApi';
 
+import ModalBase from '@/components/Modal/ModalBase';
+import MyClassModal from '../MyClassModal';
+import { useRouter } from 'next/router';
+
 export interface FormValues {
   title: string;
   category: string;
@@ -38,6 +42,7 @@ interface MyClassTitleProps {
 }
 
 export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
+  const router = useRouter();
   const [getAddress, setGetAddress] = useState('');
   const {
     control,
@@ -56,6 +61,8 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
 
   const [apiImgURL, setApiImgURL] = useState<string[]>([]);
   const [bannerApiImgURL, setBannerApiImgURL] = useState('');
+  const [isModalOpen, setIsModalOepn] = useState(false);
+
   const onSubmit = async (data: FormValues) => {
     const dateArray = [data.mainSchedule];
     const combinedDateArray = dateArray.concat(data.schedules);
@@ -72,61 +79,88 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
       subImageUrls: data.subImage,
     };
     const apiData = await postAddMyActivityApi(sendData);
-    console.log(apiData);
+    if (apiData) {
+      if (apiData.status === 201) {
+        setIsModalOepn(true);
+      }
+    }
   };
 
+  function closeModal() {
+    setIsModalOepn(false);
+    router.push('/my-page/my-class');
+  }
+
   return (
-    <div>
-      <form className={styles.myClassAddBox} onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.myClassTitleWrapper}>
-          <span className={styles.myClassSubtitle}>내 체험 등록</span>
-          <div className={styles.button}>
-            <Button buttonTitle={buttonTitle} radius={4} fontSize={1.6} />
+    <>
+      <div>
+        <form
+          className={styles.myClassAddBox}
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <div className={styles.myClassTitleWrapper}>
+            <span className={styles.myClassSubtitle}>내 체험 등록</span>
+            <div className={styles.button}>
+              <Button buttonTitle={buttonTitle} radius={4} fontSize={1.6} />
+            </div>
           </div>
-        </div>
-        <div className={styles.inputContainer}>
-          <TitleInput id="title" register={register} errors={errors} />
-          <CategoryInput id="category" register={register} errors={errors} />
-          <DescriptionInput
-            id="description"
-            register={register}
-            errors={errors}
-          />
-          <PriceInput id="price" register={register} errors={errors} />
-          <AddressInput
-            id="address"
-            register={register}
-            errors={errors}
-            getAddress={getAddress}
-            setGetAddress={setGetAddress}
-          />
-          <DateInput
-            id="date"
-            register={register}
-            errors={errors}
-            fields={fields}
-            append={append}
-            remove={remove}
-          />
-          <ImageInputContainer
-            setValue={setValue}
-            id="image"
-            register={register}
-            errors={errors}
-            apiImgURL={bannerApiImgURL}
-            setApiImgURL={setBannerApiImgURL}
-          />
-          <SubImageInputContainer
-            id="subImage"
-            register={register}
-            errors={errors}
-            setValue={setValue}
-            apiImgURL={apiImgURL}
-            setApiImgURL={setApiImgURL}
-          />
-        </div>
-      </form>
-      <DevTool control={control} />
-    </div>
+          <div className={styles.inputContainer}>
+            <TitleInput id="title" register={register} errors={errors} />
+            <CategoryInput id="category" register={register} errors={errors} />
+            <DescriptionInput
+              id="description"
+              register={register}
+              errors={errors}
+            />
+            <PriceInput id="price" register={register} errors={errors} />
+            <AddressInput
+              id="address"
+              register={register}
+              errors={errors}
+              getAddress={getAddress}
+              setGetAddress={setGetAddress}
+            />
+            <DateInput
+              id="date"
+              register={register}
+              errors={errors}
+              fields={fields}
+              append={append}
+              remove={remove}
+            />
+            <ImageInputContainer
+              setValue={setValue}
+              id="image"
+              register={register}
+              errors={errors}
+              apiImgURL={bannerApiImgURL}
+              setApiImgURL={setBannerApiImgURL}
+            />
+            <SubImageInputContainer
+              id="subImage"
+              register={register}
+              errors={errors}
+              setValue={setValue}
+              apiImgURL={apiImgURL}
+              setApiImgURL={setApiImgURL}
+            />
+          </div>
+        </form>
+        <DevTool control={control} />
+      </div>
+      {isModalOpen ? (
+        <ModalBase
+          children={
+            <MyClassModal
+              message="체험 등록이 완료되었습니다."
+              onClick={closeModal}
+            />
+          }
+          type="alert"
+        ></ModalBase>
+      ) : (
+        ''
+      )}
+    </>
   );
 }
