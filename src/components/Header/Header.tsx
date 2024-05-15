@@ -58,7 +58,9 @@ export default function Header() {
 
         {userInfo ? (
           <div className={styles.userContainer}>
-            {open ? <AlarmContainer data={noti} onClick={handleAlarm} /> : null}
+            {open && noti ? (
+              <AlarmContainer data={noti} onClick={handleAlarm} />
+            ) : null}
             <button className={styles.alarm} onClick={handleAlarm} />
 
             <Image

@@ -3,7 +3,6 @@ import styles from './AlarmContainer.module.scss';
 
 interface Notification {
   totalCount: number;
-
   notifications: {
     id: number;
     teamId: string;
@@ -20,10 +19,9 @@ export default function AlarmContainer({
   data,
   onClick,
 }: {
-  data: any;
+  data: Notification;
   onClick: () => void;
 }) {
-  console.log(data);
   return (
     <div className={styles.alarmBox}>
       <Alarm data={data} onClick={onClick} />

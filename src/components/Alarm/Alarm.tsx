@@ -4,11 +4,25 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import deleteNoficationIdApi from '@/apis/deleteNoficationIdApi';
 import { useState } from 'react';
 
+interface Notification {
+  totalCount: number;
+  notifications: {
+    id: number;
+    teamId: string;
+    userId: number;
+    content: string;
+    createdAt: Date;
+    updatedAt: Date;
+    deletedAt: Date | null;
+  }[];
+  cursorId: number;
+}
+
 export default function Alarm({
   data,
   onClick,
 }: {
-  data: any;
+  data: Notification;
   onClick: () => void;
 }) {
   const [notifications, setNotifications] = useState(data.notifications);
@@ -17,7 +31,7 @@ export default function Alarm({
     mutationFn: deleteNoficationIdApi,
     onSuccess: (data) => {
       console.log(data);
-      queryClient.invalidateQueries(notifications);
+      queryClient.invalidateQueries(notifications as any);
     },
     onError: (error) => {
       console.log(error);
@@ -45,7 +59,7 @@ export default function Alarm({
         <button className={styles.headCloseButton} onClick={onClick} />
       </div>
       <div className={styles.alarmList}>
-        {data.notifications.map((item: any) => (
+        {data.notifications.map((item) => (
           <div key={item.id} className={styles.alarmCard}>
             <div className={styles.cardHeader}>
               <div
