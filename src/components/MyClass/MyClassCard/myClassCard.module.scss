@@ -1,0 +1,176 @@
+@import '../../../styles/variables';
+
+.myClassCardContainer {
+  display: flex;
+  margin: 12px 15px 8px 16px;
+  width: 344px;
+  height: 128px;
+  flex-shrink: 0;
+  background: $white;
+  border-radius: 24px;
+
+  @media (min-width: 769px) {
+    width: 429px;
+    height: 156px;
+  }
+  @media (min-width: 1200px) {
+    width: 792px;
+    height: 204px;
+  }
+
+  .mainBox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: absolute;
+
+    @media (min-width: 769px) {
+      gap: 16px;
+    }
+    @media (min-width: 1200px) {
+      gap: 24px;
+    }
+
+    .classImageDiv {
+      position: relative;
+      width: 132px;
+      height: 128px;
+      overflow: 'hidden';
+
+      @media (min-width: 769px) {
+        width: 163px;
+        height: 156px;
+      }
+      @media (min-width: 1200px) {
+        width: 250px;
+        height: 204px;
+      }
+    }
+    .classDetail {
+      padding: 0px 14px 9px 0px;
+
+      @media (min-width: 769px) {
+        width: 243px;
+        height: 132px;
+      }
+      @media (min-width: 1200px) {
+        width: 500px;
+        height: 153px;
+      }
+
+      .detailMainArea {
+        padding-bottom: 0px;
+
+        @media (min-width: 769px) {
+          padding-bottom: 10px;
+        }
+        @media (min-width: 1200px) {
+          padding-bottom: 16px;
+        }
+
+        .gradeArea {
+          display: flex;
+          font-size: 1.4rem;
+          gap: 6px;
+
+          @media (min-width: 769px) {
+            margin-bottom: 6px;
+          }
+          @media (min-width: 1200px) {
+            margin-bottom: 6px;
+          }
+
+          .starIconDiv {
+            position: relative;
+            width: 16px;
+            height: 16px;
+            overflow: 'hidden';
+
+            @media (min-width: 769px) {
+              width: 19px;
+              height: 19px;
+              font-size: 1.6rem;
+            }
+            @media (min-width: 1200px) {
+              width: 19px;
+              height: 19px;
+              font-size: 1.6rem;
+            }
+          }
+          .gradeEverageArea {
+            display: flex;
+            align-items: center;
+
+            @media (min-width: 769px) {
+              font-size: 1.6rem;
+            }
+            @media (min-width: 1200px) {
+              font-size: 1.6rem;
+            }
+          }
+        }
+        .title {
+          color: $nomad-black;
+          font-family: Pretendard;
+          font-size: 1.4rem;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 26px;
+          padding-bottom: 29px;
+
+          @media (min-width: 769px) {
+            font-size: 1.8rem;
+            padding-bottom: 48px;
+          }
+          @media (min-width: 1200px) {
+            font-size: 2rem;
+            padding-bottom: 72px;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .etc {
+            margin-left: 20px;
+          }
+        }
+
+        .priceAndKebabArea {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          gap: 97px;
+
+          .price {
+            display: flex;
+            color: $black_171717;
+            text-align: right;
+            font-family: Pretendard;
+            font-size: 1.6rem;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+
+            @media (min-width: 769px) {
+              font-size: 2rem;
+            }
+            @media (min-width: 1200px) {
+              font-size: 2.4rem;
+            }
+          }
+          .etc {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            color: $gray_4B4B4B;
+            text-align: right;
+            font-family: Pretendard;
+            font-size: 1.6rem;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+          }
+        }
+      }
+    }
+  }
+}

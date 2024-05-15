@@ -11,3 +11,8 @@ export interface PatchEditMyActivityApiType {
   scheduleIdsToRemove: number[];
   schedulesToAdd: { date: string; startTime: string; endTime: string }[];
 }
+
+export interface getMyActivitiesClassProps {
+  size?: number;
+  cursorId?: number;
+}

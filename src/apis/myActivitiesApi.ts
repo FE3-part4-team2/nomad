@@ -1,6 +1,8 @@
 import { PatchEditMyActivityApiType } from '@/types/activitiesType/MyActivityType';
+import { getMyActivitiesClassProps } from '@/types/activitiesType/MyActivityType';
 import { toast } from 'react-toastify';
 import axiosInstance from './axiosInstance';
+import { AxiosError } from 'axios';
 
 const getMyActivities = async () => {
   const res = await axiosInstance.get('my-activities');
@@ -8,6 +10,26 @@ const getMyActivities = async () => {
 };
 
 export default getMyActivities;
+
+export const getMyActivitiesClass = async ({
+  size,
+  cursorId,
+}: getMyActivitiesClassProps = {}) => {
+  let params: getMyActivitiesClassProps = {};
+  if (cursorId !== undefined) {
+    params.cursorId = cursorId;
+  }
+  if (size !== undefined) {
+    params.size = size;
+  }
+  try {
+    const res = await axiosInstance.get(`my-activities`, { params });
+    return res.data;
+  } catch (e) {
+    const error = e as AxiosError;
+    return error.response;
+  }
+};
 
 //내 체험 수정
 export const patchEditMyActivityApi = async (
