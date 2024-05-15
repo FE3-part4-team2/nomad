@@ -169,6 +169,7 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
             errors={errors}
             getAddress={getAddress}
             setGetAddress={setGetAddress}
+            setValue={setValue}
           />
           <EditDateInput
             id="date"

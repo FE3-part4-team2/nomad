@@ -44,6 +44,7 @@ interface MyClassTitleProps {
 export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
   const router = useRouter();
   const [getAddress, setGetAddress] = useState('');
+
   const {
     control,
     register,
@@ -119,6 +120,7 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
               errors={errors}
               getAddress={getAddress}
               setGetAddress={setGetAddress}
+              setValue={setValue}
             />
             <DateInput
               id="date"
