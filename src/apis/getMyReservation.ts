@@ -5,13 +5,22 @@ import { getMyReservationType } from '../types/type';
 interface paramsInterface {
   size: number;
   status?: string;
+  cursorId?: number;
 }
 
-export const getMyReservation = async (size: number, status: string) => {
+export const getMyReservation = async (
+  size: number,
+  status: string,
+  cursorId: number,
+) => {
   let params: paramsInterface = { size };
 
   if (status) {
     params['status'] = status;
+  }
+
+  if (cursorId) {
+    params['cursorId'] = cursorId;
   }
 
   try {

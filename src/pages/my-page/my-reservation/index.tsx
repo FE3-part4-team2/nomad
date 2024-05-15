@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import ReservationCardContainer from '../../../containers/ReservationCardContainer/ReservationCardContainer';
 import { getMyReservation } from '../../../apis/getMyReservation';
 import Layout from '@/components/Layout/Layout';
@@ -11,14 +11,17 @@ export default function MyReservation() {
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState('');
+  const observer = useRef<IntersectionObserver | null>(null); // observer 인스턴스를 저장하기 위한 ref
+  const lastElementRef = useRef(null); // 관찰할 엘리먼트를 위한 ref
 
   const getReservationCardList = async () => {
+    // 로딩 상태나 전체 리스트를 이미 불러왔는지 확인
+    if (isLoading || list.length >= totalCount) return;
+
     try {
       setIsLoading(true);
       setList([]);
-      let totalCount = 0;
-      const res = await getMyReservation(6, selectedStatus);
-      totalCount = res.totalCount;
+      const res = await getMyReservation(6, selectedStatus, cursorId);
 
       const formattedReservations = res.reservations.map(
         (reservation: any) => ({
@@ -36,11 +39,16 @@ export default function MyReservation() {
       );
 
       setList((prevList) => [...prevList, ...formattedReservations]);
+      setCursorId(
+        formattedReservations[formattedReservations.length - 1]?.id || cursorId,
+      );
+      setTotalCount(res.totalCount);
+
       if (cursorId !== undefined) {
         setCursorId(cursorId);
       }
 
-      setTotalCount(totalCount);
+      // setTotalCount(totalCount);
       setIsLoading(false);
     } catch (e) {
       console.log(e);
@@ -49,8 +57,28 @@ export default function MyReservation() {
   };
 
   useEffect(() => {
+    observer.current = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting) {
+        getReservationCardList();
+      }
+    });
+
+    if (lastElementRef.current) {
+      observer.current.observe(lastElementRef.current);
+    }
+
+    return () => {
+      if (observer.current) observer.current.disconnect();
+    };
+  }, [getReservationCardList, selectedStatus]);
+
+  // useEffect(() => {
+  //   getReservationCardList();
+  // }, [selectedStatus]);
+
+  useEffect(() => {
     getReservationCardList();
-  }, [selectedStatus]);
+  }, [getReservationCardList, selectedStatus]);
 
   const handleDropDownClick = (status: string) => {
     if (status === '필터') {
@@ -80,16 +108,12 @@ export default function MyReservation() {
     setSelectedStatus(selectedStatus);
   };
 
-  console.log(selectedStatus);
-
   return (
     <Layout>
       <div>
         <div className={styles.titlaArea}>
           <div className={styles.title}>예약 내역</div>
           <div className={styles.dropDownArea}>
-            {/* 신취승거완  */}
-            {/* {typeof window !== 'undefined' && width >= 1024 ? ( */}
             <DropDown
               dropDownName="필터"
               dropDownList={[
@@ -101,23 +125,11 @@ export default function MyReservation() {
               ]}
               onClick={handleDropDownClick}
             />
-            {/* ) : null} */}
-            {/* pc사이즈에서만 보이게 하고 나머지 사이즈일때는 hidden */}
-            {/* <DropDown
-              dropDownName="필터"
-              dropDownList={[
-                '예약 신청',
-                '예약 취소',
-                '예약 승인',
-                '예약 거절',
-                '예약 완료',
-              ]}
-              onClick={handleDropDownClick}
-            /> */}
           </div>
         </div>
-        {list.map((reservation) => (
+        {list.map((reservation, index) => (
           <ReservationCardContainer
+            ref={index === list.length - 1 ? lastElementRef : null}
             key={reservation.id}
             classImage={reservation.classImage}
             revStatus={reservation.revStatus}
@@ -130,6 +142,7 @@ export default function MyReservation() {
             reviewSubmitted={reservation.reviewSubmitted}
           />
         ))}
+        {isLoading && <p>로딩 중...</p>}
       </div>
     </Layout>
   );
