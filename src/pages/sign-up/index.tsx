@@ -2,9 +2,51 @@ import styles from './index.module.scss';
 import Button from '@/components/Button/Button';
 import Link from 'next/link';
 import AuthLogoImage from '@/components/logo/AuthLogoImage';
+// import AuthInput from '@/components/Input/AuthInput/AuthInput';
+import { useState } from 'react';
+import { joinApi } from '@/apis/usersApi';
+import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 import AuthInput from '@/components/Input/AuthInput/AuthInput';
 
 export default function SignUp() {
+  const [email, setEmail] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordCheck, setPasswordCheck] = useState('');
+
+  const router = useRouter();
+
+  const onChangeEmail = (e: any) => {
+    console.log(e);
+    setEmail(e.target.value);
+  };
+
+  const onChangeNickname = (e: any) => {
+    setNickname(e.target.value);
+  };
+
+  const onChangePassword = (e: any) => {
+    setPassword(e.target.value);
+  };
+
+  const onChangePasswordCheck = (e: any) => {
+    setPasswordCheck(e.target.value);
+  };
+
+  const onClickSubmit = async () => {
+    try {
+      const res = await joinApi(email, nickname, password);
+
+      if (res.status === 201) {
+        toast.success('회원가입이 완료되었습니다.');
+        router.push('/sign-in');
+      }
+    } catch (e: any) {
+      console.error(e);
+    }
+  };
+
   return (
     <>
       <div className={styles.container}>
@@ -14,24 +56,41 @@ export default function SignUp() {
             name="이메일"
             type="email"
             placeholder="이메일을 입력해주세요"
+            value={email}
+            onChange={onChangeEmail}
           />
+
           <AuthInput
             name="닉네임"
-            type="email"
+            type="text"
             placeholder="닉네임을 입력해주세요"
+            value={nickname}
+            onChange={onChangeNickname}
           />
+
           <AuthInput
             name="비밀번호"
             type="password"
             placeholder="비밀번호를 입력해주세요"
+            value={password}
+            onChange={onChangePassword}
           />
+
           <AuthInput
             name="비밀번호 확인"
             type="password"
             placeholder="비밀번호를 한번 더 입력해주세요"
+            value={passwordCheck}
+            onChange={onChangePasswordCheck}
           />
+
           <div className={styles.joinButton}>
-            <Button buttonTitle="회원가입 하기" radius={6} fontSize={1.6} />
+            <Button
+              buttonTitle="회원가입 하기"
+              radius={6}
+              fontSize={1.6}
+              onClick={onClickSubmit}
+            />
           </div>
         </div>
         <div className={styles.linkContainer}>

@@ -4,9 +4,9 @@ import { toast } from 'react-toastify';
 import axiosInstance from './axiosInstance';
 
 export const joinApi = async (
-  email: string = '1234@1234.com',
-  nickname: string = 'ZOO',
-  password: string = '123412341234',
+  email: string,
+  nickname: string,
+  password: string,
 ) => {
   try {
     const res = await axiosInstance.post(`users`, {
