@@ -7,11 +7,11 @@ import { loginApi } from '@/apis/authApi';
 import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { userState } from '@/store/atoms/userState';
 
 export default function SignIn() {
-  const [setUser] = useRecoilState<any>(userState);
+  const setUser = useSetRecoilState<any>(userState);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
