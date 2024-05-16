@@ -3,7 +3,6 @@
 
 .smallInputContainer {
   @extend .smallInputContainer;
-  margin-top: 0px;
   margin-bottom: 8px;
   @media screen and (min-width: 375px) {
     margin-bottom: 16px;
@@ -15,7 +14,7 @@
 
 .smallInput {
   @extend .smallInput;
-  margin-top: 0px;
+  // margin-top: 0px;
 }
 
 .dateInput {
