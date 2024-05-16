@@ -1,0 +1,25 @@
+@import 'src/styles/variables';
+
+.modalBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.messsageWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.message {
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.button {
+  height: 42px;
+  width: 138px;
+}

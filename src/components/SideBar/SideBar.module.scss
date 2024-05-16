@@ -50,6 +50,11 @@
   font-weight: 700;
   line-height: 2.6rem;
   display: flex;
+  padding: 10px;
+}
+
+.list :nth-child(1) {
+  margin-right: 10px;
 }
 
 .icon {
@@ -59,6 +64,14 @@
 #linkList {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+
   width: 100%;
+}
+
+.active {
+  color: var(--black-black_000000, #000);
+  opacity: 1;
+  background-color: #d8e0dd; /* 연한 회색 배경 */
+  border-radius: 8px; /* 모서리를 둥글게 */
+  padding: 10px 0 10px 10px; /* 내부 여백 */
 }
