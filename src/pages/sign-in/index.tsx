@@ -14,11 +14,11 @@ export default function SignIn() {
 
   const router = useRouter();
 
-  const onChangeEmail = (e) => {
+  const onChangeEmail = (e:any) => {
     setEmail(e.target.value);
   };
 
-  const onChangePassword = (e) => {
+  const onChangePassword = (e:any) => {
     setPassword(e.target.value);
   };
 
