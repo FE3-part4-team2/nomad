@@ -108,7 +108,7 @@ export default function MyClass() {
   };
 
   const handleAddClass = async () => {
-    router.push('/my-page/my-class/add-class');
+    router.push('/my-page/my-class/edit-class');
   };
 
   console.log(list);
