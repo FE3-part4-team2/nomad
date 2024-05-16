@@ -1,7 +1,21 @@
 import axios from './axiosInstance';
 
-const getMyNotifications = async () => {
-  const res = await axios.get('my-notifications');
+interface GetMyNotificationsApiProps {
+  cursorId: number | unknown;
+  size: number;
+}
+
+const getMyNotifications = async ({
+  cursorId,
+  size,
+}: GetMyNotificationsApiProps) => {
+  const params: { size: number; cursorId?: number | unknown } = { size };
+  if (cursorId && cursorId !== 0) {
+    params.cursorId = cursorId;
+  }
+  const res = await axios.get('my-notifications', {
+    params,
+  });
   return res.data;
 };
 
