@@ -2,7 +2,6 @@ import styles from './index.module.scss';
 import Button from '@/components/Button/Button';
 import Link from 'next/link';
 import AuthLogoImage from '@/components/logo/AuthLogoImage';
-// import AuthInput from '@/components/Input/AuthInput/AuthInput';
 import { useState } from 'react';
 import { joinApi } from '@/apis/usersApi';
 import { useRouter } from 'next/router';
