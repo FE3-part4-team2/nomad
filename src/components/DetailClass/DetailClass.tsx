@@ -17,7 +17,6 @@ export default function DetailClass({ id }: { id: number }) {
 
   const loggedInUserId = useRecoilValue(userState);
 
-  console.log(loggedInUserId?.user?.id, detail?.userId);
   useEffect(() => {
     const getDetailClassInfo = async () => {
       const res = await getDetailClassApi(id);

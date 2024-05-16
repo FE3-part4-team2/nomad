@@ -3,10 +3,7 @@ import axiosInstance from './axiosInstance';
 
 // 로그인
 
-export const loginApi = async (
-  email: string = '1234@1234.com',
-  password: string = '123412341234',
-) => {
+export const loginApi = async (email: string, password: string) => {
   try {
     const res = await axiosInstance.post(`auth/login`, {
       email,
@@ -19,6 +16,7 @@ export const loginApi = async (
   } catch (e: any) {
     console.error('로그인 실패:', e);
     toast.error(e.response.data.message);
+    throw e;
   }
 };
 

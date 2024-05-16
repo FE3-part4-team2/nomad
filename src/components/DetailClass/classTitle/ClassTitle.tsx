@@ -41,7 +41,7 @@ export default function ClassTitle({
   };
 
   const handleEdit = () => {
-    router.push(`/class-edit/${id}`);
+    router.push(`/my-page/my-class/edit-class/${id}`);
   };
   const handleDelete = () => {
     deleteActivitiesApi(id);
