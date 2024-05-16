@@ -11,10 +11,11 @@ import { DetailClassType } from '@/types/activitiesType/ActivitiesType';
 import CalendarReservation from '../CalendarReservation/CalendarReservation';
 import { useRecoilValue } from 'recoil';
 import { userState } from '@/store/atoms/userState';
+import { useRouter } from 'next/router';
 
 export default function DetailClass({ id }: { id: number }) {
   const [detail, setDetail] = useState<DetailClassType>();
-
+  const router = useRouter();
   const loggedInUserId = useRecoilValue(userState);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export default function DetailClass({ id }: { id: number }) {
     };
 
     getDetailClassInfo();
-  }, []);
+  }, [router.isReady]);
 
   return (
     <>
@@ -36,7 +37,7 @@ export default function DetailClass({ id }: { id: number }) {
           rating={detail?.rating || 0}
           reviewCount={detail?.reviewCount || 0}
           address={detail?.address || ''}
-          id={detail?.id}
+          id={detail?.id || 0}
           userId={detail?.userId || 0}
         />
         <ImageComponent

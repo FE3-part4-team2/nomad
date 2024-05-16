@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import ReservationCardContainer from '../../../containers/ReservationCardContainer/ReservationCardContainer';
 import { getMyReservation } from '../../../apis/getMyReservation';
 import Layout from '@/components/Layout/Layout';
 import DropDown from '@/components/DropDown/DropDown';
 import styles from './my-reservation.module.scss';
+import NoneExp from '@/components/NoneExp/NoneExp';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 export default function MyReservation() {
   const [list, setList] = useState<any[]>([]);
@@ -11,10 +13,12 @@ export default function MyReservation() {
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState('');
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const lastItemRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     getInitialData();
-  }, [selectedStatus]);
+  }, []);
 
   useEffect(() => {
     const options = {
@@ -39,11 +43,12 @@ export default function MyReservation() {
   const getInitialData = async () => {
     try {
       setIsLoading(true);
-      setList([]);
-      let totalCount = 0;
-      const res = await getMyReservation(6, selectedStatus);
-      totalCount = res.totalCount;
-
+      let res;
+      if (selectedStatus === '') {
+        res = await getMyReservation({ size: 5 });
+      } else {
+        res = await getMyReservation({ size: 5, status: selectedStatus });
+      }
       const formattedReservations = res.reservations.map(
         (reservation: any) => ({
           id: reservation.id,
@@ -58,13 +63,11 @@ export default function MyReservation() {
           reviewSubmitted: reservation.reviewSubmitted,
         }),
       );
-
-      setList((prevList) => [...prevList, ...formattedReservations]);
-      if (cursorId !== undefined) {
-        setCursorId(cursorId);
-      }
-
-      setTotalCount(totalCount);
+      setTotalCount(res.totalCount);
+      setList(formattedReservations);
+      setCursorId(
+        formattedReservations[formattedReservations.length - 1]?.id || 0,
+      );
       setIsLoading(false);
     } catch (e) {
       console.log(e);
@@ -72,11 +75,58 @@ export default function MyReservation() {
     }
   };
 
+  const getMoreData = async () => {
+    try {
+      setIsLoading(true);
+      let res;
+      if (selectedStatus === '') {
+        res = await getMyReservation({ size: 5, cursorId });
+      } else {
+        res = await getMyReservation({
+          size: 5,
+          cursorId,
+          status: selectedStatus,
+        });
+      }
+      const formattedReservations = res.reservations.map(
+        (reservation: any) => ({
+          id: reservation.id,
+          classImage: reservation.activity.bannerImageUrl,
+          revStatus: reservation.status,
+          title: reservation.activity.title,
+          date: reservation.date,
+          startTime: reservation.startTime,
+          endTime: reservation.endTime,
+          headCount: reservation.headCount,
+          price: reservation.totalPrice,
+          reviewSubmitted: reservation.reviewSubmitted,
+        }),
+      );
+      setTotalCount(res.totalCount);
+      setList((prevList) => [...prevList, ...formattedReservations]);
+      setCursorId(
+        formattedReservations[formattedReservations.length - 1]?.id || cursorId,
+      );
+      setIsLoading(false);
+    } catch (e) {
+      console.log(e);
+      setIsLoading(false);
+    }
+  };
+
+  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && !isLoading) {
+        getMoreData();
+      }
+    });
+  };
+
   useEffect(() => {
-    getReservationCardList();
+    getInitialData();
   }, [selectedStatus]);
 
-  const handleDropDownClick = (status: string) => {
+  const handleDropDownClick = async (status: string) => {
     if (status === '필터') {
       return;
     }
@@ -99,16 +149,18 @@ export default function MyReservation() {
         selectedStatus = 'completed';
         break;
       case '예약 전체':
+        setCursorId(0);
         setSelectedStatus('');
+        setTotalCount(0);
         await getInitialData();
         return;
       default:
         selectedStatus = '';
     }
+    setCursorId(0);
     setSelectedStatus(selectedStatus);
+    await getInitialData();
   };
-
-  console.log(selectedStatus);
 
   return (
     <Layout>
@@ -116,8 +168,6 @@ export default function MyReservation() {
         <div className={styles.titlaArea}>
           <div className={styles.title}>예약 내역</div>
           <div className={styles.dropDownArea}>
-            {/* 신취승거완  */}
-            {/* {typeof window !== 'undefined' && width >= 1024 ? ( */}
             <DropDown
               dropDownName="필터"
               dropDownList={[
@@ -126,30 +176,19 @@ export default function MyReservation() {
                 '예약 승인',
                 '예약 거절',
                 '예약 완료',
+                '예약 전체',
               ]}
               onClick={handleDropDownClick}
             />
-            {/* ) : null} */}
-            {/* pc사이즈에서만 보이게 하고 나머지 사이즈일때는 hidden */}
-            {/* <DropDown
-              dropDownName="필터"
-              dropDownList={[
-                '예약 신청',
-                '예약 취소',
-                '예약 승인',
-                '예약 거절',
-                '예약 완료',
-              ]}
-              onClick={handleDropDownClick}
-            /> */}
           </div>
         </div>
-        <div>
+        <div className={styles.listContainer}>
           <InfiniteScroll
             dataLength={list.length}
             next={getMoreData}
             hasMore={list.length < totalCount}
             loader={<div>Loading...</div>}
+            scrollableTarget={`.${styles.listContainer}`}
           >
             {list.length === 0 ? (
               <NoneExp />
@@ -171,8 +210,8 @@ export default function MyReservation() {
               ))
             )}
           </InfiniteScroll>
-          {/* {isLoading && <p>로딩 로고를 넣고싶은데..</p>} */}
         </div>
+        {/* {isLoading && <p>로딩 로고를 넣고싶은데..</p>} */}
       </div>
     </Layout>
   );

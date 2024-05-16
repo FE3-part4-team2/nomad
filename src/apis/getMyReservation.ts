@@ -1,22 +1,29 @@
 import axios from './axiosInstance';
 import { AxiosError } from 'axios';
-import { getMyReservationType } from '../types/type';
 
 interface paramsInterface {
-  size: number;
+  size?: number;
   status?: string;
+  cursorId?: number;
 }
 
-export const getMyReservation = async (size: number, status: string) => {
-  let params: paramsInterface = { size };
-
-  if (status) {
-    params['status'] = status;
+export const getMyReservation = async ({
+  size,
+  status,
+  cursorId,
+}: paramsInterface = {}) => {
+  const params: paramsInterface = {};
+  if (size !== undefined) {
+    params.size = size;
   }
-
+  if (status !== undefined) {
+    params.status = status;
+  }
+  if (cursorId !== undefined) {
+    params.cursorId = cursorId;
+  }
   try {
     const res = await axios.get(`my-reservations`, {
-      // params: { cursorId: cursorId, size: size, status: status },
       params,
     });
     const responseData = res.data;

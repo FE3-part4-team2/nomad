@@ -21,11 +21,13 @@ interface Notification {
 export default function Alarm({
   data,
   onClick,
+  setTarget,
 }: {
-  data: Notification;
+  data: Notification[];
   onClick: () => void;
+  setTarget: any;
 }) {
-  const [notifications, setNotifications] = useState(data.notifications);
+  const [notifications] = useState(data[0].notifications);
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: deleteNoficationIdApi,
@@ -55,36 +57,43 @@ export default function Alarm({
   return (
     <div id={styles.alarmBox}>
       <div id={styles.alarmHeader}>
-        <div>알람 {data.totalCount}개</div>
+        <div>알람 {data[0].totalCount}개</div>
         <button className={styles.headCloseButton} onClick={onClick} />
       </div>
       <div className={styles.alarmList}>
-        {data.notifications.map((item) => (
-          <div key={item.id} className={styles.alarmCard}>
-            <div className={styles.cardHeader}>
-              <div
-                className={
-                  item.content.includes('거절') ? styles.redDot : styles.blueDot
-                }
-              />
+        {data.map((items) => (
+          <div key={items.cursorId} className={styles.infinite}>
+            {items.notifications.map((item) => (
+              <div key={item.id} className={styles.alarmCard}>
+                <div className={styles.cardHeader}>
+                  <div
+                    className={
+                      item.content.includes('거절')
+                        ? styles.redDot
+                        : styles.blueDot
+                    }
+                  />
 
-              <button
-                className={styles.closeButton}
-                onClick={() => {
-                  mutate({ notificationId: item.id });
-                  console.log(item.id);
-                }}
-              />
-            </div>
-            <div
-              className={styles.alarmDetail}
-              dangerouslySetInnerHTML={{ __html: textColor(item.content) }}
-            />
-            <div className={styles.opacity}>
-              {moment(item.createdAt).fromNow()}
-            </div>
+                  <button
+                    className={styles.closeButton}
+                    onClick={() => {
+                      mutate({ notificationId: item.id });
+                      console.log(item.id);
+                    }}
+                  />
+                </div>
+                <div
+                  className={styles.alarmDetail}
+                  dangerouslySetInnerHTML={{ __html: textColor(item.content) }}
+                />
+                <div className={styles.opacity}>
+                  {moment(item.createdAt).fromNow()}
+                </div>
+              </div>
+            ))}
           </div>
         ))}
+        <div ref={setTarget} className={styles.end} />
       </div>
     </div>
   );

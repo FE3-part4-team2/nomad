@@ -21,7 +21,7 @@ export default function MiniCalendar({
   return (
     <div>
       <Cal
-        locale="ko-KR" //showNeighboringMonth={false}
+        locale="ko-KR"
         calendarType="gregory"
         formatDay={(locale, date) => moment(date).format('D')}
         formatMonthYear={(locale, date) => moment(date).format('YYYY. MM')}

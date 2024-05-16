@@ -1,5 +1,4 @@
 import ImageGallery from 'react-image-gallery';
-import styles from './image.module.scss';
 
 interface ImageProps {
   imageUrl: string;
@@ -19,7 +18,7 @@ export default function ImageComponent({ imageUrl, subImage }: ImageProps) {
 
   return (
     <>
-      <section className={styles.imageSection}>
+      <section className="imageSection">
         <ImageGallery items={images} />
       </section>
     </>

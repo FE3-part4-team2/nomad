@@ -1,11 +1,10 @@
 import getReservations from '@/apis/getReservationsApi';
-import { useQuery, useMutation } from '@tanstack/react-query';
-import { useRecoilValue } from 'recoil';
-import { idAtom } from '@/store/atoms/idState';
-import { useState } from 'react';
 import patchReservationsUpdate from '@/apis/patchReservationsUpdateApi';
+import { idAtom } from '@/store/atoms/idState';
+import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import styles from './reserveInfoModal.module.scss';
-import { QueryClient } from '@tanstack/react-query';
 
 interface ScheduleInfo {
   scheduleId: number;

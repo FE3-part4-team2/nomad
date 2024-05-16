@@ -14,6 +14,13 @@ export default function SignUp() {
   const [password, setPassword] = useState('');
   const [passwordCheck, setPasswordCheck] = useState('');
 
+  const [errors, setErrors] = useState({
+    email: '',
+    nickname: '',
+    password: '',
+    passwordCheck: '',
+  });
+
   const router = useRouter();
 
   const onChangeEmail = (e: any) => {
@@ -33,9 +40,69 @@ export default function SignUp() {
     setPasswordCheck(e.target.value);
   };
 
+  const [isEmailValid, setIsEmailValid] = useState(false);
+  const [isNicknameValid, setIsNicknameValid] = useState(false);
+  const [isPwValid, setIsPwValid] = useState(false);
+  const [isPwCheckValid, setIsPwCheckValid] = useState(false);
+
+  const validateEmail = () => {
+    if (!email) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: '이메일을 입력해주세요.',
+      }));
+      return setIsEmailValid(false);
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: '이메일 형식으로 작성해주세요.',
+      }));
+      return setIsEmailValid(false);
+    }
+    setErrors((prevErrors) => ({ ...prevErrors, email: '' }));
+    return setIsEmailValid(true);
+  };
+
+  const validateNickname = () => {
+    if (!nickname) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        nickname: '닉네임을 입력해주세요.',
+      }));
+      return setIsNicknameValid(false);
+    }
+    setErrors((prevErrors) => ({ ...prevErrors, nickname: '' }));
+    return setIsNicknameValid(true);
+  };
+
+  const validatePassword = () => {
+    if (password.length < 8) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: '비밀번호는 8자 이상이어야 합니다.',
+      }));
+      return setIsPwValid(false);
+    }
+    setErrors((prevErrors) => ({ ...prevErrors, password: '' }));
+    return setIsPwValid(true);
+  };
+
+  const validatePasswordCheck = () => {
+    if (password !== passwordCheck) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        passwordCheck: '비밀번호가 다릅니다.',
+      }));
+      return setIsPwCheckValid(false);
+    }
+    setErrors((prevErrors) => ({ ...prevErrors, pwCheck: '' }));
+    return setIsPwCheckValid(true);
+  };
+
   const onClickSubmit = async () => {
     try {
-      const res = await joinApi(email, nickname, password);
+      await joinApi(email, nickname, password);
       router.push('/sign-in');
     } catch (e: any) {
       toast.error(e.response.data.message);
@@ -53,7 +120,9 @@ export default function SignUp() {
             placeholder="이메일을 입력해주세요"
             value={email}
             onChange={onChangeEmail}
+            onBlur={validateEmail}
           />
+          {errors.email && <div className={styles.error}>{errors.email}</div>}
 
           <AuthInput
             name="닉네임"
@@ -61,7 +130,11 @@ export default function SignUp() {
             placeholder="닉네임을 입력해주세요"
             value={nickname}
             onChange={onChangeNickname}
+            onBlur={validateNickname}
           />
+          {errors.nickname && (
+            <div className={styles.error}>{errors.nickname}</div>
+          )}
 
           <AuthInput
             name="비밀번호"
@@ -69,7 +142,11 @@ export default function SignUp() {
             placeholder="비밀번호를 입력해주세요"
             value={password}
             onChange={onChangePassword}
+            onBlur={validatePassword}
           />
+          {errors.password && (
+            <div className={styles.error}>{errors.password}</div>
+          )}
 
           <AuthInput
             name="비밀번호 확인"
@@ -77,10 +154,19 @@ export default function SignUp() {
             placeholder="비밀번호를 한번 더 입력해주세요"
             value={passwordCheck}
             onChange={onChangePasswordCheck}
+            onBlur={validatePasswordCheck}
           />
+          {errors.passwordCheck && (
+            <div className={styles.error}>{errors.passwordCheck}</div>
+          )}
 
           <div className={styles.joinButton}>
             <Button
+              status={
+                isEmailValid && isNicknameValid && isPwValid && isPwCheckValid
+                  ? 'black'
+                  : 'disable'
+              }
               buttonTitle="회원가입 하기"
               radius={6}
               fontSize={1.6}

@@ -18,13 +18,15 @@ interface Notification {
 export default function AlarmContainer({
   data,
   onClick,
+  setTarget,
 }: {
-  data: Notification;
+  data: Notification[];
   onClick: () => void;
+  setTarget: any;
 }) {
   return (
     <div className={styles.alarmBox}>
-      <Alarm data={data} onClick={onClick} />
+      <Alarm data={data} onClick={onClick} setTarget={setTarget} />
     </div>
   );
 }
