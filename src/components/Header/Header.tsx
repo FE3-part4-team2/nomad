@@ -1,14 +1,14 @@
-Header;
-
-import Link from 'next/link';
-import styles from './header.module.scss';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import getMyNotifications from '@/apis/getMyNotificationsApi';
-import { useRouter } from 'next/router';
-import AlarmContainer from '@/containers/AlarmContainer/AlarmContainer';
 import { handleGetUserInfo } from '@/apis/myInfoApi';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import styles from './header.module.scss';
+import { useIntersectionObserver } from '@/hooks/useObserver/useInfiniteQueryObserver';
+import AlarmContainer from '@/containers/AlarmContainer/AlarmContainer';
+import { InfiniteData } from '@tanstack/react-query';
 
 interface Notification {
   totalCount: number;
@@ -32,10 +32,27 @@ export default function Header() {
 
   const router = useRouter();
 
-  const { data: noti } = useQuery<Notification>({
+  const {
+    data: noti,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery({
     queryKey: ['myNotifications'],
-    queryFn: () => getMyNotifications(),
+    queryFn: ({ pageParam = 0 }) =>
+      getMyNotifications({ cursorId: pageParam, size: 4 }),
+    getNextPageParam: (lastPage) =>
+      (lastPage as Notification).cursorId
+        ? (lastPage as Notification).cursorId
+        : undefined,
+    initialPageParam: 0,
   });
+
+  const { setTarget } = useIntersectionObserver({
+    hasNextPage: hasNextPage,
+    fetchNextPage: () => fetchNextPage(),
+  });
+
+  console.log(noti);
 
   const { data } = useQuery({
     queryKey: ['myInfo'],
@@ -83,7 +100,11 @@ export default function Header() {
         {userInfo && !isLoggedOut ? (
           <div className={styles.userContainer}>
             {open && noti ? (
-              <AlarmContainer data={noti} onClick={handleAlarm} />
+              <AlarmContainer
+                data={noti.pages as Notification[]}
+                setTarget={setTarget as any}
+                onClick={handleAlarm}
+              />
             ) : null}
             <button className={styles.alarm} onClick={handleAlarm} />
             <Image
