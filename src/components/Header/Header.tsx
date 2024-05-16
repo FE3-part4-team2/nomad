@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 import styles from './header.module.scss';
 import { useIntersectionObserver } from '@/hooks/useObserver/useInfiniteQueryObserver';
 import AlarmContainer from '@/containers/AlarmContainer/AlarmContainer';
-import { InfiniteData } from '@tanstack/react-query';
 
 interface Notification {
   totalCount: number;
