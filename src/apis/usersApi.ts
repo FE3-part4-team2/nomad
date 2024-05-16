@@ -8,15 +8,10 @@ export const joinApi = async (
   nickname: string,
   password: string,
 ) => {
-  try {
-    const res = await axiosInstance.post(`users`, {
-      email,
-      nickname,
-      password,
-    });
-    return res.data;
-  } catch (e: any) {
-    console.error('로그인 실패:', e);
-    toast.error(e.response.data.message);
-  }
+  const res = await axiosInstance.post(`users`, {
+    email,
+    nickname,
+    password,
+  });
+  return res.data;
 };
