@@ -41,11 +41,14 @@ export default function MyReservation() {
   }, []);
 
   const getInitialData = async () => {
-    // 로딩 상태나 전체 리스트를 이미 불러왔는지 확인
-    // if (isLoading || list.length >= totalCount) return;
     try {
       setIsLoading(true);
-      const res = await getMyReservation({ size: 5 });
+      let res;
+      if (selectedStatus === '') {
+        res = await getMyReservation({ size: 5 });
+      } else {
+        res = await getMyReservation({ size: 5, status: selectedStatus });
+      }
       const formattedReservations = res.reservations.map(
         (reservation: any) => ({
           id: reservation.id,
@@ -75,7 +78,16 @@ export default function MyReservation() {
   const getMoreData = async () => {
     try {
       setIsLoading(true);
-      const res = await getMyReservation({ size: 5, cursorId });
+      let res;
+      if (selectedStatus === '') {
+        res = await getMyReservation({ size: 5, cursorId });
+      } else {
+        res = await getMyReservation({
+          size: 5,
+          cursorId,
+          status: selectedStatus,
+        });
+      }
       const formattedReservations = res.reservations.map(
         (reservation: any) => ({
           id: reservation.id,
@@ -110,11 +122,11 @@ export default function MyReservation() {
     });
   };
 
-  // useEffect(() => {
-  //   getReservationCardList();
-  // }, [selectedStatus]);
+  useEffect(() => {
+    getInitialData();
+  }, [selectedStatus]);
 
-  const handleDropDownClick = (status: string) => {
+  const handleDropDownClick = async (status: string) => {
     if (status === '필터') {
       return;
     }
@@ -136,13 +148,19 @@ export default function MyReservation() {
       case '예약 완료':
         selectedStatus = 'completed';
         break;
+      case '예약 전체':
+        setCursorId(0);
+        setSelectedStatus('');
+        setTotalCount(0);
+        await getInitialData();
+        return;
       default:
         selectedStatus = '';
     }
+    setCursorId(0);
     setSelectedStatus(selectedStatus);
+    await getInitialData();
   };
-
-  // console.log(list);
 
   return (
     <Layout>
@@ -158,6 +176,7 @@ export default function MyReservation() {
                 '예약 승인',
                 '예약 거절',
                 '예약 완료',
+                '예약 전체',
               ]}
               onClick={handleDropDownClick}
             />
@@ -189,7 +208,7 @@ export default function MyReservation() {
             ))
           )}
         </InfiniteScroll>
-        {isLoading && <p>로딩 중...</p>}
+        {/* {isLoading && <p>로딩 로고를 넣고싶은데..</p>} */}
       </div>
     </Layout>
   );
