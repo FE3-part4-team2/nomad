@@ -19,7 +19,7 @@
 
 ## 🫂 팀원 소개
 
-
+<div>
 <table>
     <tr>
         <td align="center"><img src="https://github.com/yulmai999.png" width="150"></td>
