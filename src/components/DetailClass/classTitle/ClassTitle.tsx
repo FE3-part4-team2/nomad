@@ -3,6 +3,8 @@ import styles from './classTitle.module.scss';
 import Kebab from '@/components/DropDown/Kebab';
 import { useRouter } from 'next/router';
 import { deleteActivitiesApi } from '@/apis/myActivitiesApi';
+import { useRecoilValue } from 'recoil';
+import { userState } from '@/store/atoms/userState';
 
 interface TitleProps {
   title: string;
@@ -11,6 +13,7 @@ interface TitleProps {
   reviewCount: number;
   address: string;
   id: number;
+  userId: number;
 }
 
 export default function ClassTitle({
@@ -20,6 +23,7 @@ export default function ClassTitle({
   reviewCount,
   address,
   id,
+  userId,
 }: TitleProps) {
   const router = useRouter();
 
@@ -37,12 +41,14 @@ export default function ClassTitle({
   };
 
   const handleEdit = () => {
-    router.push(`/class-edit/${id}`);
+    router.push(`/my-page/my-class/edit-class/${id}`);
   };
   const handleDelete = () => {
     deleteActivitiesApi(id);
     router.push('/');
   };
+
+  const loggedInUserId = useRecoilValue(userState);
 
   return (
     <>
@@ -74,11 +80,12 @@ export default function ClassTitle({
               </div>
             </div>
           </div>
-          {/* 본인 글에만 보이게 */}
-          <Kebab
-            dropDownList={['수정하기', '삭제하기']}
-            onClick={() => onClickKebab}
-          />
+          {loggedInUserId?.user.id === userId ? (
+            <Kebab
+              dropDownList={['수정하기', '삭제하기']}
+              onClick={(action: string) => onClickKebab(action)}
+            />
+          ) : null}
         </div>
       </section>
     </>

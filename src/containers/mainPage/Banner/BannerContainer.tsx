@@ -13,19 +13,19 @@ import 'swiper/scss/pagination';
 
 const bannerData = [
   {
-    text1: `본격적인 홈카페, \n맛있는 커피 내리는 법`,
+    text1: `나만의 작은 정원, \n테라리움 만들기`,
     text2: '5월 최다리뷰 클래스',
-    src: '/assets/images/image-sample-2.jpeg',
+    src: '/assets/images/terarium.jpg',
   },
   {
-    text1: '고양이에게 안물리며 배 쓰다듬기',
+    text1: '바오패밀리 얼굴 구분하기',
     text2: '4월 최다리뷰 클래스',
-    src: '/assets/images/image-sample-3.jpeg',
+    src: '/assets/images/fu.jpg',
   },
   {
-    text1: '본격적인 홈카페, \n맛있는 커피 내리는 법',
-    text2: '5월 최다리뷰 클래스',
-    src: '/assets/images/image-sample-2.jpeg',
+    text1: '이제 냥냥펀지는 그만, \n고양이 뱃살 쓰다듬는 법',
+    text2: '고양이 뱃살 최고야',
+    src: '/assets/images/cat.jpg',
   },
 ];
 

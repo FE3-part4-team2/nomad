@@ -44,7 +44,6 @@ export default function SubImageInput({
       <label className={styles.inputTitle} htmlFor={id}>
         소개 이미지
       </label>
-      <div>{apiImgURL}</div>
       <div className={subImageStyle.imageContainer}>
         <div className={styles.addImgaeWapper} onChange={onChange}>
           <label className={styles.fakeInput} htmlFor="addSubImage">

@@ -14,6 +14,9 @@ import { DetailClassType } from '@/types/activitiesType/ActivitiesType';
 import { patchEditMyActivityApi } from '@/apis/myActivitiesApi';
 import EditSubImageInputContainer from '@/containers/ImageInput/EditSubImageInputContainer';
 import EditDateInput from '../MyClassInputs/DateInput/EditDateInput';
+import { useRouter } from 'next/router';
+import ModalBase from '@/components/Modal/ModalBase';
+import MyClassModal from '../MyClassModal';
 
 export interface FormValues {
   title: string;
@@ -37,9 +40,14 @@ export interface FormValues {
 
 interface MyClassTitleProps {
   buttonTitle: string;
+  classId: number;
 }
 
-export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
+export default function EditMyClass({
+  buttonTitle,
+  classId,
+}: MyClassTitleProps) {
+  const router = useRouter();
   const [deleteSubImageId, setDeleteSubImageId] = useState<number[]>([]);
   const [getActivityInfo, setGetActivityInfo] = useState<DetailClassType>();
   const [getPlusDateInfo, setGetPlusDateInfo] = useState<
@@ -58,8 +66,9 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
   const [gonnaDeleteId, setGonnaDeleteId] = useState<number[]>([]);
 
   useEffect(() => {
+    if (!router.isReady) return;
     const getDetailActivity = async () => {
-      const data = await getDetailClassApi(830);
+      const data = await getDetailClassApi(classId);
       const forPlusDate = data.schedules.slice();
       forPlusDate.shift();
       setGetPlusDateInfo(forPlusDate);
@@ -75,7 +84,7 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
       setGetAddress(data.address);
     };
     getDetailActivity();
-  }, []);
+  }, [router.isReady]);
 
   //추가할 이미지의 url만 필터 후 imageUrl만 필터함 => subImageUrlsToAdd에 들어갈 데이터
   const addSubImages = idWithApiImgURL.filter(
@@ -123,6 +132,7 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
   //이미지 미리보기
   const [apiImgURL, setApiImgURL] = useState<string[]>([]);
   const [bannerApiImgURL, setBannerApiImgURL] = useState('');
+  const [isModalOpen, setIsModalOepn] = useState(false);
 
   const onSubmit = async (data: FormValues) => {
     // data.subImage = apiImgURL;
@@ -141,67 +151,96 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
       scheduleIdsToRemove: deleteDateId,
       schedulesToAdd: data.schedules,
     };
+
     const apiData = await patchEditMyActivityApi(id, editMyActivity);
-    console.log(apiData);
+    if (apiData) {
+      if (apiData.status === 200) {
+        setIsModalOepn(true);
+      }
+    }
   };
 
+  function closeModal() {
+    setIsModalOepn(false);
+    router.push('/my-page/my-class');
+  }
+
   return (
-    <div>
-      <form className={styles.myClassAddBox} onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.myClassTitleWrapper}>
-          <span className={styles.myClassSubtitle}>내 체험 등록</span>
-          <div className={styles.button}>
-            <Button buttonTitle={buttonTitle} radius={4} fontSize={1.6} />
+    <>
+      <div>
+        <form
+          className={styles.myClassAddBox}
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <div className={styles.myClassTitleWrapper}>
+            <span className={styles.myClassSubtitle}>내 체험 등록</span>
+            <div className={styles.button}>
+              <Button buttonTitle={buttonTitle} radius={4} fontSize={1.6} />
+            </div>
           </div>
-        </div>
-        <div className={styles.inputContainer}>
-          <TitleInput id="title" register={register} errors={errors} />
-          <CategoryInput id="category" register={register} errors={errors} />
-          <DescriptionInput
-            id="description"
-            register={register}
-            errors={errors}
-          />
-          <PriceInput id="price" register={register} errors={errors} />
-          <AddressInput
-            id="address"
-            register={register}
-            errors={errors}
-            getAddress={getAddress}
-            setGetAddress={setGetAddress}
-          />
-          <EditDateInput
-            id="date"
-            register={register}
-            errors={errors}
-            fields={fields}
-            append={append}
-            remove={remove}
-            plusDefaultValue={getPlusDateInfo}
-            setGetPlusDateInfo={setGetPlusDateInfo}
-            setGonnaDeleteId={setGonnaDeleteId}
-          />
-          <ImageInputContainer
-            id="image"
-            register={register}
-            errors={errors}
-            apiImgURL={bannerApiImgURL}
-            setApiImgURL={setBannerApiImgURL}
-            setValue={setValue}
-          />
-          <EditSubImageInputContainer
-            id="subImage"
-            register={register}
-            errors={errors}
-            apiImgURL={apiImgURL}
-            setApiImgURL={setApiImgURL}
-            setIdWithApiImgURL={setIdWithApiImgURL}
-            idWithApiImgURL={idWithApiImgURL}
-            setDeleteSubImageId={setDeleteSubImageId}
-          />
-        </div>
-      </form>
-      <DevTool control={control} />
-    </div>
+          <div className={styles.inputContainer}>
+            <TitleInput id="title" register={register} errors={errors} />
+            <CategoryInput id="category" register={register} errors={errors} />
+            <DescriptionInput
+              id="description"
+              register={register}
+              errors={errors}
+            />
+            <PriceInput id="price" register={register} errors={errors} />
+            <AddressInput
+              id="address"
+              register={register}
+              errors={errors}
+              getAddress={getAddress}
+              setGetAddress={setGetAddress}
+              setValue={setValue}
+            />
+            <EditDateInput
+              id="date"
+              register={register}
+              errors={errors}
+              fields={fields}
+              append={append}
+              remove={remove}
+              plusDefaultValue={getPlusDateInfo}
+              setGetPlusDateInfo={setGetPlusDateInfo}
+              setGonnaDeleteId={setGonnaDeleteId}
+            />
+            <ImageInputContainer
+              id="image"
+              register={register}
+              errors={errors}
+              apiImgURL={bannerApiImgURL}
+              setApiImgURL={setBannerApiImgURL}
+              setValue={setValue}
+            />
+            <EditSubImageInputContainer
+              id="subImage"
+              register={register}
+              errors={errors}
+              apiImgURL={apiImgURL}
+              setApiImgURL={setApiImgURL}
+              setIdWithApiImgURL={setIdWithApiImgURL}
+              idWithApiImgURL={idWithApiImgURL}
+              setDeleteSubImageId={setDeleteSubImageId}
+            />
+          </div>
+        </form>
+        <DevTool control={control} />
+      </div>
+      {isModalOpen ? (
+        <ModalBase
+          children={
+            <MyClassModal
+              message="체험 수정이 완료되었습니다."
+              onClick={closeModal}
+            />
+          }
+          type="alert"
+        ></ModalBase>
+      ) : (
+        ''
+      )}
+    </>
   );
 }

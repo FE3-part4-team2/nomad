@@ -1,6 +1,7 @@
 @import 'src/styles/_variables';
 
 #alarmBox {
+  position: absolute;
   border-radius: 10px;
   border: 1px solid var(--The-julge-gray-30, #cbc9cf);
   background: var(--green-green_CED8D5, #ced8d5);
@@ -11,6 +12,9 @@
   align-items: flex-start;
   gap: 16px;
   width: 368px;
+  z-index: 100;
+  top: 56px;
+  right: -28px;
 }
 
 #alarmHeader {
@@ -21,20 +25,47 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  margin-right: 20px;
+  padding: 0 15px;
+}
+
+.alarmCard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 5px !important;
+  padding: 10px !important;
+  padding-top: 10px !important;
+  padding-bottom: 10px !important;
+  border-radius: 5px;
+  font-size: 1.6rem;
+  background: var(--white-white_FFFFFF, #fff);
+}
+
+.cardHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 }
 
 .alarmList {
   border-radius: 5px;
-  border: 1px solid var(--gray-gray_CBC9CF, #cbc9cf);
-  background: var(--white-white_FFFFFF, #fff);
+
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  padding: 16px 12px;
+  padding: 0 12px 0 12px;
+
+  align-items: center;
+  overflow-y: scroll;
+  max-height: 300px;
 }
 
-.alarmList > :first-child {
+/*.alarmList > :first-child {
   display: flex;
   justify-content: space-between;
-}
+}*/
 
 .opacity {
   opacity: 0.5;
@@ -47,4 +78,60 @@
   font-weight: 400;
   line-height: 2.2rem;
   margin-bottom: 4px;
+  width: 85%;
+}
+
+.headCloseButton {
+  background-image: url('/assets/images/close.svg');
+  background-size: cover;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.closeButton {
+  background-image: url('/assets/images/close.svg');
+  background-size: cover;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.redDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--red-red_FF0000, #ff0000);
+  margin-top: 5px;
+}
+
+.blueDot {
+  margin-top: 5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--blue-blue_007AFF, #007aff);
+}
+
+.redText {
+  color: red;
+}
+
+.blueText {
+  color: blue;
+}
+
+.end {
+  height: 10px;
+  width: 100%;
+}
+
+.infinite {
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
 }

@@ -1,9 +1,9 @@
 import getReservations from '@/apis/getReservationsApi';
-import { useQuery, useMutation } from '@tanstack/react-query';
-import { useRecoilValue } from 'recoil';
-import { idAtom } from '@/store/atoms/idState';
-import { useState } from 'react';
 import patchReservationsUpdate from '@/apis/patchReservationsUpdateApi';
+import { idAtom } from '@/store/atoms/idState';
+import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import styles from './reserveInfoModal.module.scss';
 
 interface ScheduleInfo {
@@ -34,6 +34,7 @@ export default function ReserveInfoModal({
   info: ScheduleInfo[];
   date: string;
 }) {
+  const queryClient = new QueryClient();
   const [option, setOption] = useState(0);
   const [status, setStatus] = useState('pending');
   const [id, setId] = useState(0);
@@ -69,6 +70,7 @@ export default function ReserveInfoModal({
     onSuccess: (data) => {
       alert('거절 성공');
       console.log(data);
+      queryClient.invalidateQueries({ queryKey: ['reservation'] });
     },
     onError: (error) => {
       alert('거절 실패');
@@ -184,10 +186,16 @@ export default function ReserveInfoModal({
           ))}
         {status == 'declined' &&
           data?.reservations.map((item) => (
-            <div>
-              <div>닉네임 {item.nickname}</div>
-              <div>인원 {item.headCount}</div>
-              <div>예약 거절</div>
+            <div className={styles.card}>
+              <div className={styles.cardInfo}>
+                <div>닉네임 </div>
+                <div className={styles.cardData}> {item.nickname}</div>
+              </div>
+              <div className={styles.cardInfo}>
+                <div>인원</div>{' '}
+                <div className={styles.cardData}> {item.headCount}명</div>
+              </div>
+              <div className={styles.declinedDiv}>예약 거절</div>
             </div>
           ))}
       </div>
