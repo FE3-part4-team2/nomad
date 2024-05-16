@@ -4,7 +4,7 @@ import { toast } from 'react-toastify';
 
 interface ChangeInfoProps {
   nickname: string;
-  profileImageUrl: string;
+  profileImageUrl: string | undefined;
   newPassword: string;
 }
 
@@ -38,3 +38,26 @@ export const handleGetUserInfo = async () => {
     return error.response;
   }
 };
+
+export const handleChangeImageUrl = async (image: FormData) => {
+  try {
+    const response = await axiosInstance.post('users/me/image', image, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
+  } catch (e) {
+    const error = e as AxiosError;
+    return error.response;
+  }
+};
+
+// export const postActivitiesImageApi = async (image: FormData) => {
+//   const res = await axiosInstance.post(`activities/image`, image, {
+//     headers: {
+//       'Content-Type': 'multipart/form-data',
+//     },
+//   });
+//   return res.data;
+// };

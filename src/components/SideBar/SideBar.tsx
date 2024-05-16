@@ -3,37 +3,57 @@ import Link from 'next/link';
 import styles from './SideBar.module.scss';
 import { useRouter } from 'next/router';
 import { useRecoilState } from 'recoil';
-import { userState, userNewImage } from '@/store/atoms/userState';
+import {
+  userState,
+  userNewImage,
+  userProfileImage,
+} from '@/store/atoms/userState';
 import { useRecoilValue } from 'recoil';
+import { handleChangeImageUrl, handleGetUserInfo } from '@/apis/myInfoApi';
+import { useEffect, useState } from 'react';
+import { UserInfoResponse } from '@/containers/ProfileInfoChangeForm/ProfileInfoChangeForm';
 
 export default function SideBar() {
   const router = useRouter();
   const [newImage, setNewImage] = useRecoilState(userNewImage);
   const loggedInUser = useRecoilValue(userState);
-
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedImage = event.target.files?.[0]; // 선택한 이미지 파일
-    const reader = new FileReader();
-
-    reader.onload = (e) => {
-      // 이미지를 읽어들여서 userNewImage Recoil 상태에 저장
-      if (e.target?.result) {
-        setNewImage(e.target.result.toString());
-      }
+  const [profileImg, setProfileImg] = useState('');
+  const handleImageChange = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const files = event.target?.files ?? [];
+    const file = files[0];
+    const formData = new FormData();
+    formData.append('image', file);
+    const fileRead = new FileReader();
+    fileRead.readAsDataURL(file);
+    fileRead.onload = function () {
+      setProfileImg(fileRead.result as string);
     };
-    if (selectedImage) {
-      reader.readAsDataURL(selectedImage);
+    const data = await handleChangeImageUrl(formData);
+    setNewImage(data);
+
+    try {
+      const data = await handleChangeImageUrl(formData);
+      setNewImage(data);
+    } catch (error) {
+      console.error('Failed to change image', error);
     }
   };
-
-  // loggedInUserId?.user.profileImageUrl
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      const data: UserInfoResponse = await handleGetUserInfo();
+      setProfileImg(data.profileImageUrl ?? '');
+    };
+    fetchUserInfo();
+  }, [loggedInUser?.user.profileImageUrl]);
 
   return (
     <div className={styles.profileBox}>
       <form id={styles.profileForm}>
         <Image
           src={
-            newImage ||
+            profileImg ||
             loggedInUser?.user.profileImageUrl ||
             '/assets/images/dumi-profile.png'
           }
@@ -41,21 +61,24 @@ export default function SideBar() {
           height={160}
           alt="프로필이미지"
         />
-        {router.pathname == '/my-page' && (
-          <label id={styles.pen} htmlFor={styles.profileImg}>
-            <Image
-              src="/assets/images/pen.svg"
-              width={24}
-              height={24}
-              alt="펜아이콘"
-            />{' '}
-          </label>
-        )}
-        <input id={styles.profileImg} type="file" accept="image/*" />
+        <label id={styles.pen} htmlFor={styles.profileImg}>
+          <Image
+            src="/assets/images/pen.svg"
+            width={24}
+            height={24}
+            alt="펜아이콘"
+          />{' '}
+        </label>
+        <input
+          id={styles.profileImg}
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+        />
       </form>
       <div id={styles.linkList}>
         <Link
-          href="/my-page"
+          href="/my-page/profile-info"
           className={`${styles.list} ${router.pathname === '/my-page/profile-info' ? styles.active : ''}`}
         >
           <Image

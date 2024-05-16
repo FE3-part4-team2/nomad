@@ -9,7 +9,7 @@ import { useRecoilValue } from 'recoil';
 import { useRecoilState } from 'recoil';
 import { toast } from 'react-toastify';
 import { DevTool } from '@hookform/devtools';
-
+import { loginType } from '@/types/authType/AuthType';
 interface FormData {
   //
   nickname: string;
@@ -17,16 +17,14 @@ interface FormData {
   newPassword: string;
   checkPassword: string;
 }
-interface UserInfoResponse {
+export interface UserInfoResponse {
   profileImageUrl: string | undefined | null;
   nickname: string;
   email: string;
 }
-
 export default function ProfileInfoChangeForm() {
   const [newImage, setNewImage] = useRecoilState(userNewImage);
-  const loggedInUser = useRecoilValue(userState);
-
+  const [loggedInUser, setLoggedInUser] = useRecoilState(userState);
   const [userInfo, setUserInfo] = useState<UserInfoResponse>({
     nickname: '',
     profileImageUrl: loggedInUser?.user.profileImageUrl,
@@ -59,13 +57,6 @@ export default function ProfileInfoChangeForm() {
           nickname: data.nickname ?? '',
           email: data.email ?? '',
         });
-        // {
-        //   "nickname": "string",
-        //   "profileImageUrl": "string",
-        //   "newPassword": "string"
-        // }
-        // setValue('nickName', data.nickName ?? '');
-        // setValue('email', data.email ?? '');
       } catch (error) {
         console.error('Failed to fetch user info', error);
       }
@@ -80,15 +71,27 @@ export default function ProfileInfoChangeForm() {
 
   const onSubmit = async (data: FormData) => {
     const { nickname, newPassword } = data;
-    console.log(data);
 
     try {
-      const newProfileImage = (await newImage) || '';
-      console.log(newProfileImage);
+      const newProfileImage = newImage?.profileImageUrl;
       await handleChangeInfo({
         nickname: nickname,
         profileImageUrl: newProfileImage,
         newPassword: newPassword,
+      });
+
+      setLoggedInUser((prev) => {
+        if (!prev) return null;
+        return {
+          ...prev, // 기존의 상태 값 복사
+          user: {
+            ...prev.user, // user 객체 내의 기존 상태 값 복사
+            profileImageUrl: newProfileImage || null, // profileImageUrl만 새 값으로 업데이트
+          },
+          // accessToken과 refreshToken에 대해 undefined가 되지 않도록 기본값('')을 설정
+          accessToken: prev.accessToken || '',
+          refreshToken: prev.refreshToken || '',
+        };
       });
       toast.success('변경이 완료되었습니다.');
     } catch (error) {
