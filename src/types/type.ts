@@ -24,7 +24,7 @@ export interface GetClassDataParamsType {
   cursorId?: number;
   category?: string;
   keyword?: string;
-  sort?: 'most_reviewed' | 'price_asc' | 'price_desc' | 'latest';
+  sort?: string;
   page?: number;
   size?: number;
 }
