@@ -4,6 +4,7 @@
   overflow: scroll;
   gap: 16px;
   width: 100%;
+  padding-right: 10px;
 
   @media (min-width : 769px){
     gap: 32px;
@@ -30,5 +31,23 @@
 
   @media (min-width : 1248px){
     padding: 40px 0 32px;
+  }
+}
+
+.cardWrapper{
+  position: relative;
+}
+
+.overlay{
+  z-index: 2;
+  position: absolute;
+  bottom: 0;
+  right: -40px;
+  background-image: linear-gradient(to right, rgba(250, 251, 252, 0) 0%, rgba(250, 251, 252, 1) 10%, #fafbfc 100%);
+  width: 50px;
+  height: 186px;
+
+  @media (min-width:769px){
+    height: 384px;
   }
 }

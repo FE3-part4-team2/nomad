@@ -26,7 +26,7 @@ export default function ClassCardList() {
       });
       const cardData = res.activities;
 
-      const maxPage = Math.ceil(res.totalCount / params.size!);
+      const maxPage = Math.ceil(res.totalCount / params.size!) || 1;
 
       if (maxPage === page) {
         isClosedRef.current = true;
@@ -46,15 +46,29 @@ export default function ClassCardList() {
       ...params,
       category: value,
     };
+    isClosedRef.current = false;
     setParams(updatedParams);
     setPage(1);
     setCardList([]);
+  };
+
+  const updateSort = (value: string) => {
+    const updatedParams = {
+      ...params,
+      sort: value,
+    };
     isClosedRef.current = false;
+    setParams(updatedParams);
+    setPage(1);
+    setCardList([]);
   };
 
   return (
     <div className={styles.wrapper}>
-      <CategoryBarContainer onClick={updateCategory} />
+      <CategoryBarContainer
+        onClick={updateCategory}
+        onClickDropDown={updateSort}
+      />
       <h2 className={styles.title}>
         <span>🛼</span>{' '}
         {params.category === undefined ? '모든 체험' : params.category}
