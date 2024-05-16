@@ -50,7 +50,6 @@ export default function ClassTitle({
 
   const loggedInUserId = useRecoilValue(userState);
 
-  console.log(loggedInUserId);
   return (
     <>
       <section className={styles.titleSection}>
