@@ -19,7 +19,6 @@ export default function DetailClass({ id }: { id: number }) {
   const loggedInUserId = useRecoilValue(userState);
 
   useEffect(() => {
-    if (!router.isReady) return;
     const getDetailClassInfo = async () => {
       const res = await getDetailClassApi(id);
       setDetail(res);

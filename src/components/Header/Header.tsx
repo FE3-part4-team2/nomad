@@ -53,7 +53,7 @@ export default function Header() {
 
   console.log(noti);
 
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['myInfo'],
     queryFn: () => handleGetUserInfo(),
   });
@@ -116,7 +116,11 @@ export default function Header() {
             <div className={styles.dropdownContainer} onClick={toggleMenu}>
               {data?.profileImageUrl !== null ? (
                 <Image
-                  src={data?.profileImageUrl}
+                  src={
+                    isLoading
+                      ? '/assets/icons/default-user.png'
+                      : data?.profileImageUrl
+                  }
                   alt="프로필 이미지"
                   width={32}
                   height={32}
