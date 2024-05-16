@@ -96,7 +96,7 @@ export default function Header() {
             <div className={styles.dropdownContainer} onClick={toggleMenu}>
               {data?.profileImageUrl !== null ? (
                 <Image
-                  src={data?.user.profileImageUrl}
+                  src={data?.profileImageUrl}
                   alt="프로필 이미지"
                   width={32}
                   height={32}
