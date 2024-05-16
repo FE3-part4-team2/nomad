@@ -1,5 +1,5 @@
 import Alarm from '@/components/Alarm/Alarm';
-import styles from './AlarmContainer.module.scss';
+import styles from './alarmContainer.module.scss';
 
 interface Notification {
   totalCount: number;
