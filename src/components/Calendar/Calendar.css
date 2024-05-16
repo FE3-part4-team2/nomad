@@ -8,8 +8,7 @@
   margin: 0 auto;
   border: none;
 
-  /* background-color: #f5f5f5;
-   */
+  background-color: #f5f5f5;
 }
 
 .react-calendar .blackDot {
@@ -92,7 +91,7 @@
 }
 
 .react-calendar__month-view__weekdays__weekday {
-  border: 1px solid #ccc;
+  border: 1px solid #e8e8e8;
   height: 43px;
   font-size: 1.6rem;
   line-height: 25px;

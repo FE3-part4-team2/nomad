@@ -2,11 +2,13 @@ import styles from './dateInput.module.scss';
 import deleteStyle from './dateDeleteInput.module.scss';
 import Image from 'next/image';
 import { FormValues } from '../../MyClassTitle/MyClassTitle';
-import { UseFieldArrayRemove, UseFormRegister } from 'react-hook-form';
+import {
+  FieldErrors,
+  UseFieldArrayRemove,
+  UseFormRegister,
+} from 'react-hook-form';
 
 interface DateDeleteInputProps {
-  // id: string;
-  // onClick: () => void;
   remove: UseFieldArrayRemove;
   index: number;
   register: UseFormRegister<FormValues>;
@@ -22,20 +24,21 @@ interface DateDeleteInputProps {
     startTime: string;
     endTime: string;
   };
+  errors: FieldErrors<FormValues>;
 }
 
 export default function DateDeleteInput({
-  // onClick,
   register,
   index,
   remove,
+  errors,
 }: DateDeleteInputProps) {
   const removeSelectTime = () => {
     remove(index);
   };
 
   return (
-    <div>
+    <>
       <div className={deleteStyle.smallInputContainer}>
         <div className={styles.smallInputWrapper}>
           <input
@@ -78,6 +81,17 @@ export default function DateDeleteInput({
           />
         </div>
       </div>
-    </div>
+      {/* {errors.schedules?.[index]?.date ||
+        errors.schedules?.[index]?.startTime ||
+        (errors.schedules?.[index]?.endTime && (
+          <p className={styles.error}>추가한 날짜 입력은 필수입니다.</p>
+        ))} */}
+
+      {(errors.schedules?.[index]?.date ||
+        errors.schedules?.[index]?.startTime ||
+        errors.schedules?.[index]?.endTime) && (
+        <p className={styles.error}>추가한 날짜 입력은 필수입니다.</p>
+      )}
+    </>
   );
 }

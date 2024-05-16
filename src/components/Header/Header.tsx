@@ -2,22 +2,45 @@ import Link from 'next/link';
 import styles from './header.module.scss';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { loginApi } from '../../apis/authApi';
+import getMyNotifications from '@/apis/getMyNotificationsApi';
 import { useRouter } from 'next/router';
 import { loginType } from '@/types/authType/AuthType';
 import { userState } from '@/store/atoms/userState';
 import { useSetRecoilState } from 'recoil';
+import AlarmContainer from '@/containers/AlarmContainer/AlarmContainer';
 
+interface Notification {
+  totalCount: number;
+  notifications: {
+    id: number;
+    teamId: string;
+    userId: number;
+    content: string;
+    createdAt: Date;
+    updatedAt: Date;
+    deletedAt: Date | null;
+  }[];
+  cursorId: number;
+}
+        
 export default function Header() {
   const setUser = useSetRecoilState(userState);
   const [userInfo, setUserInfo] = useState<loginType>();
   const [showMenu, setShowMenu] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   const router = useRouter();
 
+  const { data: noti } = useQuery<Notification>({
+    queryKey: ['myNotifications'],
+    queryFn: () => getMyNotifications(),
+  });
+    
   useEffect(() => {
     const getUserInfo = async () => {
-      const res = await loginApi('1234@1234.com', '123412341234');
+      const res = await loginApi();
       setUserInfo(res);
       setUser(res);
     };
@@ -41,6 +64,10 @@ export default function Header() {
     }
   };
 
+  const handleAlarm = () => {
+    setOpen(!open);
+  };
+
   return (
     <div className={styles.wrapper}>
       <main className={styles.main}>
@@ -52,6 +79,7 @@ export default function Header() {
             height={28}
           />
         </Link>
+
         {userInfo ? (
           <div className={styles.userContainer}>
             {/* 클릭하면 알림 내역 모달 뜨게 */}
@@ -62,6 +90,10 @@ export default function Header() {
               height={20}
               className={styles.notification}
             />
+            {open && noti ? (
+              <AlarmContainer data={noti} onClick={handleAlarm} />
+            ) : null}
+            <button className={styles.alarm} onClick={handleAlarm} />
             <Image
               src="/assets/icons/line.svg"
               alt="구분선 아이콘"
