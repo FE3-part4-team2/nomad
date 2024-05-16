@@ -1,21 +1,17 @@
+import { handleChangeImageUrl, handleGetUserInfo } from '@/apis/myInfoApi';
+import { UserInfoResponse } from '@/containers/ProfileInfoChangeForm/ProfileInfoChangeForm';
+import { userNewImage, userState } from '@/store/atoms/userState';
 import Image from 'next/image';
 import Link from 'next/link';
-import styles from './SideBar.module.scss';
 import { useRouter } from 'next/router';
-import { useRecoilState } from 'recoil';
-import {
-  userState,
-  userNewImage,
-  userProfileImage,
-} from '@/store/atoms/userState';
-import { useRecoilValue } from 'recoil';
-import { handleChangeImageUrl, handleGetUserInfo } from '@/apis/myInfoApi';
 import { useEffect, useState } from 'react';
-import { UserInfoResponse } from '@/containers/ProfileInfoChangeForm/ProfileInfoChangeForm';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import styles from './SideBar.module.scss';
 
 export default function SideBar() {
   const router = useRouter();
-  const [newImage, setNewImage] = useRecoilState(userNewImage);
+  const [, setNewImage] = useRecoilState(userNewImage);
+  // const [newImage, setNewImage] = useRecoilState(userNewImage);
   const loggedInUser = useRecoilValue(userState);
   const [profileImg, setProfileImg] = useState('');
   const handleImageChange = async (

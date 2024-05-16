@@ -1,15 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import Button from '@/components/Button/Button';
-import { useForm } from 'react-hook-form';
-import Input from '../../components/Input/Input';
-import styles from './ProfileInfoChangeForm.module.scss';
 import { handleChangeInfo, handleGetUserInfo } from '@/apis/myInfoApi';
-import { userState, userNewImage } from '@/store/atoms/userState';
-import { useRecoilValue } from 'recoil';
-import { useRecoilState } from 'recoil';
-import { toast } from 'react-toastify';
+import Button from '@/components/Button/Button';
+import { userNewImage, userState } from '@/store/atoms/userState';
 import { DevTool } from '@hookform/devtools';
-import { loginType } from '@/types/authType/AuthType';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import { useRecoilState } from 'recoil';
+import styles from './ProfileInfoChangeForm.module.scss';
 interface FormData {
   //
   nickname: string;
@@ -23,7 +20,8 @@ export interface UserInfoResponse {
   email: string;
 }
 export default function ProfileInfoChangeForm() {
-  const [newImage, setNewImage] = useRecoilState(userNewImage);
+  const [newImage] = useRecoilState(userNewImage);
+  // const [newImage, setNewImage] = useRecoilState(userNewImage);
   const [loggedInUser, setLoggedInUser] = useRecoilState(userState);
   const [userInfo, setUserInfo] = useState<UserInfoResponse>({
     nickname: '',
@@ -37,7 +35,7 @@ export default function ProfileInfoChangeForm() {
     handleSubmit,
     setValue,
     getValues,
-    formState: { errors },
+    // formState: { errors },
   } = useForm<FormData>({
     mode: 'onSubmit',
     defaultValues: {
