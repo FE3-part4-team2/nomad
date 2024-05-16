@@ -8,6 +8,8 @@
   font-size: 3.2rem;
   display: flex;
   justify-content: space-between;
+  position: relative;
+  padding-bottom: 24px;
 
   @media (min-width: 769px) {
     width: 429px;
@@ -17,21 +19,19 @@
     width: 800px;
     height: 48px;
   }
-  // marginLeft: '16px',
-  // fontFamily: 'Pretendard',
-  // fontWeight: '700',
-  // fontSize: '3.2rem',
-  // display: 'flex',
-  // justifyContent: 'space-between',
+
   .title {
     display: flex;
     justify-content: center;
     align-items: center;
-    // display: 'flex',
-    // justifyContent: 'center',
-    // alignItems: 'center',
   }
   .dropDownArea {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    right: 16px;
+    bottom: 4px;
+
     @media screen and (max-width: 1200px) {
       visibility: hidden;
     }
