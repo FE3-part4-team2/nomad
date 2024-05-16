@@ -2,6 +2,8 @@ import Link from 'next/link';
 import styles from './header.module.scss';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { loginApi, loginType } from '../../apis/authApi';
+import getMyNotifications from '@/apis/getMyNotificationsApi';
 import { useQuery } from '@tanstack/react-query';
 import { loginApi } from '../../apis/authApi';
 import getMyNotifications from '@/apis/getMyNotificationsApi';
@@ -37,7 +39,7 @@ export default function Header() {
     queryKey: ['myNotifications'],
     queryFn: () => getMyNotifications(),
   });
-    
+  
   useEffect(() => {
     const getUserInfo = async () => {
       const res = await loginApi();
@@ -45,7 +47,6 @@ export default function Header() {
       setUser(res);
     };
     getUserInfo();
-  }, []);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
@@ -76,7 +77,7 @@ export default function Header() {
             src="/assets/images/logo.png"
             alt="로고 이미지"
             width={165}
-            height={28}
+            height={42}
           />
         </Link>
 
