@@ -164,7 +164,7 @@ src
 <br/><br/>
 
 # Q & A
-![스크린샷 2024-03-25 오전 1 48 29](https://github.com/Codeit-Part3-Taskify/Taskify/assets/72595163/d8f49a20-2697-4803-a185-33ffdd685a3a)
+
 
 <br/><br/>
 <br/><br/>
