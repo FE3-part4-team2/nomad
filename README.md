@@ -19,19 +19,17 @@
 
 ## 🫂 팀원 소개
 
-
+<div>
 <table>
     <tr>
         <td align="center"><img src="https://github.com/yulmai999.png" width="150"></td>
-    
     </tr>
     <tr>
         <td align="center"><a href="https://github.com/yulmai999">김율민</a></td>
         <td align="center"></a></td>
-      
     </tr>
     <tr>
-        <td align="center">팀장</td>
+        <td align="center"></td>
     </tr>
 </table>
 </div>
@@ -48,7 +46,7 @@
 
 ### 개발
 
-<img src="https://img.shields.io/badge/typescript-3178c6?style=for-the-badge&logo=typescript&logoColor=white"> <img src="https://img.shields.io/badge/react-61dafb?style=for-the-badge&logo=react&logoColor=white"> <img src="https://img.shields.io/badge/reqct_query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white"> <img src="https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"> <img src="https://img.shields.io/badge/Jotai-black?style=for-the-badge">
+<img src="https://img.shields.io/badge/typescript-3178c6?style=for-the-badge&logo=typescript&logoColor=white"> <img src="https://img.shields.io/badge/react-61dafb?style=for-the-badge&logo=react&logoColor=white"> <img src="https://img.shields.io/badge/reqct_query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white"> 
 
 
 ### 협업

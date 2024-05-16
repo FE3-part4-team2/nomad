@@ -51,8 +51,6 @@ export default function Header() {
     fetchNextPage: () => fetchNextPage(),
   });
 
-  console.log(noti);
-
   const { data, isLoading } = useQuery({
     queryKey: ['myInfo'],
     queryFn: () => handleGetUserInfo(),

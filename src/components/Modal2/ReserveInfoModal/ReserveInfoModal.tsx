@@ -38,18 +38,20 @@ export default function ReserveInfoModal({
   const [option, setOption] = useState(0);
   const [status, setStatus] = useState('pending');
   const [id, setId] = useState(0);
+  const [count] = useState(info[option].count);
+  const [app] = useState(count.pending);
+  const [con] = useState(count.confirmed);
+  const [dec] = useState(count.declined);
 
   const activityId = useRecoilValue(idAtom);
   const scheduleId = info[option].scheduleId;
-
-  const app = info[option].count.pending;
-  const con = info[option].count.confirmed;
-  const dec = info[option].count.declined;
 
   const { data } = useQuery<ReservationData>({
     queryKey: ['reservation', status, option, scheduleId],
     queryFn: () => getReservations({ activityId, scheduleId, status }),
   });
+
+  console.log(data);
 
   const { mutate } = useMutation({
     mutationFn: patchReservationsUpdate,
@@ -58,6 +60,10 @@ export default function ReserveInfoModal({
       alert('승인 성공');
       console.log(data);
       autodecline();
+      queryClient.invalidateQueries(
+        { queryKey: ['reservation'] },
+        count as any,
+      );
     },
     onError: (error) => {
       alert('승인 실패');
@@ -158,7 +164,7 @@ export default function ReserveInfoModal({
                 <button
                   className={styles.declineButton}
                   onClick={() =>
-                    mutate({
+                    decline({
                       activityId,
                       reservationId: item.id,
                       status: 'declined',
@@ -186,7 +192,7 @@ export default function ReserveInfoModal({
           ))}
         {status == 'declined' &&
           data?.reservations.map((item) => (
-            <div className={styles.card}>
+            <div className={styles.card} key={item.id}>
               <div className={styles.cardInfo}>
                 <div>닉네임 </div>
                 <div className={styles.cardData}> {item.nickname}</div>
