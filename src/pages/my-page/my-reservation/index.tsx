@@ -5,6 +5,7 @@ import Layout from '@/components/Layout/Layout';
 import DropDown from '@/components/DropDown/DropDown';
 import styles from './my-reservation.module.scss';
 import NoneExp from '@/components/NoneExp/NoneExp';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 export default function MyReservation() {
   const [list, setList] = useState<any[]>([]);
@@ -12,18 +13,39 @@ export default function MyReservation() {
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState('');
-  const observer = useRef<IntersectionObserver | null>(null); // observer 인스턴스를 저장하기 위한 ref
-  const lastElementRef = useRef(null); // 관찰할 엘리먼트를 위한 ref
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const lastItemRef = useRef<HTMLDivElement | null>(null);
 
-  const getReservationCardList = async () => {
+  useEffect(() => {
+    getInitialData();
+  }, []);
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.5,
+    };
+
+    observerRef.current = new IntersectionObserver(handleIntersection, options);
+
+    if (lastItemRef.current) {
+      observerRef.current.observe(lastItemRef.current);
+    }
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
+
+  const getInitialData = async () => {
     // 로딩 상태나 전체 리스트를 이미 불러왔는지 확인
-    if (isLoading || list.length >= totalCount) return;
-
+    // if (isLoading || list.length >= totalCount) return;
     try {
       setIsLoading(true);
-      setList([]);
-      const res = await getMyReservation(6, selectedStatus, cursorId);
-
+      const res = await getMyReservation({ size: 5 });
       const formattedReservations = res.reservations.map(
         (reservation: any) => ({
           id: reservation.id,
@@ -38,18 +60,11 @@ export default function MyReservation() {
           reviewSubmitted: reservation.reviewSubmitted,
         }),
       );
-
-      setList((prevList) => [...prevList, ...formattedReservations]);
-      setCursorId(
-        formattedReservations[formattedReservations.length - 1]?.id || cursorId,
-      );
       setTotalCount(res.totalCount);
-
-      if (cursorId !== undefined) {
-        setCursorId(cursorId);
-      }
-
-      // setTotalCount(totalCount);
+      setList(formattedReservations);
+      setCursorId(
+        formattedReservations[formattedReservations.length - 1]?.id || 0,
+      );
       setIsLoading(false);
     } catch (e) {
       console.log(e);
@@ -57,29 +72,47 @@ export default function MyReservation() {
     }
   };
 
-  useEffect(() => {
-    observer.current = new IntersectionObserver((entries) => {
-      if (entries[0].isIntersecting) {
-        getReservationCardList();
+  const getMoreData = async () => {
+    try {
+      setIsLoading(true);
+      const res = await getMyReservation({ size: 5, cursorId });
+      const formattedReservations = res.reservations.map(
+        (reservation: any) => ({
+          id: reservation.id,
+          classImage: reservation.activity.bannerImageUrl,
+          revStatus: reservation.status,
+          title: reservation.activity.title,
+          date: reservation.date,
+          startTime: reservation.startTime,
+          endTime: reservation.endTime,
+          headCount: reservation.headCount,
+          price: reservation.totalPrice,
+          reviewSubmitted: reservation.reviewSubmitted,
+        }),
+      );
+      setTotalCount(res.totalCount);
+      setList((prevList) => [...prevList, ...formattedReservations]);
+      setCursorId(
+        formattedReservations[formattedReservations.length - 1]?.id || cursorId,
+      );
+      setIsLoading(false);
+    } catch (e) {
+      console.log(e);
+      setIsLoading(false);
+    }
+  };
+
+  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting && !isLoading) {
+        getMoreData();
       }
     });
-
-    if (lastElementRef.current) {
-      observer.current.observe(lastElementRef.current);
-    }
-
-    return () => {
-      if (observer.current) observer.current.disconnect();
-    };
-  }, [getReservationCardList, selectedStatus]);
+  };
 
   // useEffect(() => {
   //   getReservationCardList();
   // }, [selectedStatus]);
-
-  useEffect(() => {
-    getReservationCardList();
-  }, [getReservationCardList, selectedStatus]);
 
   const handleDropDownClick = (status: string) => {
     if (status === '필터') {
@@ -109,6 +142,8 @@ export default function MyReservation() {
     setSelectedStatus(selectedStatus);
   };
 
+  // console.log(list);
+
   return (
     <Layout>
       <div>
@@ -128,25 +163,32 @@ export default function MyReservation() {
             />
           </div>
         </div>
-        {list.length === 0 ? (
-          <NoneExp />
-        ) : (
-          list.map((reservation, index) => (
-            <ReservationCardContainer
-              ref={index === list.length - 1 ? lastElementRef : null}
-              key={reservation.id}
-              classImage={reservation.classImage}
-              revStatus={reservation.revStatus}
-              title={reservation.title}
-              date={reservation.date}
-              startTime={reservation.startTime}
-              endTime={reservation.endTime}
-              headCount={reservation.headCount}
-              price={reservation.price}
-              reviewSubmitted={reservation.reviewSubmitted}
-            />
-          ))
-        )}
+        <InfiniteScroll
+          dataLength={list.length}
+          next={getMoreData}
+          hasMore={list.length < totalCount}
+          loader={<div>Loading...</div>}
+        >
+          {list.length === 0 ? (
+            <NoneExp />
+          ) : (
+            list.map((reservation, index) => (
+              <ReservationCardContainer
+                ref={index === list.length - 1 ? lastItemRef : null}
+                key={reservation.id}
+                classImage={reservation.classImage}
+                revStatus={reservation.revStatus}
+                title={reservation.title}
+                date={reservation.date}
+                startTime={reservation.startTime}
+                endTime={reservation.endTime}
+                headCount={reservation.headCount}
+                price={reservation.price}
+                reviewSubmitted={reservation.reviewSubmitted}
+              />
+            ))
+          )}
+        </InfiniteScroll>
         {isLoading && <p>로딩 중...</p>}
       </div>
     </Layout>

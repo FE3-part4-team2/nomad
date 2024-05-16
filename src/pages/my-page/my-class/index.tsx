@@ -78,6 +78,7 @@ export default function MyClass() {
         rating: activities.rating,
         reviewCount: activities.reviewCount,
       }));
+      setTotalCount(res.totalCount);
       setList((prevList) => [...prevList, ...formattedactivities]);
       setCursorId(
         formattedactivities[formattedactivities.length - 1]?.id || cursorId,
