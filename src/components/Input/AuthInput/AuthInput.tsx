@@ -6,6 +6,7 @@ interface inputProps {
   type: string;
   value?: string;
   onChange?: (e) => void;
+  onBlur?: () => void;
 }
 
 export default function AuthInput({
@@ -14,6 +15,7 @@ export default function AuthInput({
   type,
   value,
   onChange,
+  onBlur,
 }: inputProps) {
   return (
     <div className={styles.inputWrapper}>
@@ -23,6 +25,7 @@ export default function AuthInput({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        onBlur={onBlur}
       />
     </div>
   );
