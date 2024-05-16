@@ -2,14 +2,41 @@ import Image from 'next/image';
 import Link from 'next/link';
 import styles from './SideBar.module.scss';
 import { useRouter } from 'next/router';
+import { useRecoilState } from 'recoil';
+import { userState, userNewImage } from '@/store/atoms/userState';
+import { useRecoilValue } from 'recoil';
 
 export default function SideBar() {
   const router = useRouter();
+  const [newImage, setNewImage] = useRecoilState(userNewImage);
+  const loggedInUser = useRecoilValue(userState);
+
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedImage = event.target.files?.[0]; // 선택한 이미지 파일
+    const reader = new FileReader();
+
+    reader.onload = (e) => {
+      // 이미지를 읽어들여서 userNewImage Recoil 상태에 저장
+      if (e.target?.result) {
+        setNewImage(e.target.result.toString());
+      }
+    };
+    if (selectedImage) {
+      reader.readAsDataURL(selectedImage);
+    }
+  };
+
+  // loggedInUserId?.user.profileImageUrl
+
   return (
     <div className={styles.profileBox}>
       <form id={styles.profileForm}>
         <Image
-          src="/assets/images/dumi-profile.png"
+          src={
+            newImage ||
+            loggedInUser?.user.profileImageUrl ||
+            '/assets/images/dumi-profile.png'
+          }
           width={160}
           height={160}
           alt="프로필이미지"
@@ -22,7 +49,12 @@ export default function SideBar() {
             alt="펜아이콘"
           />{' '}
         </label>
-        <input id={styles.profileImg} type="file" accept="image/*" />
+        <input
+          id={styles.profileImg}
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+        />
       </form>
       <div id={styles.linkList}>
         <Link

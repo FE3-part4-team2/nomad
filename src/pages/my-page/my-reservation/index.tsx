@@ -12,7 +12,31 @@ export default function MyReservation() {
   const [isLoading, setIsLoading] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState('');
 
-  const getReservationCardList = async () => {
+  useEffect(() => {
+    getInitialData();
+  }, [selectedStatus]);
+
+  useEffect(() => {
+    const options = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.5,
+    };
+
+    observerRef.current = new IntersectionObserver(handleIntersection, options);
+
+    if (lastItemRef.current) {
+      observerRef.current.observe(lastItemRef.current);
+    }
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+    };
+  }, []);
+
+  const getInitialData = async () => {
     try {
       setIsLoading(true);
       setList([]);
@@ -74,6 +98,10 @@ export default function MyReservation() {
       case '예약 완료':
         selectedStatus = 'completed';
         break;
+      case '예약 전체':
+        setSelectedStatus('');
+        await getInitialData();
+        return;
       default:
         selectedStatus = '';
     }
@@ -116,20 +144,35 @@ export default function MyReservation() {
             /> */}
           </div>
         </div>
-        {list.map((reservation) => (
-          <ReservationCardContainer
-            key={reservation.id}
-            classImage={reservation.classImage}
-            revStatus={reservation.revStatus}
-            title={reservation.title}
-            date={reservation.date}
-            startTime={reservation.startTime}
-            endTime={reservation.endTime}
-            headCount={reservation.headCount}
-            price={reservation.price}
-            reviewSubmitted={reservation.reviewSubmitted}
-          />
-        ))}
+        <div>
+          <InfiniteScroll
+            dataLength={list.length}
+            next={getMoreData}
+            hasMore={list.length < totalCount}
+            loader={<div>Loading...</div>}
+          >
+            {list.length === 0 ? (
+              <NoneExp />
+            ) : (
+              list.map((reservation, index) => (
+                <ReservationCardContainer
+                  ref={index === list.length - 1 ? lastItemRef : null}
+                  key={reservation.id}
+                  classImage={reservation.classImage}
+                  revStatus={reservation.revStatus}
+                  title={reservation.title}
+                  date={reservation.date}
+                  startTime={reservation.startTime}
+                  endTime={reservation.endTime}
+                  headCount={reservation.headCount}
+                  price={reservation.price}
+                  reviewSubmitted={reservation.reviewSubmitted}
+                />
+              ))
+            )}
+          </InfiniteScroll>
+          {/* {isLoading && <p>로딩 로고를 넣고싶은데..</p>} */}
+        </div>
       </div>
     </Layout>
   );

@@ -3,27 +3,28 @@ import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
 
 interface ChangeInfoProps {
-  image: string;
   nickname: string;
-  password: string;
+  profileImageUrl: string;
+  newPassword: string;
 }
 
 export const handleChangeInfo = async ({
-  image,
   nickname,
-  password,
+  profileImageUrl,
+  newPassword,
 }: ChangeInfoProps) => {
   try {
     const response = await axiosInstance.patch('users/me', {
-      image,
       nickname,
-      password,
+      profileImageUrl,
+      newPassword,
     });
     if (response.status == 200) {
       toast.success('개인 정보가 변경 되었습니다.');
     }
   } catch (e) {
     const error = e as AxiosError;
+    console.log(e);
     return Promise.reject(error.response);
   }
 };
