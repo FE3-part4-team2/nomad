@@ -24,6 +24,7 @@ interface Notification {
 }
 
 export default function Header() {
+  const setUser = useSetRecoilState(userState);
   const [userInfo, setUserInfo] = useState<string | null>();
   const [showMenu, setShowMenu] = useState(false);
   const [open, setOpen] = useState<boolean>(false);
@@ -51,8 +52,6 @@ export default function Header() {
     fetchNextPage: () => fetchNextPage(),
   });
 
-  console.log(noti);
-
   const { data, isLoading } = useQuery({
     queryKey: ['myInfo'],
     queryFn: () => handleGetUserInfo(),
@@ -60,6 +59,12 @@ export default function Header() {
 
   useEffect(() => {
     setUserInfo(localStorage.getItem('accessToken'));
+    const getUserInfo = async () => {
+      const res = await loginApi('codeit@codeit.com', '12341234');
+      setUserInfo(res);
+      setUser(res);
+    };
+    getUserInfo();
   }, []);
 
   const toggleMenu = () => {
