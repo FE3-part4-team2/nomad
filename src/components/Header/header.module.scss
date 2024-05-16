@@ -1,7 +1,7 @@
 @import 'src/styles/_variables';
 
 .wrapper {
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -21,6 +21,7 @@
 
 .userContainer {
   display: flex;
+  position: relative;
   align-items: center;
   gap: 10px;
   font-size: 1.4rem;
@@ -37,9 +38,18 @@
   display: flex;
   gap: 25px;
 }
+.alarm {
+  background-image: url('/assets/icons/notification.svg');
+  background-size: cover;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
 
-.dropdownContainer {
-  position: relative;
+  .dropdownContainer {
+    position: relative;
+  }
 }
 
 .dropdown {

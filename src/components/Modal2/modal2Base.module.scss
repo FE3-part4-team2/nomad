@@ -38,6 +38,7 @@
   height: 40px;
   border: none;
   background-color: transparent;
+  cursor: pointer;
 }
 
 .large {
@@ -48,8 +49,8 @@
 
 .reserveInfo {
   position: absolute;
-  top: 25%;
-  right: 25%;
+  top: 26%;
+  right: 9%;
   width: 429px; /* 모달의 너비 */
   height: 697px;
   background-color: white;

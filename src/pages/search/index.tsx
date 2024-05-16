@@ -2,9 +2,9 @@ import ClassCardAfterSearch from '@/containers/mainPage/ClassCardList/ClassCardA
 import SearchBarContainer from '@/containers/mainPage/SearchBarContainer/SearchBarContainer';
 import { useRouter } from 'next/router';
 import styles from '../index.module.scss';
-import Banner from '@/components/mainPage/Banner/Banner';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
+import BannerContainer from '@/containers/mainPage/Banner/BannerContainer';
 
 export default function Search() {
   const router = useRouter();
@@ -14,7 +14,7 @@ export default function Search() {
     <div>
       <Header />
       <div className={styles.banner}>
-        <Banner />
+        <BannerContainer />
       </div>
       <div className={styles.content}>
         <div className={styles.searchBar}>

@@ -31,20 +31,21 @@ export default function Calendar({
                   completed,
                   confirmed,
                   pending,
-                }).filter(([value]) => value !== '0');
+                }).filter((value) => value[1] !== 0);
                 console.log(nonZeroValues);
                 return (
                   <>
                     <div
                       key={`${element.date}+dot`}
                       className={`${
-                        nonZeroValues.some((item) => item[0] == 'completed')
-                          ? 'blackDot'
-                          : 'blueDot'
+                        nonZeroValues.some((item) => item[0] != 'completed')
+                          ? 'blueDot'
+                          : 'blackDot'
                       }`}
                     />
                     <div key={element.date} className="colorBox">
                       {nonZeroValues.map((item) => {
+                        console.log(item);
                         // Wrap the arrow function inside parentheses
                         return (
                           <div
