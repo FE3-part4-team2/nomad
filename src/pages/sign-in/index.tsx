@@ -14,11 +14,11 @@ export default function SignIn() {
 
   const router = useRouter();
 
-  const onChangeEmail = (e:any) => {
+  const onChangeEmail = (e: any) => {
     setEmail(e.target.value);
   };
 
-  const onChangePassword = (e:any) => {
+  const onChangePassword = (e: any) => {
     setPassword(e.target.value);
   };
 
@@ -26,10 +26,8 @@ export default function SignIn() {
     try {
       const res = await loginApi(email, password);
 
-      {
-        res && toast.success('로그인 되었습니다.');
-        router.push('/');
-      }
+      res && toast.success('로그인 되었습니다.');
+      router.push('/');
     } catch (e: any) {
       console.error(e);
     }

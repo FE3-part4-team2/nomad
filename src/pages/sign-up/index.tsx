@@ -36,13 +36,9 @@ export default function SignUp() {
   const onClickSubmit = async () => {
     try {
       const res = await joinApi(email, nickname, password);
-
-      if (res.status === 201) {
-        toast.success('회원가입이 완료되었습니다.');
-        router.push('/sign-in');
-      }
+      router.push('/sign-in');
     } catch (e: any) {
-      console.error(e);
+      toast.error(e.response.data.message);
     }
   };
 
