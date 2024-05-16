@@ -23,15 +23,13 @@
 <table>
     <tr>
         <td align="center"><img src="https://github.com/yulmai999.png" width="150"></td>
-    
     </tr>
     <tr>
         <td align="center"><a href="https://github.com/yulmai999">김율민</a></td>
         <td align="center"></a></td>
-      
     </tr>
     <tr>
-        <td align="center">팀장</td>
+        <td align="center"></td>
     </tr>
 </table>
 </div>
