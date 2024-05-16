@@ -2,16 +2,14 @@ import Link from 'next/link';
 import styles from './header.module.scss';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { loginApi, loginType } from '../../apis/authApi';
-import getMyNotifications from '@/apis/getMyNotificationsApi';
 import { useQuery } from '@tanstack/react-query';
 import { loginApi } from '../../apis/authApi';
 import getMyNotifications from '@/apis/getMyNotificationsApi';
 import { useRouter } from 'next/router';
-import { loginType } from '@/types/authType/AuthType';
 import { userState } from '@/store/atoms/userState';
 import { useSetRecoilState } from 'recoil';
 import AlarmContainer from '@/containers/AlarmContainer/AlarmContainer';
+import { loginType } from '@/types/authType/AuthType';
 
 interface Notification {
   totalCount: number;
@@ -26,7 +24,7 @@ interface Notification {
   }[];
   cursorId: number;
 }
-        
+
 export default function Header() {
   const setUser = useSetRecoilState(userState);
   const [userInfo, setUserInfo] = useState<loginType>();
@@ -39,7 +37,7 @@ export default function Header() {
     queryKey: ['myNotifications'],
     queryFn: () => getMyNotifications(),
   });
-  
+
   useEffect(() => {
     const getUserInfo = async () => {
       const res = await loginApi();
@@ -47,6 +45,7 @@ export default function Header() {
       setUser(res);
     };
     getUserInfo();
+  }, []);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);
