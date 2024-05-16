@@ -1,15 +1,14 @@
+Header;
+
 import Link from 'next/link';
 import styles from './header.module.scss';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { loginApi } from '../../apis/authApi';
 import getMyNotifications from '@/apis/getMyNotificationsApi';
 import { useRouter } from 'next/router';
-import { userState } from '@/store/atoms/userState';
-import { useSetRecoilState } from 'recoil';
 import AlarmContainer from '@/containers/AlarmContainer/AlarmContainer';
-import { loginType } from '@/types/authType/AuthType';
+import { handleGetUserInfo } from '@/apis/myInfoApi';
 
 interface Notification {
   totalCount: number;
@@ -26,10 +25,10 @@ interface Notification {
 }
 
 export default function Header() {
-  const setUser = useSetRecoilState(userState);
-  const [userInfo, setUserInfo] = useState<loginType>();
+  const [userInfo, setUserInfo] = useState<string | null>();
   const [showMenu, setShowMenu] = useState(false);
   const [open, setOpen] = useState<boolean>(false);
+  const [isLoggedOut, setIsLoggedOut] = useState(false);
 
   const router = useRouter();
 
@@ -38,13 +37,13 @@ export default function Header() {
     queryFn: () => getMyNotifications(),
   });
 
+  const { data } = useQuery({
+    queryKey: ['myInfo'],
+    queryFn: () => handleGetUserInfo(),
+  });
+
   useEffect(() => {
-    const getUserInfo = async () => {
-      const res = await loginApi();
-      setUserInfo(res);
-      setUser(res);
-    };
-    getUserInfo();
+    setUserInfo(localStorage.getItem('accessToken'));
   }, []);
 
   const toggleMenu = () => {
@@ -58,6 +57,7 @@ export default function Header() {
         break;
       case '로그아웃':
         localStorage.removeItem('accessToken');
+        setIsLoggedOut(true);
         break;
       default:
         break;
@@ -80,16 +80,8 @@ export default function Header() {
           />
         </Link>
 
-        {userInfo ? (
+        {userInfo && !isLoggedOut ? (
           <div className={styles.userContainer}>
-            {/* 클릭하면 알림 내역 모달 뜨게 */}
-            <Image
-              src="/assets/icons/notification.svg"
-              alt="알림 아이콘"
-              width={20}
-              height={20}
-              className={styles.notification}
-            />
             {open && noti ? (
               <AlarmContainer data={noti} onClick={handleAlarm} />
             ) : null}
@@ -102,9 +94,9 @@ export default function Header() {
             />
 
             <div className={styles.dropdownContainer} onClick={toggleMenu}>
-              {userInfo?.user.profileImageUrl !== null ? (
+              {data?.profileImageUrl !== null ? (
                 <Image
-                  src={userInfo?.user.profileImageUrl}
+                  src={data?.user.profileImageUrl}
                   alt="프로필 이미지"
                   width={32}
                   height={32}
@@ -135,11 +127,10 @@ export default function Header() {
               </div>
             </div>
 
-            {userInfo?.user.nickname}
+            {data?.nickname}
           </div>
         ) : (
           <div className={styles.sign}>
-            {/* <button onClick={onclick} /> */}
             <Link href="/sign-in">로그인</Link>
             <Link href="/sign-up">회원가입</Link>
           </div>
