@@ -83,10 +83,27 @@ export const postActivitiesImageApi = async (image: FormData) => {
 export const postAddMyActivityApi = async (
   myActivity: AddMyActivityApiType,
 ) => {
-  const res = await axiosInstance.post(`activities`, myActivity, {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  return res.data;
+  try {
+    const res = await axiosInstance.post(`activities`, myActivity, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return res;
+  } catch (e: any) {
+    if (e.response.status >= 400) {
+      toast.error(e.response.data.message);
+    }
+  }
 };
+
+// export const postAddMyActivityApi = async (
+//   myActivity: AddMyActivityApiType,
+// ) => {
+//   const res = await axiosInstance.post(`activities`, myActivity, {
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//   });
+//   return res.data;
+// };

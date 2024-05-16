@@ -1,4 +1,4 @@
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import DaumPostcode from 'react-daum-postcode';
 import styles from './addressInput.module.scss';
 import { Dispatch, SetStateAction, useState } from 'react';
@@ -10,6 +10,7 @@ interface AddressInputProps {
   errors: FieldErrors<FormValues>;
   setGetAddress: Dispatch<SetStateAction<string>>;
   getAddress: string;
+  setValue: UseFormSetValue<FormValues>;
 }
 
 export default function AddressInput({
@@ -18,11 +19,13 @@ export default function AddressInput({
   errors,
   getAddress,
   setGetAddress,
+  setValue,
 }: AddressInputProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const onCompleteDaumPostcode = (data: { address: string }) => {
     setGetAddress(data.address);
+    setValue('address', data.address, { shouldDirty: true });
   };
 
   const toggleHandler = () => {
@@ -66,7 +69,11 @@ export default function AddressInput({
           />
         </div>
       )}
-      {errors ? <p className={styles.error}>{errors.address?.message}</p> : ''}
+      {errors && !getAddress ? (
+        <p className={styles.error}>{errors.address?.message}</p>
+      ) : (
+        ''
+      )}
     </div>
   );
 }

@@ -114,12 +114,6 @@ export default function EditDateInput({
         </div>
       </div>
 
-      {errors.schedules ? (
-        <p className={styles.error}>{errors.schedules?.message}</p>
-      ) : (
-        ''
-      )}
-
       <div className={styles.plusTimeBorder}>
         {plusDefaultValue && !isAdd
           ? plusDefaultValue.map((item, index) => (
@@ -132,6 +126,7 @@ export default function EditDateInput({
                   deleteTime={deleteTime}
                   item={item}
                   plusDefaultValue={plusDefaultValue}
+                  errors={errors}
                 />
               </div>
             ))
@@ -148,6 +143,7 @@ export default function EditDateInput({
                   remove={remove}
                   setGetPlusDateInfo={setGetPlusDateInfo}
                   deleteTime={deleteTime}
+                  errors={errors}
                 />
               </div>
             );
@@ -155,6 +151,12 @@ export default function EditDateInput({
         </div>
       ) : (
         ''
+      )}
+
+      {(errors.mainSchedule?.date ||
+        errors.mainSchedule?.startTime ||
+        errors.mainSchedule?.endTime) && (
+        <p className={styles.error}>날짜 입력은 필수입니다.</p>
       )}
     </div>
   );

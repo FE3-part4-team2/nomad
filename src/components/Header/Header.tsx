@@ -1,29 +1,49 @@
 import Link from 'next/link';
 import styles from './header.module.scss';
 import Image from 'next/image';
-import { useEffect } from 'react';
-import { loginApi } from '../../apis/authApi';
-import { loginType } from '@/types/authType/AuthType';
-import { userState } from '@/store/atoms/userState';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { useState } from 'react';
+import { loginApi, loginType } from '../../apis/authApi';
+import getMyNotifications from '@/apis/getMyNotificationsApi';
+import { useQuery } from '@tanstack/react-query';
+import AlarmContainer from '@/containers/AlarmContainer/AlarmContainer';
+
+interface Notification {
+  totalCount: number;
+  notifications: {
+    id: number;
+    teamId: string;
+    userId: number;
+    content: string;
+    createdAt: Date;
+    updatedAt: Date;
+    deletedAt: Date | null;
+  }[];
+  cursorId: number;
+}
 
 export default function Header() {
-  const setUser = useSetRecoilState(userState);
-  const userInfo = useRecoilValue(userState);
+  const [userInfo, setUserInfo] = useState<loginType>();
+  const [open, setOpen] = useState<boolean>(false);
+
+  const { data: noti } = useQuery<Notification>({
+    queryKey: ['myNotifications'],
+    queryFn: () => getMyNotifications(),
+  });
+
 
   useEffect(() => {
     const getUserInfo = async () => {
-      const data = await loginApi('1234@1234.com', '123412341234');
-      setUser(data);
-      localStorage.setItem('user', JSON.stringify(data));
-      const res = await loginApi('1234@1234.com', '123412341234');
+      const res = await loginApi();
       setUserInfo(res);
-
     };
     getUserInfo();
   }, [setUser]);
 
   const onclick = () => {};
+
+  const handleAlarm = () => {
+    setOpen(!open);
+  };
 
   return (
     <div className={styles.wrapper}>
@@ -36,14 +56,14 @@ export default function Header() {
             height={28}
           />
         </Link>
+
         {userInfo ? (
           <div className={styles.userContainer}>
-            <Image
-              src="/assets/icons/notification.svg"
-              alt="알림 아이콘"
-              width={20}
-              height={20}
-            />
+            {open && noti ? (
+              <AlarmContainer data={noti} onClick={handleAlarm} />
+            ) : null}
+            <button className={styles.alarm} onClick={handleAlarm} />
+
             <Image
               src="/assets/icons/line.svg"
               alt="구분선 아이콘"

@@ -1,0 +1,33 @@
+@import '../../../styles/variables';
+
+.titlaArea {
+  margin-left: 16px;
+  margin-right: 16px;
+  font-family: Pretendard;
+  font-weight: 700;
+  font-size: 3.2rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  // marginLeft: '16px',
+  // fontFamily: 'Pretendard',
+  // fontWeight: '700',
+  // fontSize: '3.2rem',
+  // display: 'flex',
+  // justifyContent: 'space-between',
+  .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // display: 'flex',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+  }
+  .buttonArea {
+    width: 120px;
+    height: 48px;
+    @media screen and (max-width: 1200px) {
+      visibility: hidden;
+    }
+  }
+}
