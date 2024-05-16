@@ -30,6 +30,12 @@
   color: $nomad-black;
 }
 
+.error {
+  color: red;
+  display: flex;
+  font-size: 1.4rem;
+}
+
 @media screen and (min-width: 768px) {
   .joinButton {
     width: 64rem;

@@ -40,9 +40,13 @@ export interface FormValues {
 
 interface MyClassTitleProps {
   buttonTitle: string;
+  classId: number;
 }
 
-export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
+export default function EditMyClass({
+  buttonTitle,
+  classId,
+}: MyClassTitleProps) {
   const router = useRouter();
   const [deleteSubImageId, setDeleteSubImageId] = useState<number[]>([]);
   const [getActivityInfo, setGetActivityInfo] = useState<DetailClassType>();
@@ -62,8 +66,9 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
   const [gonnaDeleteId, setGonnaDeleteId] = useState<number[]>([]);
 
   useEffect(() => {
+    if (!router.isReady) return;
     const getDetailActivity = async () => {
-      const data = await getDetailClassApi(830);
+      const data = await getDetailClassApi(classId);
       const forPlusDate = data.schedules.slice();
       forPlusDate.shift();
       setGetPlusDateInfo(forPlusDate);
@@ -79,7 +84,7 @@ export default function EditMyClass({ buttonTitle }: MyClassTitleProps) {
       setGetAddress(data.address);
     };
     getDetailActivity();
-  }, []);
+  }, [router.isReady]);
 
   //추가할 이미지의 url만 필터 후 imageUrl만 필터함 => subImageUrlsToAdd에 들어갈 데이터
   const addSubImages = idWithApiImgURL.filter(

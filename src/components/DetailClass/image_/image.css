@@ -1,0 +1,23 @@
+.image-gallery-content .image-gallery-slide .image-gallery-image {
+  height: 250px;
+  object-fit: cover;
+}
+
+@media screen and (min-width: 768px) {
+  .imageSection {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 88%;
+  }
+
+  .image-gallery-content .image-gallery-slide .image-gallery-image {
+    height: 400px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .image-gallery-content .image-gallery-slide .image-gallery-image {
+    height: 600px;
+  }
+}
