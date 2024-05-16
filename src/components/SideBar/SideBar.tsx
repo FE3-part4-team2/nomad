@@ -14,19 +14,21 @@ export default function SideBar() {
           height={160}
           alt="프로필이미지"
         />
-        <label id={styles.pen} htmlFor={styles.profileImg}>
-          <Image
-            src="/assets/images/pen.svg"
-            width={24}
-            height={24}
-            alt="펜아이콘"
-          />{' '}
-        </label>
+        {router.pathname == '/my-page' && (
+          <label id={styles.pen} htmlFor={styles.profileImg}>
+            <Image
+              src="/assets/images/pen.svg"
+              width={24}
+              height={24}
+              alt="펜아이콘"
+            />{' '}
+          </label>
+        )}
         <input id={styles.profileImg} type="file" accept="image/*" />
       </form>
       <div id={styles.linkList}>
         <Link
-          href="/my-page/profile-info"
+          href="/my-page"
           className={`${styles.list} ${router.pathname === '/my-page/profile-info' ? styles.active : ''}`}
         >
           <Image
