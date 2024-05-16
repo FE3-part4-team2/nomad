@@ -1,6 +1,5 @@
 import axios from './axiosInstance';
 import { AxiosError } from 'axios';
-import { getMyReservationType } from '../types/type';
 
 interface paramsInterface {
   size?: number;
@@ -13,7 +12,7 @@ export const getMyReservation = async ({
   status,
   cursorId,
 }: paramsInterface = {}) => {
-  let params: paramsInterface = {};
+  const params: paramsInterface = {};
   if (size !== undefined) {
     params.size = size;
   }

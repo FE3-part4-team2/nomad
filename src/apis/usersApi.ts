@@ -1,6 +1,5 @@
 // 회원가입
 
-import { toast } from 'react-toastify';
 import axiosInstance from './axiosInstance';
 
 export const joinApi = async (

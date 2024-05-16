@@ -1,5 +1,8 @@
-import { PatchEditMyActivityApiType } from '@/types/activitiesType/MyActivityType';
-import { getMyActivitiesClassProps } from '@/types/activitiesType/MyActivityType';
+import {
+  PatchEditMyActivityApiType,
+  getMyActivitiesClassProps,
+} from '@/types/activitiesType/MyActivityType';
+
 import { toast } from 'react-toastify';
 import axiosInstance from './axiosInstance';
 import { AxiosError } from 'axios';
@@ -15,7 +18,7 @@ export const getMyActivitiesClass = async ({
   size,
   cursorId,
 }: getMyActivitiesClassProps = {}) => {
-  let params: getMyActivitiesClassProps = {};
+  const params: getMyActivitiesClassProps = {};
   if (cursorId !== undefined) {
     params.cursorId = cursorId;
   }
