@@ -4,6 +4,7 @@ import { getMyReservation } from '../../../apis/getMyReservation';
 import Layout from '@/components/Layout/Layout';
 import DropDown from '@/components/DropDown/DropDown';
 import styles from './my-reservation.module.scss';
+import NoneExp from '@/components/NoneExp/NoneExp';
 
 export default function MyReservation() {
   const [list, setList] = useState<any[]>([]);
@@ -127,21 +128,25 @@ export default function MyReservation() {
             />
           </div>
         </div>
-        {list.map((reservation, index) => (
-          <ReservationCardContainer
-            ref={index === list.length - 1 ? lastElementRef : null}
-            key={reservation.id}
-            classImage={reservation.classImage}
-            revStatus={reservation.revStatus}
-            title={reservation.title}
-            date={reservation.date}
-            startTime={reservation.startTime}
-            endTime={reservation.endTime}
-            headCount={reservation.headCount}
-            price={reservation.price}
-            reviewSubmitted={reservation.reviewSubmitted}
-          />
-        ))}
+        {list.length === 0 ? (
+          <NoneExp />
+        ) : (
+          list.map((reservation, index) => (
+            <ReservationCardContainer
+              ref={index === list.length - 1 ? lastElementRef : null}
+              key={reservation.id}
+              classImage={reservation.classImage}
+              revStatus={reservation.revStatus}
+              title={reservation.title}
+              date={reservation.date}
+              startTime={reservation.startTime}
+              endTime={reservation.endTime}
+              headCount={reservation.headCount}
+              price={reservation.price}
+              reviewSubmitted={reservation.reviewSubmitted}
+            />
+          ))
+        )}
         {isLoading && <p>로딩 중...</p>}
       </div>
     </Layout>

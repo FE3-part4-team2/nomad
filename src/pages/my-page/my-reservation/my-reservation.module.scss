@@ -1,12 +1,22 @@
 @import '../../../styles/variables';
-
 .titlaArea {
+  width: 344px;
+  height: 48px;
   margin-left: 16px;
   font-family: Pretendard;
   font-weight: 700;
   font-size: 3.2rem;
   display: flex;
   justify-content: space-between;
+
+  @media (min-width: 769px) {
+    width: 429px;
+    height: 48px;
+  }
+  @media (min-width: 1200px) {
+    width: 800px;
+    height: 48px;
+  }
   // marginLeft: '16px',
   // fontFamily: 'Pretendard',
   // fontWeight: '700',

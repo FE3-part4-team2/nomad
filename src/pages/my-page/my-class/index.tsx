@@ -9,6 +9,7 @@ import {
   deleteActivitiesApi,
 } from '@/apis/myActivitiesApi';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import NoneExp from '@/components/NoneExp/NoneExp';
 
 export default function MyClass() {
   const [list, setList] = useState<any[]>([]);
@@ -109,6 +110,8 @@ export default function MyClass() {
     router.push('/my-page/my-class/add-class');
   };
 
+  console.log(list);
+
   return (
     <div>
       <Layout>
@@ -125,19 +128,23 @@ export default function MyClass() {
             hasMore={list.length < totalCount}
             loader={<div>Loading...</div>}
           >
-            {list.map((myClass, index) => (
-              <MyClassCard
-                key={myClass.id}
-                id={myClass.id}
-                classImage={myClass.classImage}
-                rating={myClass.rating}
-                reviewCount={myClass.reviewCount}
-                title={myClass.title}
-                price={myClass.price}
-                onDelete={handleDelete}
-                ref={index === list.length - 1 ? lastItemRef : null}
-              />
-            ))}
+            {list.length === 0 ? (
+              <NoneExp />
+            ) : (
+              list.map((myClass, index) => (
+                <MyClassCard
+                  key={myClass.id}
+                  id={myClass.id}
+                  classImage={myClass.classImage}
+                  rating={myClass.rating}
+                  reviewCount={myClass.reviewCount}
+                  title={myClass.title}
+                  price={myClass.price}
+                  onDelete={handleDelete}
+                  ref={index === list.length - 1 ? lastItemRef : null}
+                />
+              ))
+            )}
           </InfiniteScroll>
           {isLoading && <div>Loading...</div>}
         </div>
