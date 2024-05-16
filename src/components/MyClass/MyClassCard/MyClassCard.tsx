@@ -25,7 +25,7 @@ const MyClassCard = forwardRef(
 
     const handleKebabClick = (item: string) => {
       if (item === '수정하기') {
-        router.push('/my-page/my-class/edit-class');
+        router.push(`/my-page/my-class/edit-class/${id}`);
       }
       if (item === '삭제하기') {
         onDelete(id);

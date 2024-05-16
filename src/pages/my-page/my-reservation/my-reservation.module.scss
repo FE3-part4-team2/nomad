@@ -1,4 +1,8 @@
 @import '../../../styles/variables';
+.listContainer::-webkit-scrollbar {
+  display: none;
+}
+
 .titlaArea {
   width: 344px;
   height: 48px;

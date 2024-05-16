@@ -182,32 +182,35 @@ export default function MyReservation() {
             />
           </div>
         </div>
-        <InfiniteScroll
-          dataLength={list.length}
-          next={getMoreData}
-          hasMore={list.length < totalCount}
-          loader={<div>Loading...</div>}
-        >
-          {list.length === 0 ? (
-            <NoneExp />
-          ) : (
-            list.map((reservation, index) => (
-              <ReservationCardContainer
-                ref={index === list.length - 1 ? lastItemRef : null}
-                key={reservation.id}
-                classImage={reservation.classImage}
-                revStatus={reservation.revStatus}
-                title={reservation.title}
-                date={reservation.date}
-                startTime={reservation.startTime}
-                endTime={reservation.endTime}
-                headCount={reservation.headCount}
-                price={reservation.price}
-                reviewSubmitted={reservation.reviewSubmitted}
-              />
-            ))
-          )}
-        </InfiniteScroll>
+        <div className={styles.listContainer}>
+          <InfiniteScroll
+            dataLength={list.length}
+            next={getMoreData}
+            hasMore={list.length < totalCount}
+            loader={<div>Loading...</div>}
+            scrollableTarget={`.${styles.listContainer}`}
+          >
+            {list.length === 0 ? (
+              <NoneExp />
+            ) : (
+              list.map((reservation, index) => (
+                <ReservationCardContainer
+                  ref={index === list.length - 1 ? lastItemRef : null}
+                  key={reservation.id}
+                  classImage={reservation.classImage}
+                  revStatus={reservation.revStatus}
+                  title={reservation.title}
+                  date={reservation.date}
+                  startTime={reservation.startTime}
+                  endTime={reservation.endTime}
+                  headCount={reservation.headCount}
+                  price={reservation.price}
+                  reviewSubmitted={reservation.reviewSubmitted}
+                />
+              ))
+            )}
+          </InfiniteScroll>
+        </div>
         {/* {isLoading && <p>로딩 로고를 넣고싶은데..</p>} */}
       </div>
     </Layout>
