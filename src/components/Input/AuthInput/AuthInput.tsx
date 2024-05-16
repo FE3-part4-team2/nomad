@@ -5,7 +5,7 @@ interface inputProps {
   placeholder: string;
   type: string;
   value?: string;
-  onChange?: (e) => void;
+  onChange?: (e: any) => void;
   onBlur?: () => void;
 }
 

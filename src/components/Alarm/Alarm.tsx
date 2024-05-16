@@ -27,7 +27,7 @@ export default function Alarm({
   onClick: () => void;
   setTarget: any;
 }) {
-  const [notifications, setNotifications] = useState(data.notifications);
+  const [notifications] = useState(data[0].notifications);
   const queryClient = useQueryClient();
   const { mutate } = useMutation({
     mutationFn: deleteNoficationIdApi,

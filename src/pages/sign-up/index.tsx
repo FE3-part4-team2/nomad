@@ -102,7 +102,7 @@ export default function SignUp() {
 
   const onClickSubmit = async () => {
     try {
-      const res = await joinApi(email, nickname, password);
+      await joinApi(email, nickname, password);
       router.push('/sign-in');
     } catch (e: any) {
       toast.error(e.response.data.message);

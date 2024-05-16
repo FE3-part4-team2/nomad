@@ -1,12 +1,11 @@
-import CalendarContainer from '@/containers/CalendarContainer/CalendarContainer';
 import Layout from '@/components/Layout/Layout';
+import CalendarContainer from '@/containers/CalendarContainer/CalendarContainer';
 // import Select from '@/components/Select/Select';
-import styles from './index.module.scss';
-import postSignIn from '@/apis/postSignInApi';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import SelectContainer from '@/containers/SelectContainer/SelectContainer';
-import NoneExp from '@/components/NoneExp/NoneExp';
 import getMyActivities from '@/apis/myActivitiesApi';
+import NoneExp from '@/components/NoneExp/NoneExp';
+import SelectContainer from '@/containers/SelectContainer/SelectContainer';
+import { useQuery } from '@tanstack/react-query';
+import styles from './index.module.scss';
 
 interface ActivityData {
   activities: {
@@ -28,18 +27,6 @@ interface ActivityData {
 }
 
 export default function manageReservation() {
-  const { mutate } = useMutation({
-    mutationFn: postSignIn,
-    onSuccess: (data) => {
-      alert('로그인 성공');
-      console.log(data);
-    },
-    onError: (error) => {
-      alert('로그인 실패');
-      console.log(error);
-    },
-  });
-
   const { data } = useQuery<ActivityData>({
     queryKey: ['myActivities'],
     queryFn: () => getMyActivities(),
