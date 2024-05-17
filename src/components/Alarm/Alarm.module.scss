@@ -128,10 +128,12 @@
 .end {
   height: 10px;
   width: 100%;
+  padding: 10px;
 }
 
 .infinite {
   gap: 8px;
   display: flex;
   flex-direction: column;
+  margin-bottom: 8px;
 }
