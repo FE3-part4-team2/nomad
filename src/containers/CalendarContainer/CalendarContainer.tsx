@@ -30,9 +30,6 @@ export default function CalendarContainer() {
     queryKey: ['schedule', date, activityId],
     queryFn: () => getReservedSchedule({ activityId, date }),
   });
-  console.log(activityId);
-  console.log(date);
-
   console.log(scheduleData);
 
   function getDates({ activeStartDate }: OnArgs): void {

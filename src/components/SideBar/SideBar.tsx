@@ -74,7 +74,7 @@ export default function SideBar() {
       </form>
       <div id={styles.linkList}>
         <Link
-          href="/my-page/profile-info"
+          href="/my-page"
           className={`${styles.list} ${router.pathname === '/my-page/profile-info' ? styles.active : ''}`}
         >
           <Image
