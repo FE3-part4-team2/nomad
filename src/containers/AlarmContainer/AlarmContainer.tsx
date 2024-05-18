@@ -1,5 +1,4 @@
 import Alarm from '@/components/Alarm/Alarm';
-import styles from './alarmContainer.module.scss';
 
 interface Notification {
   totalCount: number;
@@ -25,8 +24,8 @@ export default function AlarmContainer({
   setTarget: any;
 }) {
   return (
-    <div className={styles.alarmBox}>
+    <>
       <Alarm data={data} onClick={onClick} setTarget={setTarget} />
-    </div>
+    </>
   );
 }

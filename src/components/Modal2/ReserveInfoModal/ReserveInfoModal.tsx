@@ -38,10 +38,10 @@ export default function ReserveInfoModal({
   const [option, setOption] = useState(0);
   const [status, setStatus] = useState('pending');
   const [id, setId] = useState(0);
-  const [count] = useState(info[option].count);
-  const [app] = useState(count.pending);
-  const [con] = useState(count.confirmed);
-  const [dec] = useState(count.declined);
+  const count = info[option].count;
+  const app = count.pending;
+  const con = count.confirmed;
+  const dec = count.declined;
 
   const activityId = useRecoilValue(idAtom);
   const scheduleId = info[option].scheduleId;
