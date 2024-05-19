@@ -6,7 +6,7 @@
 
 ### 개발
 
-<img src="https://img.shields.io/badge/typescript-3178c6?style=for-the-badge&logo=typescript&logoColor=white"> <img src="https://img.shields.io/badge/react-61dafb?style=for-the-badge&logo=react&logoColor=white"> <img src="https://img.shields.io/badge/reqct_query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white"> 
+<img src="https://img.shields.io/badge/typescript-3178c6?style=for-the-badge&logo=typescript&logoColor=white"> <img src="https://img.shields.io/badge/react-61dafb?style=for-the-badge&logo=react&logoColor=white"> <img src="https://img.shields.io/badge/reqct_query-FF4154?style=for-the-badge&logo=reactquery&logoColor=white"> <img src="https://img.shields.io/badge/next.js_12-000000?style=for-the-badge&logo=nextdotjs&logoColor=white">
 
 
 ### 협업
@@ -61,6 +61,12 @@ src
 ### 📄 체험상세 페이지
 
 ### 📄 내정보 페이지
+ #### 내정보
+ #### 예약내역
+ #### 내 체험관리
+ #### 예약현황
+     - 캘린더(리액트캘린더 라이브러리사용)
+     - 캘린더모달(get, post, patch API를 사용하면 데이터 변화 실시간반영)
 
 
 
@@ -69,9 +75,9 @@ src
 
 ## 💡 문제 및 해결
 
-### 1️⃣ 문제 : 
+### 1️⃣ 문제 : 캘린더 모달을 열때 모달의 데이터가 갱신되기전에 모달이 열려서 화면이 깜빡이는 문제가있었음.
 ### 💡 해결 
-- 
+- 리액트 쿼리의 isfetching 을 모달 컴포넌트 랜더링의 조건부로 붙여줘서 해결
 <br/>
 
 ### 2️⃣ 
