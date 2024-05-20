@@ -32,7 +32,7 @@ axiosInstance.interceptors.response.use(
 
       try {
         const res = await axiosInstance.post(`auth/tokens`, {
-          refreshToken: refreshToken,
+          refreshToken,
         });
         Cookie.set('accessToken', res.data.accessToken);
         Cookie.set('refreshToken', res.data.refreshToken);
