@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import styles from './header.module.scss';
 import { useIntersectionObserver } from '@/hooks/useObserver/useInfiniteQueryObserver';
 import AlarmContainer from '@/containers/AlarmContainer/AlarmContainer';
+import Cookie from 'js-cookie';
 
 interface Notification {
   totalCount: number;
@@ -57,7 +58,8 @@ export default function Header() {
   });
 
   useEffect(() => {
-    setUserInfo(localStorage.getItem('accessToken'));
+    // setUserInfo(localStorage.getItem('accessToken'));
+    setUserInfo(Cookie.get('accessToken'));
   }, []);
 
   const toggleMenu = () => {
@@ -70,7 +72,9 @@ export default function Header() {
         router.push('/my-page');
         break;
       case '로그아웃':
-        localStorage.removeItem('accessToken');
+        // localStorage.removeItem('accessToken');
+        Cookie.remove('accessToken');
+        Cookie.remove('refreshToken');
         setIsLoggedOut(true);
         break;
       default:

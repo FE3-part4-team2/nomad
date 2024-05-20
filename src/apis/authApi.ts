@@ -1,5 +1,6 @@
 import { toast } from 'react-toastify';
 import axiosInstance from './axiosInstance';
+import Cookie from 'js-cookie';
 
 // 로그인
 
@@ -9,8 +10,10 @@ export const loginApi = async (email: string, password: string) => {
       email,
       password,
     });
-    localStorage.setItem('accessToken', res.data.accessToken);
-    localStorage.setItem('refreshToken', res.data.refreshToken);
+    Cookie.set('accessToken', res.data.accessToken);
+    Cookie.set('refreshToken', res.data.refreshToken);
+    // localStorage.setItem('accessToken', res.data.accessToken);
+    // localStorage.setItem('refreshToken', res.data.refreshToken);
 
     return res.data;
   } catch (e: any) {
