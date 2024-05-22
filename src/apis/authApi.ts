@@ -22,17 +22,3 @@ export const loginApi = async (email: string, password: string) => {
     throw e;
   }
 };
-
-// 토큰 재발급
-
-export const refreshTokenApi = async () => {
-  try {
-    const res = await axiosInstance.post(`auth/tokens`);
-    localStorage.setItem('accessToken', res.data.accessToken);
-    localStorage.setItem('refreshToken', res.data.refreshToken);
-
-    return res.data;
-  } catch (e) {
-    console.error('토큰 재발급 실패:', e);
-  }
-};
