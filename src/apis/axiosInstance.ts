@@ -21,7 +21,6 @@ axiosInstance.interceptors.response.use(
   },
   async (error) => {
     const originalRequest = error.config;
-    const accessToken = Cookie.get('accessToken');
     const refreshToken = Cookie.get('refreshToken');
 
     if (
@@ -32,18 +31,29 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const res = await axiosInstance.post(`auth/tokens`, {
-          refreshToken,
-        });
+        const res = await axiosInstance.post(
+          `auth/tokens`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${refreshToken}`,
+            },
+          },
+        );
         Cookie.set('accessToken', res.data.accessToken);
         Cookie.set('refreshToken', res.data.refreshToken);
         // localStorage.setItem('accessToken', res.data.accessToken);
         // localStorage.setItem('refreshToken', res.data.refreshToken);
-        originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
+        originalRequest.headers['Authorization'] =
+          `Bearer ${res.data.accessToken}`;
 
-        return axiosInstance(originalRequest);
+        const response = axiosInstance(originalRequest);
+        window.location.reload();
+
+        return response;
       } catch (e) {
         console.error('토큰 재발급 실패:', e);
+        return Promise.reject(e);
       }
     }
 
