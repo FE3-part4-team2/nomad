@@ -6,6 +6,7 @@ import NoneExp from '@/components/NoneExp/NoneExp';
 import SelectContainer from '@/containers/SelectContainer/SelectContainer';
 import { useQuery } from '@tanstack/react-query';
 import styles from './index.module.scss';
+import Head from 'next/head';
 
 interface ActivityData {
   activities: {
@@ -34,6 +35,9 @@ export default function manageReservation() {
 
   return (
     <>
+      <Head>
+        <title>예약 현황</title>
+      </Head>
       <Layout>
         <div>
           <div id={styles.reserveContainer}>
