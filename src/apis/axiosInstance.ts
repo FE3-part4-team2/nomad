@@ -31,8 +31,8 @@ axiosInstance.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const res = await axiosInstance.post(
-          `auth/tokens`,
+        const res = await axios.post(
+          `https://sp-globalnomad-api.vercel.app/3-2/auth/tokens`,
           {},
           {
             headers: {
