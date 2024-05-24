@@ -16,16 +16,19 @@ const bannerData = [
     text1: `나만의 작은 정원, \n테라리움 만들기`,
     text2: '5월 최다리뷰 클래스',
     src: '/assets/images/terarium.jpg',
+    id: 866,
   },
   {
     text1: '바오패밀리 얼굴 구분하기',
     text2: '4월 최다리뷰 클래스',
     src: '/assets/images/fu.jpg',
+    id: 874,
   },
   {
     text1: '이제 냥냥펀지는 그만, \n고양이 뱃살 쓰다듬는 법',
     text2: '고양이 뱃살 최고야',
     src: '/assets/images/cat.jpg',
+    id: 873,
   },
 ];
 
@@ -45,7 +48,12 @@ export default function BannerContainer() {
     >
       {bannerData.map((data, index) => (
         <SwiperSlide key={index} className={styles.banner}>
-          <Banner text1={data.text1} text2={data.text2} src={data.src} />
+          <Banner
+            text1={data.text1}
+            text2={data.text2}
+            src={data.src}
+            id={data.id}
+          />
         </SwiperSlide>
       ))}
     </Swiper>
