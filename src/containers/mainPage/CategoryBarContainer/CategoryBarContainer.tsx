@@ -9,7 +9,15 @@ export default function CategoryBarContainer({
   onClick,
   onClickDropDown,
 }: CategoryBarProps) {
-  const category = ['문화 · 예술', '식음료', '스포츠', '투어', '관광', '웰빙'];
+  const category = [
+    '모든 체험',
+    '문화 · 예술',
+    '식음료',
+    '스포츠',
+    '투어',
+    '관광',
+    '웰빙',
+  ];
 
   const handleDropDown = (e: string) => {
     let selectedValue = e;
