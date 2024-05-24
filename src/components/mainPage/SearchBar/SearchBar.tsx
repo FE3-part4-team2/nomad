@@ -22,7 +22,7 @@ export default function SearchBar({
       <div className={styles.search}>
         <div className={styles.inputBar}>
           <Image
-            src="/assets/icons/bed-icon.svg"
+            src="/assets/icons/lignt-icon.png"
             alt="검색"
             height={24}
             width={24}
