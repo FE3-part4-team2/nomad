@@ -42,8 +42,8 @@ export default function DetailClass({ id }: { id: number }) {
           userId={detail?.userId || 0}
         />
         <ImageComponent
-          imageUrl={detail?.bannerImageUrl || ''}
-          subImage={detail?.subImages}
+          bannerImageUrl={detail?.bannerImageUrl || ''}
+          subImages={detail?.subImages}
         />
         <div className={styles.responsiveContainer || ''}>
           <div className={styles.responsiveLeft}>

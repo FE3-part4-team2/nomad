@@ -1,0 +1,61 @@
+.imageSection {
+  display: flex;
+  width: 88%;
+  justify-content: center;
+  margin: 0 auto;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+.mainImage {
+  width: 1000px;
+  height: 375px;
+  object-fit: cover;
+}
+
+.subImageContainer {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  gap: 5px;
+}
+
+.subImageWrapper {
+  flex: 1 1 calc(50% - 5px);
+  max-width: calc(50% - 5px);
+  height: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .mainImage {
+    img {
+      max-width: 400px;
+    }
+  }
+
+  .subImageContainer {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .mainImage {
+    margin: 0 auto;
+
+    img {
+      max-width: 100%;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .subImageContainer {
+    max-width: 50%;
+  }
+}
+
+.subImage {
+  width: 500px;
+  height: 185px;
+  object-fit: cover;
+}

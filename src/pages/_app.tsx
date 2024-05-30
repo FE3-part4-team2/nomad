@@ -1,9 +1,7 @@
 import '@/components/Calendar/Calendar.css';
-import '@/components/DetailClass/image_/image.css';
 import '@/styles/globals.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
-import 'react-image-gallery/styles/scss/image-gallery.scss';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { RecoilRoot } from 'recoil';
