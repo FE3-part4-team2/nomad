@@ -31,7 +31,7 @@ export default function SignIn() {
 
       res && toast.success('로그인 되었습니다.');
       setUser(res);
-      router.push('/');
+      await router.push('/');
     } catch (e: any) {
       console.error(e);
     }
