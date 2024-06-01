@@ -14,11 +14,12 @@ interface SubImageInputProps {
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  imageSrc: string[];
-  setImgURL: React.Dispatch<React.SetStateAction<string[]>>;
-  apiImgURL: string[];
-  setApiImgURL: React.Dispatch<React.SetStateAction<string[]>>;
+  // imageSrc: string[];
+  // setImgURL: React.Dispatch<React.SetStateAction<string[]>>;
+  subImgUrl: string[];
+  setSubImgUrl: React.Dispatch<React.SetStateAction<string[]>>;
   setValue: UseFormSetValue<FormValues>;
+  subImgFormData: FormData[];
 }
 
 export default function SubImageInput({
@@ -27,15 +28,18 @@ export default function SubImageInput({
   errors,
   onChange,
   setValue,
-  apiImgURL,
-  setApiImgURL,
+  subImgUrl,
+  setSubImgUrl,
+  subImgFormData,
 }: SubImageInputProps) {
+  subImgUrl.splice(4);
+
   const handleDeleteButton = (clickedId: string) => {
-    const newArray = apiImgURL.filter(
+    const newArray = subImgUrl.filter(
       (url) => String(url) !== String(clickedId),
     );
 
-    setApiImgURL(newArray);
+    setSubImgUrl(newArray);
     setValue('subImage', newArray);
   };
 
@@ -65,15 +69,15 @@ export default function SubImageInput({
               validate: (fieldValue) => {
                 return (
                   fieldValue.length < 5 ||
-                  '소개 이미지는 최대 4개까지 선택 가능합니다'
+                  `소개 이미지는 최대 4개까지 선택 가능합니다 `
                 );
               },
             })}
           />
         </div>
 
-        {apiImgURL
-          ? apiImgURL.map((url) => (
+        {subImgUrl
+          ? subImgUrl.map((url) => (
               <div className={styles.imageWrapper} key={url}>
                 <Image
                   className={styles.image}

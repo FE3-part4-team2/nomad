@@ -65,6 +65,7 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
 
   const [bannerImgURL, setBannerImgURL] = useState('');
   const [formData, setFormData] = useState<FormData>();
+  const [subImgFormData, setSubImgFormData] = useState<FormData[]>([]);
 
   const checkBannerURL = async () => {
     if (formData) {
@@ -73,7 +74,7 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
     }
   };
 
-  const [apiImgURL, setApiImgURL] = useState<string[]>([]);
+  const [subImgUrl, setSubImgUrl] = useState<string[]>([]);
   const [isModalOpen, setIsModalOepn] = useState(false);
 
   const onSubmit = async (data: FormValues) => {
@@ -104,7 +105,9 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
     setIsModalOepn(false);
     router.push('/my-page/my-class');
   }
-
+  subImgUrl.splice(4);
+  console.log(subImgUrl);
+  console.log(subImgFormData);
   return (
     <>
       <div>
@@ -154,8 +157,10 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
               register={register}
               errors={errors}
               setValue={setValue}
-              apiImgURL={apiImgURL}
-              setApiImgURL={setApiImgURL}
+              subImgUrl={subImgUrl}
+              setSubImgUrl={setSubImgUrl}
+              subImgFormData={subImgFormData}
+              setSubImgFormData={setSubImgFormData}
             />
           </div>
           <div className={styles.button}>

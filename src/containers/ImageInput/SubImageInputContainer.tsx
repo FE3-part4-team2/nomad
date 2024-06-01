@@ -2,7 +2,7 @@ import { postActivitiesImageApi } from '@/apis/activitiesApi';
 import SubImageInput from '@/components/MyClass/MyClassInputs/ImageInput/SubImgaeInput';
 import { FormValues } from '@/components/MyClass/MyClassTitle/MyClassTitle';
 
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
 interface SubImgaeInputContainerProps {
@@ -10,8 +10,10 @@ interface SubImgaeInputContainerProps {
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
   setValue: UseFormSetValue<FormValues>;
-  apiImgURL: string[];
-  setApiImgURL: React.Dispatch<React.SetStateAction<string[]>>;
+  subImgUrl: string[];
+  setSubImgUrl: Dispatch<SetStateAction<string[]>>;
+  subImgFormData: FormData[];
+  setSubImgFormData: Dispatch<SetStateAction<FormData[]>>;
 }
 
 export default function SubImageInputContainer({
@@ -19,34 +21,69 @@ export default function SubImageInputContainer({
   register,
   errors,
   setValue,
-  apiImgURL,
-  setApiImgURL,
+  subImgUrl,
+  setSubImgUrl,
+  subImgFormData,
+  setSubImgFormData,
 }: SubImgaeInputContainerProps) {
-  const [imgURL, setImgURL] = useState<string[]>([]);
+  // const [imgURL, setImgURL] = useState<string[]>([]);
 
   const handleImageChange = async (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    setImgURL([]);
-    setApiImgURL([]);
+    // setImgURL([]);
+
+    // if (subImgUrl.length >= 4) {
+    //   subImgUrl.splice(4);
+    //   return;
+    // }
+    // setSubImgUrl([]);
     const imgFiles = event.target.files;
 
     const filesArray = imgFiles ? Array.from(imgFiles) : [];
     const selectedFiles: string[] = filesArray.map((file) => {
       return URL.createObjectURL(file);
     });
-    setImgURL((prev) => prev.concat(selectedFiles));
+    // setImgURL((prev) => prev.concat(selectedFiles));
+    setSubImgUrl((prev) => prev.concat(selectedFiles));
 
-    if (imgFiles) {
-      for (let i = 0; i < imgFiles.length; i++) {
-        const formData = new FormData();
-        formData.append(`image`, imgFiles[i]);
+    // if (imgFiles) {
+    //   for (let i = 0; i < imgFiles.length; i++) {
+    //     const formData = new FormData();
+    //     formData.append(`image`, imgFiles[i]);
 
-        const data = await postActivitiesImageApi(formData);
-        setApiImgURL((prev) => [...prev, data.activityImageUrl]);
+    //     const data = await postActivitiesImageApi(formData);
+    //     setApiImgURL((prev) => [...prev, data.activityImageUrl]);
+    //   }
+    // }
+    if (subImgUrl) {
+      if (subImgFormData.length < 5) {
+        for (let i = 0; i < subImgUrl.length; i++) {
+          const formData = new FormData();
+          formData.append(`image${i}`, subImgUrl[i]);
+
+          // const data = await postActivitiesImageApi(formData);
+          // setApiImgURL((prev) => [...prev, data.activityImageUrl]);
+          console.log(formData);
+          setSubImgFormData((prev) => [...prev, formData]);
+        }
       }
     }
+
+    // console.log(formData);
+
+    // if (subImgUrl) {
+    //   for (let i = 0; i < subImgUrl.length; i++) {
+    //     const formData = new FormData();
+    //     formData.append(`image`, subImgUrl[i]);
+
+    //     // const data = await postActivitiesImageApi(formData);
+    //     // setApiImgURL((prev) => [...prev, data.activityImageUrl]);
+    //     setSubImgFormData((prev) => [...prev, formData]);
+    //   }
+    // }
   };
+  // console.log(formData);
 
   return (
     <>
@@ -55,10 +92,11 @@ export default function SubImageInputContainer({
         register={register}
         errors={errors}
         onChange={handleImageChange}
-        imageSrc={imgURL}
-        setImgURL={setImgURL}
-        apiImgURL={apiImgURL}
-        setApiImgURL={setApiImgURL}
+        // imageSrc={imgURL}
+        // setImgURL={setImgURL}
+        subImgUrl={subImgUrl}
+        setSubImgUrl={setSubImgUrl}
+        subImgFormData={subImgFormData}
         setValue={setValue}
       />
     </>
