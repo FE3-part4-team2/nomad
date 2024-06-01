@@ -5,17 +5,20 @@ import DescriptionInput from '../MyClassInputs/DescriptionInput/DescriptionInput
 import PriceInput from '../MyClassInputs/PriceInput/PriceInput';
 import DateInput from '../MyClassInputs/DateInput/DateInput';
 import AddressInput from '../MyClassInputs/AddressInput/AddressInput';
-import ImageInputContainer from '@/containers/ImageInput/ImageInputContainer';
 import SubImageInputContainer from '@/containers/ImageInput/SubImageInputContainer';
 import { useFieldArray, useForm } from 'react-hook-form';
-// import { DevTool } from '@hookform/devtools';
+
 import TitleInput from '../MyClassInputs/TitleInput/TitleInput';
 import { useState } from 'react';
-import { postAddMyActivityApi } from '@/apis/activitiesApi';
+import {
+  postActivitiesImageApi,
+  postAddMyActivityApi,
+} from '@/apis/activitiesApi';
 
 import ModalBase from '@/components/Modal/ModalBase';
 import MyClassModal from '../MyClassModal';
 import { useRouter } from 'next/router';
+import EditBannerImageInputContainer from '@/containers/ImageInput/EditBannerImageInputContainer';
 
 export interface FormValues {
   title: string;
@@ -60,15 +63,25 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
     control: control,
   });
 
+  const [bannerImgURL, setBannerImgURL] = useState('');
+  const [formData, setFormData] = useState<FormData>();
+
+  const checkBannerURL = async () => {
+    if (formData) {
+      const data = await postActivitiesImageApi(formData);
+      setBannerImgURL(data.activityImageUrl);
+    }
+  };
+
   const [apiImgURL, setApiImgURL] = useState<string[]>([]);
-  const [bannerApiImgURL, setBannerApiImgURL] = useState('');
   const [isModalOpen, setIsModalOepn] = useState(false);
 
   const onSubmit = async (data: FormValues) => {
+    checkBannerURL();
     const dateArray = [data.mainSchedule];
     const combinedDateArray = dateArray.concat(data.schedules);
     data.subImage = apiImgURL;
-    data.image = bannerApiImgURL;
+
     const sendData = {
       title: data.title,
       category: data.category,
@@ -76,7 +89,7 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
       address: data.address,
       price: Number(data.price),
       schedules: combinedDateArray,
-      bannerImageUrl: data.image,
+      bannerImageUrl: bannerImgURL,
       subImageUrls: data.subImage,
     };
     const apiData = await postAddMyActivityApi(sendData);
@@ -101,9 +114,6 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
         >
           <div className={styles.myClassTitleWrapper}>
             <span className={styles.myClassSubtitle}>내 체험 등록</span>
-            <div className={styles.button}>
-              <Button buttonTitle={buttonTitle} radius={4} fontSize={1.6} />
-            </div>
           </div>
           <div className={styles.inputContainer}>
             <TitleInput id="title" register={register} errors={errors} />
@@ -130,13 +140,14 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
               append={append}
               remove={remove}
             />
-            <ImageInputContainer
-              setValue={setValue}
+            <EditBannerImageInputContainer
               id="image"
               register={register}
               errors={errors}
-              apiImgURL={bannerApiImgURL}
-              setApiImgURL={setBannerApiImgURL}
+              bannerImgURL={bannerImgURL}
+              setBannerImgURL={setBannerImgURL}
+              setFormData={setFormData}
+              setValue={setValue}
             />
             <SubImageInputContainer
               id="subImage"
@@ -147,8 +158,10 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
               setApiImgURL={setApiImgURL}
             />
           </div>
+          <div className={styles.button}>
+            <Button buttonTitle={buttonTitle} radius={4} fontSize={1.6} />
+          </div>
         </form>
-        {/* <DevTool control={control} /> */}
       </div>
       {isModalOpen ? (
         <ModalBase

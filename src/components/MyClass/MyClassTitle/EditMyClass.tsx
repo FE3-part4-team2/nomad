@@ -90,14 +90,15 @@ export default function EditMyClass({
     if (formData) {
       const data = await postActivitiesImageApi(formData);
       console.log(data.activityImageUrl);
-      return data.activityImageUrl;
-      // setApiBannerImgURL(data.activityImageUrl);
+      setBannerImgURL(data.activityImageUrl);
+      // return data.activityImageUrl;
     }
-    return bannerImgURL;
+    // return bannerImgURL;
   };
 
   const onSubmit = async (data: FormValues) => {
-    const bannerImg = String(checkBannerURL());
+    checkBannerURL();
+    // const bannerImg = String(checkBannerURL());
     // data.subImage = apiImgURL;
     // data.image = bannerApiImgURL;
 
@@ -108,7 +109,7 @@ export default function EditMyClass({
       description: data.description,
       address: data.address,
       price: Number(data.price),
-      bannerImageUrl: bannerImg,
+      bannerImageUrl: bannerImgURL,
       subImageIdsToRemove: deleteSubImge,
       subImageUrlsToAdd: addSubImgUrl,
       scheduleIdsToRemove: deleteDateId,
@@ -137,9 +138,6 @@ export default function EditMyClass({
         >
           <div className={styles.myClassTitleWrapper}>
             <span className={styles.myClassSubtitle}>내 체험 등록</span>
-            <div className={styles.button}>
-              <Button buttonTitle={buttonTitle} radius={4} fontSize={1.6} />
-            </div>
           </div>
           <div className={styles.inputContainer}>
             <TitleInput id="title" register={register} errors={errors} />
@@ -190,6 +188,9 @@ export default function EditMyClass({
               idWithApiImgURL={idWithApiImgURL}
               setDeleteSubImageId={setDeleteSubImageId}
             /> */}
+          </div>
+          <div className={styles.button}>
+            <Button buttonTitle={buttonTitle} radius={4} fontSize={1.6} />
           </div>
         </form>
       </div>
