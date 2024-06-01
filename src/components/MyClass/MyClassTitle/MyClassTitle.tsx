@@ -8,7 +8,7 @@ import AddressInput from '../MyClassInputs/AddressInput/AddressInput';
 import ImageInputContainer from '@/containers/ImageInput/ImageInputContainer';
 import SubImageInputContainer from '@/containers/ImageInput/SubImageInputContainer';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { DevTool } from '@hookform/devtools';
+// import { DevTool } from '@hookform/devtools';
 import TitleInput from '../MyClassInputs/TitleInput/TitleInput';
 import { useState } from 'react';
 import { postAddMyActivityApi } from '@/apis/activitiesApi';
@@ -148,7 +148,7 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
             />
           </div>
         </form>
-        <DevTool control={control} />
+        {/* <DevTool control={control} /> */}
       </div>
       {isModalOpen ? (
         <ModalBase

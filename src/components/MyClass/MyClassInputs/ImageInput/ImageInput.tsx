@@ -8,7 +8,7 @@ interface ImageInputProps {
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  imageSrc: string | undefined;
+  bannerImgURL: string;
   onClick: () => void;
 }
 
@@ -17,7 +17,7 @@ export default function ImageInput({
   register,
   errors,
   onChange,
-  imageSrc,
+  bannerImgURL,
   onClick,
 }: ImageInputProps) {
   return (
@@ -47,11 +47,11 @@ export default function ImageInput({
           />
         </div>
         <div className={styles.imageWrapper}>
-          {imageSrc ? (
+          {bannerImgURL ? (
             <>
               <Image
                 className={styles.image}
-                src={imageSrc}
+                src={bannerImgURL}
                 alt="선택한 이미지"
                 width={167}
                 height={167}

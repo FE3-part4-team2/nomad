@@ -4,12 +4,14 @@ import CategoryInput from '../MyClassInputs/CategoryInput/CategoryInput';
 import DescriptionInput from '../MyClassInputs/DescriptionInput/DescriptionInput';
 import PriceInput from '../MyClassInputs/PriceInput/PriceInput';
 import AddressInput from '../MyClassInputs/AddressInput/AddressInput';
-import ImageInputContainer from '@/containers/ImageInput/ImageInputContainer';
+// import ImageInputContainer from '@/containers/ImageInput/ImageInputContainer';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { DevTool } from '@hookform/devtools';
 import TitleInput from '../MyClassInputs/TitleInput/TitleInput';
 import { useEffect, useState } from 'react';
-import { getDetailClassApi } from '@/apis/activitiesApi';
+import {
+  getDetailClassApi,
+  postActivitiesImageApi,
+} from '@/apis/activitiesApi';
 import { DetailClassType } from '@/types/activitiesType/ActivitiesType';
 import { patchEditMyActivityApi } from '@/apis/myActivitiesApi';
 import EditSubImageInputContainer from '@/containers/ImageInput/EditSubImageInputContainer';
@@ -17,6 +19,7 @@ import EditDateInput from '../MyClassInputs/DateInput/EditDateInput';
 import { useRouter } from 'next/router';
 import ModalBase from '@/components/Modal/ModalBase';
 import MyClassModal from '../MyClassModal';
+import EditBannerImageInputContainer from '@/containers/ImageInput/EditBannerImageInputContainer';
 
 export interface FormValues {
   title: string;
@@ -40,67 +43,17 @@ export interface FormValues {
 
 interface MyClassTitleProps {
   buttonTitle: string;
-  classId: number;
+  getMyActivityData: DetailClassType;
 }
 
 export default function EditMyClass({
   buttonTitle,
-  classId,
+  getMyActivityData,
 }: MyClassTitleProps) {
   const router = useRouter();
-  const [deleteSubImageId, setDeleteSubImageId] = useState<number[]>([]);
-  const [getActivityInfo, setGetActivityInfo] = useState<DetailClassType>();
-  const [getPlusDateInfo, setGetPlusDateInfo] = useState<
-    {
-      id: number;
-      date: string;
-      startTime: string;
-      endTime: string;
-    }[]
-  >([]);
-  const [getAddress, setGetAddress] = useState('');
-  const [idWithApiImgURL, setIdWithApiImgURL] = useState<
-    { id: number; imageUrl: string }[]
-  >([]);
+  const [getAddress, setGetAddress] = useState(getMyActivityData.address);
 
-  const [gonnaDeleteId, setGonnaDeleteId] = useState<number[]>([]);
-
-  useEffect(() => {
-    if (!router.isReady) return;
-    const getDetailActivity = async () => {
-      const data = await getDetailClassApi(classId);
-      const forPlusDate = data.schedules.slice();
-      forPlusDate.shift();
-      setGetPlusDateInfo(forPlusDate);
-      setGetActivityInfo(data);
-      setBannerApiImgURL(data.bannerImageUrl);
-
-      const imgArray = data.subImages;
-      const newImgArray = imgArray.map(
-        (item: { id: number; imageUrl: string }) => item.imageUrl,
-      );
-      setApiImgURL(newImgArray);
-      setIdWithApiImgURL(imgArray);
-      setGetAddress(data.address);
-    };
-    getDetailActivity();
-  }, [router.isReady]);
-
-  //추가할 이미지의 url만 필터 후 imageUrl만 필터함 => subImageUrlsToAdd에 들어갈 데이터
-  const addSubImages = idWithApiImgURL.filter(
-    (item) => typeof item.id === 'string',
-  );
-  const addSubImgUrl = addSubImages.map(
-    (item: { id: number; imageUrl: string }) => item.imageUrl,
-  );
-
-  //지울 이미지의 id만 필터 => subImageIdsToRemove에 들어갈 데이터
-  const deleteSubImge = deleteSubImageId.filter(
-    (item) => typeof item === 'number',
-  );
-
-  //삭제할 예약가능시간 id만 필터 => scheduleIdsToRemove에 들어갈 데이터
-  const deleteDateId = gonnaDeleteId.filter((item) => typeof item === 'number');
+  console.log(getMyActivityData);
 
   const {
     control,
@@ -110,19 +63,14 @@ export default function EditMyClass({
     setValue,
   } = useForm<FormValues>({
     mode: 'onBlur',
+    defaultValues: {
+      title: getMyActivityData.title,
+      category: getMyActivityData.category,
+      description: getMyActivityData.description,
+      price: getMyActivityData.price,
+      address: getMyActivityData.address,
+    },
   });
-
-  useEffect(() => {
-    if (getActivityInfo) {
-      setValue('title', getActivityInfo.title);
-      setValue('category', getActivityInfo.category);
-      setValue('description', getActivityInfo.description);
-      setValue('price', getActivityInfo.price);
-      setValue('address', getActivityInfo.address);
-      setValue('mainSchedule', getActivityInfo.schedules[0]);
-      setValue('image', getActivityInfo.bannerImageUrl);
-    }
-  }, [getActivityInfo, setValue]);
 
   const { fields, append, remove } = useFieldArray({
     name: 'schedules',
@@ -130,22 +78,37 @@ export default function EditMyClass({
   });
 
   //이미지 미리보기
-  const [apiImgURL, setApiImgURL] = useState<string[]>([]);
-  const [bannerApiImgURL, setBannerApiImgURL] = useState('');
+  const [bannerImgURL, setBannerImgURL] = useState(
+    getMyActivityData.bannerImageUrl,
+  );
+  const [formData, setFormData] = useState<FormData>();
+  // const [apiImgURL, setApiBannerImgURL] = useState('');
+  // const [bannerApiImgURL, setBannerApiImgURL] = useState('');
   const [isModalOpen, setIsModalOepn] = useState(false);
 
-  const onSubmit = async (data: FormValues) => {
-    // data.subImage = apiImgURL;
-    data.image = bannerApiImgURL;
+  const checkBannerURL = async () => {
+    if (formData) {
+      const data = await postActivitiesImageApi(formData);
+      console.log(data.activityImageUrl);
+      return data.activityImageUrl;
+      // setApiBannerImgURL(data.activityImageUrl);
+    }
+    return bannerImgURL;
+  };
 
-    const id = getActivityInfo!.id;
+  const onSubmit = async (data: FormValues) => {
+    const bannerImg = String(checkBannerURL());
+    // data.subImage = apiImgURL;
+    // data.image = bannerApiImgURL;
+
+    const id = getMyActivityData.id;
     const editMyActivity = {
       title: data.title,
       category: data.category,
       description: data.description,
       address: data.address,
       price: Number(data.price),
-      bannerImageUrl: data.image,
+      bannerImageUrl: bannerImg,
       subImageIdsToRemove: deleteSubImge,
       subImageUrlsToAdd: addSubImgUrl,
       scheduleIdsToRemove: deleteDateId,
@@ -195,7 +158,7 @@ export default function EditMyClass({
               setGetAddress={setGetAddress}
               setValue={setValue}
             />
-            <EditDateInput
+            {/* <EditDateInput
               id="date"
               register={register}
               errors={errors}
@@ -205,16 +168,19 @@ export default function EditMyClass({
               plusDefaultValue={getPlusDateInfo}
               setGetPlusDateInfo={setGetPlusDateInfo}
               setGonnaDeleteId={setGonnaDeleteId}
-            />
-            <ImageInputContainer
+            /> */}
+            <EditBannerImageInputContainer
               id="image"
               register={register}
               errors={errors}
-              apiImgURL={bannerApiImgURL}
-              setApiImgURL={setBannerApiImgURL}
+              bannerImgURL={bannerImgURL}
+              setBannerImgURL={setBannerImgURL}
+              setFormData={setFormData}
+              // apiImgURL={bannerApiImgURL}
+              // setApiImgURL={setBannerApiImgURL}
               setValue={setValue}
             />
-            <EditSubImageInputContainer
+            {/* <EditSubImageInputContainer
               id="subImage"
               register={register}
               errors={errors}
@@ -223,10 +189,9 @@ export default function EditMyClass({
               setIdWithApiImgURL={setIdWithApiImgURL}
               idWithApiImgURL={idWithApiImgURL}
               setDeleteSubImageId={setDeleteSubImageId}
-            />
+            /> */}
           </div>
         </form>
-        <DevTool control={control} />
       </div>
       {isModalOpen ? (
         <ModalBase
