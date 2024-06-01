@@ -67,10 +67,10 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
   const [formData, setFormData] = useState<FormData>();
   const [subImgFormData, setSubImgFormData] = useState<FormData[]>([]);
 
-  const checkBannerURL = async () => {
+  const checkBannerURL = async (): Promise<void> => {
     if (formData) {
       const data = await postActivitiesImageApi(formData);
-      setBannerImgURL(data.activityImageUrl);
+      return data.activityImageUrl;
     }
   };
 
@@ -78,11 +78,10 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
   const [isModalOpen, setIsModalOepn] = useState(false);
 
   const onSubmit = async (data: FormValues) => {
-    checkBannerURL();
+    const banner = await checkBannerURL();
     const dateArray = [data.mainSchedule];
     const combinedDateArray = dateArray.concat(data.schedules);
-    data.subImage = apiImgURL;
-
+    data.subImage = [];
     const sendData = {
       title: data.title,
       category: data.category,
@@ -90,7 +89,7 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
       address: data.address,
       price: Number(data.price),
       schedules: combinedDateArray,
-      bannerImageUrl: bannerImgURL,
+      bannerImageUrl: String(banner),
       subImageUrls: data.subImage,
     };
     const apiData = await postAddMyActivityApi(sendData);

@@ -86,18 +86,15 @@ export default function EditMyClass({
   // const [bannerApiImgURL, setBannerApiImgURL] = useState('');
   const [isModalOpen, setIsModalOepn] = useState(false);
 
-  const checkBannerURL = async () => {
+  const checkBannerURL = async (): Promise<void> => {
     if (formData) {
       const data = await postActivitiesImageApi(formData);
-      console.log(data.activityImageUrl);
-      setBannerImgURL(data.activityImageUrl);
-      // return data.activityImageUrl;
+      return data.activityImageUrl;
     }
-    // return bannerImgURL;
   };
 
   const onSubmit = async (data: FormValues) => {
-    checkBannerURL();
+    const banner = await checkBannerURL();
     // const bannerImg = String(checkBannerURL());
     // data.subImage = apiImgURL;
     // data.image = bannerApiImgURL;
@@ -109,7 +106,7 @@ export default function EditMyClass({
       description: data.description,
       address: data.address,
       price: Number(data.price),
-      bannerImageUrl: bannerImgURL,
+      bannerImageUrl: banner,
       subImageIdsToRemove: deleteSubImge,
       subImageUrlsToAdd: addSubImgUrl,
       scheduleIdsToRemove: deleteDateId,
