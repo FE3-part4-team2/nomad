@@ -3,6 +3,7 @@ import moment from 'moment';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import deleteNoficationIdApi from '@/apis/deleteNoficationIdApi';
 import { useState } from 'react';
+import Image from 'next/image';
 
 interface Notification {
   totalCount: number;
@@ -84,7 +85,9 @@ export default function Alarm({
                 </div>
                 <div
                   className={styles.alarmDetail}
-                  dangerouslySetInnerHTML={{ __html: textColor(item.content) }}
+                  dangerouslySetInnerHTML={{
+                    __html: textColor(item.content),
+                  }}
                 />
                 <div className={styles.opacity}>
                   {moment(item.createdAt).fromNow()}

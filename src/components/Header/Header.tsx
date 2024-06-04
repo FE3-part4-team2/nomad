@@ -107,7 +107,17 @@ export default function Header() {
                 onClick={handleAlarm}
               />
             ) : null}
-            <button className={styles.alarm} onClick={handleAlarm} />
+            {noti?.pages[0].totalCount == 0 ? (
+              <Image
+                src="/assets/images/none-alarm.svg"
+                width={25}
+                height={25}
+                alt="none-alarm"
+                style={{ opacity: 0.5 }}
+              />
+            ) : (
+              <button className={styles.alarm} onClick={handleAlarm} />
+            )}
             <Image
               src="/assets/icons/line.svg"
               alt="구분선 아이콘"
