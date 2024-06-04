@@ -171,8 +171,6 @@ export default function EditMyClass({
               bannerImgURL={bannerImgURL}
               setBannerImgURL={setBannerImgURL}
               setFormData={setFormData}
-              // apiImgURL={bannerApiImgURL}
-              // setApiImgURL={setBannerApiImgURL}
               setValue={setValue}
             />
             {/* <EditSubImageInputContainer
