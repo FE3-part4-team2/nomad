@@ -1,4 +1,4 @@
-import { UseFormRegister, FieldErrors } from 'react-hook-form';
+import { UseFormRegister, FieldErrors, UseFormSetValue } from 'react-hook-form';
 import styles from './imageInput.module.scss';
 import Image from 'next/image';
 import { FormValues } from '../../MyClassTitle/MyClassTitle';
@@ -8,8 +8,9 @@ interface ImageInputProps {
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  imageSrc: string | undefined;
+  bannerImgURL: string;
   onClick: () => void;
+  setValue: UseFormSetValue<FormValues>;
 }
 
 export default function ImageInput({
@@ -17,8 +18,9 @@ export default function ImageInput({
   register,
   errors,
   onChange,
-  imageSrc,
+  bannerImgURL,
   onClick,
+  // setValue,
 }: ImageInputProps) {
   return (
     <div>
@@ -42,22 +44,27 @@ export default function ImageInput({
             accept="image/*"
             hidden
             {...register('image', {
-              required: '배너 이미지는 필수입니다.',
+              validate: (value) =>
+                value.length > 0 || '배너 이미지는 필수입니다.',
             })}
           />
         </div>
         <div className={styles.imageWrapper}>
-          {imageSrc ? (
+          {bannerImgURL ? (
             <>
               <Image
                 className={styles.image}
-                src={imageSrc}
+                src={bannerImgURL}
                 alt="선택한 이미지"
                 width={167}
                 height={167}
               />
               <Image
                 onClick={onClick}
+                // onClick={() => {
+                //   onClick();
+                //   setValue('image', ''); // 이미지 필드 초기화
+                // }}
                 className={styles.deleteImageButton}
                 src="/assets/icons/delete-circle-btn.svg"
                 alt="이미지 삭제 버튼"
@@ -70,7 +77,12 @@ export default function ImageInput({
           )}
         </div>
       </div>
-      {errors ? <p className={styles.error}>{errors.image?.message}</p> : ''}
+      {errors.image && !bannerImgURL ? (
+        <p className={styles.error}>{errors.image.message}</p>
+      ) : (
+        ''
+      )}
+      {/* {errors ? <p className={styles.error}>{errors.image?.message}</p> : ''} */}
     </div>
   );
 }

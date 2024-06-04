@@ -14,11 +14,13 @@ interface SubImageInputProps {
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  imageSrc: string[];
-  setImgURL: React.Dispatch<React.SetStateAction<string[]>>;
-  apiImgURL: string[];
-  setApiImgURL: React.Dispatch<React.SetStateAction<string[]>>;
+  // imageSrc: string[];
+  // setImgURL: React.Dispatch<React.SetStateAction<string[]>>;
+  subImgUrl: string[];
+  setSubImgUrl: React.Dispatch<React.SetStateAction<string[]>>;
   setValue: UseFormSetValue<FormValues>;
+  subImgFormData: FormData[];
+  setSubImgFormData: React.Dispatch<React.SetStateAction<FormData[]>>;
 }
 
 export default function SubImageInput({
@@ -27,16 +29,36 @@ export default function SubImageInput({
   errors,
   onChange,
   setValue,
-  apiImgURL,
-  setApiImgURL,
+  subImgUrl,
+  setSubImgUrl,
+  subImgFormData,
+  setSubImgFormData,
 }: SubImageInputProps) {
-  const handleDeleteButton = (clickedId: string) => {
-    const newArray = apiImgURL.filter(
-      (url) => String(url) !== String(clickedId),
-    );
+  subImgUrl.splice(4);
 
-    setApiImgURL(newArray);
-    setValue('subImage', newArray);
+  // const handleDeleteButton = (clickedId: string) => {
+  //   const newArray = subImgUrl.filter(
+  //     (url) => String(url) !== String(clickedId),
+  //   );
+  //   const newFormDataArray = subImgFormData.filter(
+  //     (url) => String(url) !== String(clickedId),
+  //   );
+  //   setSubImgUrl(newArray);
+  //   setSubImgFormData(newFormDataArray);
+  //   setValue('subImage', newArray);
+  // };
+
+  const handleDeleteButton = (clickedUrl: string) => {
+    const newArray = subImgUrl.filter((url) => url !== clickedUrl); // 클릭된 url을 제외한 새로운 배열 생성
+    const index = subImgUrl.findIndex((url) => url === clickedUrl); // 클릭된 url의 인덱스 찾기
+    if (index !== -1) {
+      // 인덱스가 -1이 아닌 경우에만 제거
+      const newFormDataArray = [...subImgFormData]; // 기존의 배열을 복사하여 새로운 배열 생성
+      newFormDataArray.splice(index, 1); // 해당 인덱스의 formData 제거
+      setSubImgUrl(newArray); // 새로운 배열로 업데이트
+      setSubImgFormData(newFormDataArray); // 새로운 formData 배열로 업데이트
+      setValue('subImage', newArray); // subImage 값 업데이트
+    }
   };
 
   return (
@@ -60,20 +82,19 @@ export default function SubImageInput({
             type="file"
             accept="image/*"
             hidden
-            multiple
             {...register('subImage', {
               validate: (fieldValue) => {
                 return (
                   fieldValue.length < 5 ||
-                  '소개 이미지는 최대 4개까지 선택 가능합니다'
+                  `소개 이미지는 최대 4개까지 선택 가능합니다 `
                 );
               },
             })}
           />
         </div>
 
-        {apiImgURL
-          ? apiImgURL.map((url) => (
+        {subImgUrl
+          ? subImgUrl.map((url) => (
               <div className={styles.imageWrapper} key={url}>
                 <Image
                   className={styles.image}

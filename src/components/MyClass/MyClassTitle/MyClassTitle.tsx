@@ -5,17 +5,20 @@ import DescriptionInput from '../MyClassInputs/DescriptionInput/DescriptionInput
 import PriceInput from '../MyClassInputs/PriceInput/PriceInput';
 import DateInput from '../MyClassInputs/DateInput/DateInput';
 import AddressInput from '../MyClassInputs/AddressInput/AddressInput';
-import ImageInputContainer from '@/containers/ImageInput/ImageInputContainer';
 import SubImageInputContainer from '@/containers/ImageInput/SubImageInputContainer';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { DevTool } from '@hookform/devtools';
+
 import TitleInput from '../MyClassInputs/TitleInput/TitleInput';
 import { useState } from 'react';
-import { postAddMyActivityApi } from '@/apis/activitiesApi';
+import {
+  postActivitiesImageApi,
+  postAddMyActivityApi,
+} from '@/apis/activitiesApi';
 
 import ModalBase from '@/components/Modal/ModalBase';
 import MyClassModal from '../MyClassModal';
 import { useRouter } from 'next/router';
+import EditBannerImageInputContainer from '@/containers/ImageInput/EditBannerImageInputContainer';
 
 export interface FormValues {
   title: string;
@@ -60,30 +63,61 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
     control: control,
   });
 
-  const [apiImgURL, setApiImgURL] = useState<string[]>([]);
-  const [bannerApiImgURL, setBannerApiImgURL] = useState('');
+  const [bannerImgURL, setBannerImgURL] = useState('');
+  const [formData, setFormData] = useState<FormData>();
+  const [subImgFormData, setSubImgFormData] = useState<FormData[]>([]);
+
+  const checkBannerURL = async (): Promise<void> => {
+    if (formData) {
+      const data = await postActivitiesImageApi(formData);
+
+      return data.activityImageUrl;
+    }
+  };
+
+  const postImgApi = async (subImgFormData: FormData) => {
+    const data = await postActivitiesImageApi(subImgFormData);
+
+    return data.activityImageUrl;
+  };
+
+  const convertSubImgURL = async (): Promise<string[]> => {
+    if (subImgFormData) {
+      const subImgApiUrlArray = await Promise.all(
+        subImgFormData.map((item) => postImgApi(item)),
+      );
+      return subImgApiUrlArray;
+    }
+    return [];
+  };
+
+  const [subImgUrl, setSubImgUrl] = useState<string[]>([]);
   const [isModalOpen, setIsModalOepn] = useState(false);
 
   const onSubmit = async (data: FormValues) => {
-    const dateArray = [data.mainSchedule];
-    const combinedDateArray = dateArray.concat(data.schedules);
-    data.subImage = apiImgURL;
-    data.image = bannerApiImgURL;
-    const sendData = {
-      title: data.title,
-      category: data.category,
-      description: data.description,
-      address: data.address,
-      price: Number(data.price),
-      schedules: combinedDateArray,
-      bannerImageUrl: data.image,
-      subImageUrls: data.subImage,
-    };
-    const apiData = await postAddMyActivityApi(sendData);
-    if (apiData) {
-      if (apiData.status === 201) {
+    try {
+      const subImgApiArray = await convertSubImgURL();
+      const banner = await checkBannerURL();
+      const dateArray = [data.mainSchedule];
+      const combinedDateArray = dateArray.concat(data.schedules);
+
+      const sendData = {
+        title: data.title,
+        category: data.category,
+        description: data.description,
+        address: data.address,
+        price: Number(data.price),
+        schedules: combinedDateArray,
+        bannerImageUrl: String(banner),
+        subImageUrls: subImgApiArray,
+      };
+
+      const apiData = await postAddMyActivityApi(sendData);
+      if (apiData && apiData.status === 201) {
         setIsModalOepn(true);
       }
+    } catch (error) {
+      console.error('Error:', error);
     }
   };
 
@@ -91,6 +125,8 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
     setIsModalOepn(false);
     router.push('/my-page/my-class');
   }
+  subImgUrl.splice(4);
+  subImgFormData.splice(4);
 
   return (
     <>
@@ -101,9 +137,6 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
         >
           <div className={styles.myClassTitleWrapper}>
             <span className={styles.myClassSubtitle}>내 체험 등록</span>
-            <div className={styles.button}>
-              <Button buttonTitle={buttonTitle} radius={4} fontSize={1.6} />
-            </div>
           </div>
           <div className={styles.inputContainer}>
             <TitleInput id="title" register={register} errors={errors} />
@@ -130,25 +163,30 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
               append={append}
               remove={remove}
             />
-            <ImageInputContainer
-              setValue={setValue}
+            <EditBannerImageInputContainer
               id="image"
               register={register}
               errors={errors}
-              apiImgURL={bannerApiImgURL}
-              setApiImgURL={setBannerApiImgURL}
+              bannerImgURL={bannerImgURL}
+              setBannerImgURL={setBannerImgURL}
+              setFormData={setFormData}
+              setValue={setValue}
             />
             <SubImageInputContainer
               id="subImage"
               register={register}
               errors={errors}
               setValue={setValue}
-              apiImgURL={apiImgURL}
-              setApiImgURL={setApiImgURL}
+              subImgUrl={subImgUrl}
+              setSubImgUrl={setSubImgUrl}
+              subImgFormData={subImgFormData}
+              setSubImgFormData={setSubImgFormData}
             />
           </div>
+          <div className={styles.button}>
+            <Button buttonTitle={buttonTitle} radius={4} fontSize={1.6} />
+          </div>
         </form>
-        <DevTool control={control} />
       </div>
       {isModalOpen ? (
         <ModalBase
