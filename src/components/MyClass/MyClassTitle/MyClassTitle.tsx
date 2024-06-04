@@ -66,8 +66,7 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
   const [bannerImgURL, setBannerImgURL] = useState('');
   const [formData, setFormData] = useState<FormData>();
   const [subImgFormData, setSubImgFormData] = useState<FormData[]>([]);
-  const [convertedSubImgURL, setConvertedSubImgURL] = useState<string[]>([]);
-  console.log(formData);
+
   const checkBannerURL = async (): Promise<void> => {
     if (formData) {
       const data = await postActivitiesImageApi(formData);
@@ -78,83 +77,26 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
 
   const postImgApi = async (subImgFormData: FormData) => {
     const data = await postActivitiesImageApi(subImgFormData);
-    // setSubImgURL((prev) => [...prev, data.activityImageUrl]);
+
     return data.activityImageUrl;
   };
 
   const convertSubImgURL = async (): Promise<string[]> => {
     if (subImgFormData) {
-      const newnew = await Promise.all(
+      const subImgApiUrlArray = await Promise.all(
         subImgFormData.map((item) => postImgApi(item)),
       );
-      console.log(newnew); // 모든 이미지 URL이 포함된 배열 출력
-      setConvertedSubImgURL(newnew);
-      return newnew;
+      return subImgApiUrlArray;
     }
     return [];
   };
-  //원본
-  // const convertSubImgURL = async () => {
-  //   if (subImgFormData) {
-  //     const newnew = subImgFormData.map((item) => postImgApi(item));
-
-  //     // console.log(newnew);
-  //     // const newnew = await Promise.all(
-  //     //   subImgFormData.map((item) => postImgApi(item)),
-  //     // );
-  //     console.log(newnew); // 모든 이미지 URL이 포함된 배열 출력
-  //     // setSubImgURL((prev) => [...prev, ...newnew]); // 이미지 URL을 기존 상태에 추가
-  //     // setSubImgURL(newnew); // 이미지 URL을 기존 상태에 추가
-  //     return newnew;
-  //   }
-  // };
 
   const [subImgUrl, setSubImgUrl] = useState<string[]>([]);
   const [isModalOpen, setIsModalOepn] = useState(false);
 
-  // const postImgApi = async (subImgFormData: FormData): Promise<string> => {
-  //   const data = await postActivitiesImageApi(subImgFormData);
-  //   return data.activityImageUrl;
-  // };
-
-  // const onSubmit = async (data: FormValues) => {
-  //   try {
-  //     const banner = await checkBannerURL();
-  //     const subImageUrls: string[] = [];
-
-  //     for (const item of subImgFormData) {
-  //       const imgUrl = await postImgApi(item);
-  //       subImageUrls.push(imgUrl);
-  //     }
-  //     console.log(subImageUrls);
-  //     const dateArray = [data.mainSchedule];
-  //     const combinedDateArray = dateArray.concat(data.schedules);
-
-  //     const sendData = {
-  //       title: data.title,
-  //       category: data.category,
-  //       description: data.description,
-  //       address: data.address,
-  //       price: Number(data.price),
-  //       schedules: combinedDateArray,
-  //       bannerImageUrl: String(banner),
-  //       subImageUrls: subImageUrls,
-  //     };
-
-  //     const apiData = await postAddMyActivityApi(sendData);
-
-  //     if (apiData && apiData.status === 201) {
-  //       setIsModalOepn(true);
-  //     }
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //   }
-  // };
-
   const onSubmit = async (data: FormValues) => {
     try {
-      const sub = await convertSubImgURL();
-      console.log(sub);
+      const subImgApiArray = await convertSubImgURL();
       const banner = await checkBannerURL();
       const dateArray = [data.mainSchedule];
       const combinedDateArray = dateArray.concat(data.schedules);
@@ -167,7 +109,7 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
         price: Number(data.price),
         schedules: combinedDateArray,
         bannerImageUrl: String(banner),
-        subImageUrls: sub,
+        subImageUrls: subImgApiArray,
       };
 
       const apiData = await postAddMyActivityApi(sendData);
@@ -179,42 +121,13 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
     }
   };
 
-  //원본
-  // const onSubmit = async (data: FormValues) => {
-  //   const sub = await convertSubImgURL();
-  //   console.log(subImgURL);
-  //   const banner = await checkBannerURL();
-  //   const dateArray = [data.mainSchedule];
-  //   const combinedDateArray = dateArray.concat(data.schedules);
-  //   // data.subImage = subImgURL;
-  //   const sendData = {
-  //     title: data.title,
-  //     category: data.category,
-  //     description: data.description,
-  //     address: data.address,
-  //     price: Number(data.price),
-  //     schedules: combinedDateArray,
-  //     bannerImageUrl: String(banner),
-  //     // subImageUrls: data.subImage,
-  //     subImageUrls: sub,
-  //   };
-  //   const apiData = await postAddMyActivityApi(sendData);
-  //   if (apiData) {
-  //     if (apiData.status === 201) {
-  //       setIsModalOepn(true);
-  //     }
-  //   }
-  // };
-
   function closeModal() {
     setIsModalOepn(false);
     router.push('/my-page/my-class');
   }
   subImgUrl.splice(4);
   subImgFormData.splice(4);
-  console.log(subImgUrl);
-  console.log(subImgFormData);
-  console.log(convertedSubImgURL);
+
   return (
     <>
       <div>
