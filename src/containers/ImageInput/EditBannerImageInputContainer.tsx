@@ -56,7 +56,7 @@ export default function EditBannerImageInputContainer({
         onChange={handleImageChange}
         bannerImgURL={bannerImgURL}
         onClick={handleClickDeleteButton}
-        setValue={setValue}
+        imageSrc={''}
       />
     </>
   );

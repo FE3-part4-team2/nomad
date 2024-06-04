@@ -3,7 +3,6 @@ import moment from 'moment';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import deleteNoficationIdApi from '@/apis/deleteNoficationIdApi';
 import { useState } from 'react';
-import Image from 'next/image';
 
 interface Notification {
   totalCount: number;

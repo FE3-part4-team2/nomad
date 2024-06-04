@@ -1,4 +1,4 @@
-import { UseFormRegister, FieldErrors, UseFormSetValue } from 'react-hook-form';
+import { UseFormRegister, FieldErrors } from 'react-hook-form';
 import styles from './imageInput.module.scss';
 import Image from 'next/image';
 import { FormValues } from '../../MyClassTitle/MyClassTitle';
@@ -10,7 +10,7 @@ interface ImageInputProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   bannerImgURL: string;
   onClick: () => void;
-  setValue: UseFormSetValue<FormValues>;
+  imageSrc: string;
 }
 
 export default function ImageInput({

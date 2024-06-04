@@ -50,7 +50,7 @@ export default function ReserveInfoModal({
     mutationFn: patchReservationsUpdate,
     onSuccess: (data) => {
       setId(data.id);
-      console.log(data);
+      console.log(id);
       queryClient.invalidateQueries({
         queryKey: ['schedule'],
       });
@@ -77,18 +77,18 @@ export default function ReserveInfoModal({
     setOption(Number(e.target.value));
   };
 
-  const autodecline = () => {
-    const otherReservations = data?.reservations.filter((item) => {
-      item.id !== id;
-    });
-    otherReservations?.map((item) => {
-      decline({
-        activityId,
-        reservationId: item.id,
-        status: 'declined',
-      });
-    });
-  };
+  // const autodecline = () => {
+  //   const otherReservations = data?.reservations.filter((item) => {
+  //     item.id !== id;
+  //   });
+  //   otherReservations?.map((item) => {
+  //     decline({
+  //       activityId,
+  //       reservationId: item.id,
+  //       status: 'declined',
+  //     });
+  //   });
+  // };
 
   const { data } = useQuery<ReservationData>({
     queryKey: ['reservation', status, option, scheduleId],

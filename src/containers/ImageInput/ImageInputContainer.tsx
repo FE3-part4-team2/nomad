@@ -57,6 +57,7 @@ export default function ImageInputContainer({
         onChange={handleImageChange}
         imageSrc={apiImgURL ? apiImgURL : imgURL}
         onClick={handleClickDeleteButton}
+        bannerImgURL={''}
       />
     </>
   );
