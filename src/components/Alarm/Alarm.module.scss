@@ -15,6 +15,12 @@
   z-index: 100;
   top: 56px;
   right: -28px;
+  @media (max-width: 375px) {
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+  }
 }
 
 #alarmHeader {
@@ -60,6 +66,9 @@
   align-items: center;
   overflow-y: scroll;
   max-height: 300px;
+  @media (max-width: 375px) {
+    max-height: none;
+  }
 }
 
 /*.alarmList > :first-child {
