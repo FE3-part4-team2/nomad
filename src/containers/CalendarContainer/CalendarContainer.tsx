@@ -26,16 +26,10 @@ export default function CalendarContainer() {
     queryKey: ['calendar', month, activityId],
     queryFn: () => getREservationDashboard({ activityId, year, month }),
   });
-  const {
-    data: scheduleData,
-    // isLoading,
-    isFetching,
-  } = useQuery({
-    queryKey: ['schedule', date],
+  const { data: scheduleData, isFetching } = useQuery({
+    queryKey: ['schedule', date, activityId],
     queryFn: () => getReservedSchedule({ activityId, date }),
   });
-  console.log(activityId);
-
   console.log(scheduleData);
 
   function getDates({ activeStartDate }: OnArgs): void {
@@ -57,22 +51,17 @@ export default function CalendarContainer() {
   return (
     <>
       <Calendar monthReceiver={getDates} data={data} onClick={onClick} />;
-      {scheduleData?.length != 0 &&
-        modalVisible &&
-        date != '' &&
-        !isFetching && (
-          <ModalContainer
-            title="예약정보"
-            xbutton={true}
-            background="white"
-            size="reserveInfo"
-            onClose={closeModal}
-          >
-            {scheduleData && (
-              <ReserveInfoModal info={scheduleData} date={date} />
-            )}
-          </ModalContainer>
-        )}
+      {scheduleData?.length != 0 && modalVisible && !isFetching && (
+        <ModalContainer
+          title="예약정보"
+          xbutton={true}
+          background="white"
+          size="reserveInfo"
+          onClose={closeModal}
+        >
+          {scheduleData && <ReserveInfoModal info={scheduleData} date={date} />}
+        </ModalContainer>
+      )}
     </>
   );
 }

@@ -1,32 +1,32 @@
 import Image from 'next/image';
 import styles from './banner.module.scss';
+import Link from 'next/link';
 
 interface BannerProps {
-  text1?: string;
+  text1: string;
   text2?: string;
-  src?: string;
+  src: string;
+  id?: number;
 }
 
-export default function Banner({
-  text1 = '댄스 스트리트',
-  text2 = '5월 인기 클래스',
-  src = '/assets/images/image-sample-1.jpeg',
-}: BannerProps) {
+export default function Banner({ text1, text2, src, id }: BannerProps) {
   return (
     <div className={styles.background}>
-      <div className={styles.overlay}>
-        <div className={styles.text}>
-          <h2>{text1}</h2>
-          <h3>{text2}</h3>
+      <Link href={`/class-info/${id}`}>
+        <div className={styles.overlay}>
+          <div className={styles.text}>
+            <h2>{text1}</h2>
+            <h3>{text2}</h3>
+          </div>
         </div>
-      </div>
-      <Image
-        src={src}
-        alt="메인 배경 이미지"
-        layout="fill"
-        objectFit="cover"
-        objectPosition="center"
-      />
+        <Image
+          src={src}
+          alt="메인 배경 이미지"
+          layout="fill"
+          objectFit="cover"
+          objectPosition="center"
+        />
+      </Link>
     </div>
   );
 }

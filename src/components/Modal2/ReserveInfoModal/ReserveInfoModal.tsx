@@ -1,7 +1,7 @@
 import getReservations from '@/apis/getReservationsApi';
 import patchReservationsUpdate from '@/apis/patchReservationsUpdateApi';
 import { idAtom } from '@/store/atoms/idState';
-import { QueryClient, useMutation, useQuery } from '@tanstack/react-query';
+import { useQueryClient, useMutation, useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import styles from './reserveInfoModal.module.scss';
@@ -34,30 +34,26 @@ export default function ReserveInfoModal({
   info: ScheduleInfo[];
   date: string;
 }) {
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
   const [option, setOption] = useState(0);
   const [status, setStatus] = useState('pending');
   const [id, setId] = useState(0);
+  const count = info[option].count;
+  const app = count.pending;
+  const con = count.confirmed;
+  const dec = count.declined;
 
   const activityId = useRecoilValue(idAtom);
   const scheduleId = info[option].scheduleId;
-
-  const app = info[option].count.pending;
-  const con = info[option].count.confirmed;
-  const dec = info[option].count.declined;
-
-  const { data } = useQuery<ReservationData>({
-    queryKey: ['reservation', status, option, scheduleId],
-    queryFn: () => getReservations({ activityId, scheduleId, status }),
-  });
 
   const { mutate } = useMutation({
     mutationFn: patchReservationsUpdate,
     onSuccess: (data) => {
       setId(data.id);
-      alert('승인 성공');
-      console.log(data);
-      autodecline();
+      console.log(id);
+      queryClient.invalidateQueries({
+        queryKey: ['schedule'],
+      });
     },
     onError: (error) => {
       alert('승인 실패');
@@ -68,9 +64,8 @@ export default function ReserveInfoModal({
   const { mutate: decline } = useMutation({
     mutationFn: patchReservationsUpdate,
     onSuccess: (data) => {
-      alert('거절 성공');
       console.log(data);
-      queryClient.invalidateQueries({ queryKey: ['reservation'] });
+      queryClient.invalidateQueries({ queryKey: ['schedule'] });
     },
     onError: (error) => {
       alert('거절 실패');
@@ -82,18 +77,23 @@ export default function ReserveInfoModal({
     setOption(Number(e.target.value));
   };
 
-  const autodecline = () => {
-    const otherReservations = data?.reservations.filter((item) => {
-      item.id !== id;
-    });
-    otherReservations?.map((item) => {
-      decline({
-        activityId,
-        reservationId: item.id,
-        status: 'declined',
-      });
-    });
-  };
+  // const autodecline = () => {
+  //   const otherReservations = data?.reservations.filter((item) => {
+  //     item.id !== id;
+  //   });
+  //   otherReservations?.map((item) => {
+  //     decline({
+  //       activityId,
+  //       reservationId: item.id,
+  //       status: 'declined',
+  //     });
+  //   });
+  // };
+
+  const { data } = useQuery<ReservationData>({
+    queryKey: ['reservation', status, option, scheduleId],
+    queryFn: () => getReservations({ activityId, scheduleId, status }),
+  });
 
   return (
     <>
@@ -158,7 +158,7 @@ export default function ReserveInfoModal({
                 <button
                   className={styles.declineButton}
                   onClick={() =>
-                    mutate({
+                    decline({
                       activityId,
                       reservationId: item.id,
                       status: 'declined',
@@ -186,7 +186,7 @@ export default function ReserveInfoModal({
           ))}
         {status == 'declined' &&
           data?.reservations.map((item) => (
-            <div className={styles.card}>
+            <div className={styles.card} key={item.id}>
               <div className={styles.cardInfo}>
                 <div>닉네임 </div>
                 <div className={styles.cardData}> {item.nickname}</div>

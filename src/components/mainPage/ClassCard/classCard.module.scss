@@ -48,6 +48,9 @@
   font-size: 1.6rem;
   gap: 5px;
   margin-bottom: 10px;
+  span {
+    margin-top: 4px;
+  }
 
   .reviewCount {
     color: $gray_A4A1AA;
@@ -58,6 +61,7 @@
   margin-bottom: 15px;
   font-size: 1.8rem;
   font-weight: 600;
+  line-height: 1.2;
 
   @media (min-width: 769px) {
     font-size: 2.4rem;

@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import styles from './header.module.scss';
 import { useIntersectionObserver } from '@/hooks/useObserver/useInfiniteQueryObserver';
 import AlarmContainer from '@/containers/AlarmContainer/AlarmContainer';
+import Cookie from 'js-cookie';
 
 interface Notification {
   totalCount: number;
@@ -51,15 +52,14 @@ export default function Header() {
     fetchNextPage: () => fetchNextPage(),
   });
 
-  console.log(noti);
-
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['myInfo'],
     queryFn: () => handleGetUserInfo(),
   });
 
   useEffect(() => {
-    setUserInfo(localStorage.getItem('accessToken'));
+    // setUserInfo(localStorage.getItem('accessToken'));
+    setUserInfo(Cookie.get('accessToken'));
   }, []);
 
   const toggleMenu = () => {
@@ -72,7 +72,9 @@ export default function Header() {
         router.push('/my-page');
         break;
       case '로그아웃':
-        localStorage.removeItem('accessToken');
+        // localStorage.removeItem('accessToken');
+        Cookie.remove('accessToken');
+        Cookie.remove('refreshToken');
         setIsLoggedOut(true);
         break;
       default:
@@ -105,7 +107,17 @@ export default function Header() {
                 onClick={handleAlarm}
               />
             ) : null}
-            <button className={styles.alarm} onClick={handleAlarm} />
+            {noti?.pages[0].totalCount == 0 ? (
+              <Image
+                src="/assets/images/none-alarm.svg"
+                width={25}
+                height={25}
+                alt="none-alarm"
+                style={{ opacity: 0.5 }}
+              />
+            ) : (
+              <button className={styles.alarm} onClick={handleAlarm} />
+            )}
             <Image
               src="/assets/icons/line.svg"
               alt="구분선 아이콘"
@@ -116,7 +128,11 @@ export default function Header() {
             <div className={styles.dropdownContainer} onClick={toggleMenu}>
               {data?.profileImageUrl !== null ? (
                 <Image
-                  src={data?.profileImageUrl}
+                  src={
+                    isLoading
+                      ? '/assets/icons/default-user.png'
+                      : data?.profileImageUrl
+                  }
                   alt="프로필 이미지"
                   width={32}
                   height={32}

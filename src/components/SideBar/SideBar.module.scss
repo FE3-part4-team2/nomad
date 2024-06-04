@@ -13,6 +13,9 @@
   border: 1px solid var(--gray-gray_DDDDDD, #ddd);
   background: var(--white-white_FFFFFF, #fff);
   box-shadow: 0px 4px 16px 0px rgba(17, 34, 17, 0.05);
+  @media (max-width: 375px) {
+    display: none;
+  }
 }
 
 #profileForm {

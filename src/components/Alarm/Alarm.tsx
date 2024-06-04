@@ -84,7 +84,9 @@ export default function Alarm({
                 </div>
                 <div
                   className={styles.alarmDetail}
-                  dangerouslySetInnerHTML={{ __html: textColor(item.content) }}
+                  dangerouslySetInnerHTML={{
+                    __html: textColor(item.content),
+                  }}
                 />
                 <div className={styles.opacity}>
                   {moment(item.createdAt).fromNow()}

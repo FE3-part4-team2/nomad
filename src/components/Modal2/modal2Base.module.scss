@@ -16,7 +16,7 @@
 }
 
 .whiteBackground {
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;
@@ -49,8 +49,8 @@
 
 .reserveInfo {
   position: absolute;
-  top: 26%;
-  right: 9%;
+  bottom: 14px;
+  right: 1%;
   width: 429px; /* 모달의 너비 */
   height: 697px;
   background-color: white;

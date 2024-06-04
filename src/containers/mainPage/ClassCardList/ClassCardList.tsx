@@ -41,7 +41,10 @@ export default function ClassCardList() {
 
   const { sentinelRef } = useIntersectionObserver(handleIntersection);
 
-  const updateCategory = (value: string) => {
+  const updateCategory = (value: string | undefined) => {
+    if (value === '모든 체험') {
+      value = undefined;
+    }
     const updatedParams = {
       ...params,
       category: value,

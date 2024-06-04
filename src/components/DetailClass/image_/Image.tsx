@@ -1,25 +1,38 @@
-import ImageGallery from 'react-image-gallery';
+import styles from './image.module.scss';
+import ModalImage from 'react-modal-image';
 
 interface ImageProps {
-  imageUrl: string;
-  subImage?: { id: number; imageUrl: string }[];
+  bannerImageUrl: string;
+  subImages?: { id: number; imageUrl: string }[];
 }
 
-export default function ImageComponent({ imageUrl, subImage }: ImageProps) {
-  const images =
-    subImage && Array.isArray(subImage)
-      ? subImage.map((subImage) => ({
-          original: subImage.imageUrl,
-          thumbnail: subImage.imageUrl,
-        }))
-      : [];
-
-  images.unshift({ original: imageUrl, thumbnail: imageUrl });
-
+export default function ImageComponent({
+  bannerImageUrl,
+  subImages,
+}: ImageProps) {
   return (
     <>
-      <section className="imageSection">
-        <ImageGallery items={images} />
+      <section className={styles.imageSection}>
+        <div className={styles.mainImageWrapper}>
+          <ModalImage
+            small={bannerImageUrl}
+            large={bannerImageUrl}
+            alt="메인이미지"
+            className={styles.mainImage}
+          />
+        </div>
+        <div className={styles.subImageContainer}>
+          {subImages?.slice(0, 4).map((i) => (
+            <div key={i.id} className={styles.subImageWrapper}>
+              <ModalImage
+                small={i.imageUrl}
+                large={i.imageUrl}
+                alt="서브이미지"
+                className={styles.subImage}
+              />
+            </div>
+          ))}
+        </div>
       </section>
     </>
   );
