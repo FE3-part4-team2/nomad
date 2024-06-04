@@ -58,8 +58,6 @@ export default function EditBannerImageInputContainer({
 
   return (
     <>
-      {/* <div>{apiImgURL}</div> */}
-      <div>{bannerImgURL}</div>
       <ImageInput
         id={id}
         register={register}

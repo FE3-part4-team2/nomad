@@ -134,7 +134,7 @@ export default function EditMyClass({
           onSubmit={handleSubmit(onSubmit)}
         >
           <div className={styles.myClassTitleWrapper}>
-            <span className={styles.myClassSubtitle}>내 체험 등록</span>
+            <span className={styles.myClassSubtitle}>내 체험 수정</span>
           </div>
           <div className={styles.inputContainer}>
             <TitleInput id="title" register={register} errors={errors} />

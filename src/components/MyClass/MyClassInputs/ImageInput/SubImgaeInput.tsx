@@ -20,6 +20,7 @@ interface SubImageInputProps {
   setSubImgUrl: React.Dispatch<React.SetStateAction<string[]>>;
   setValue: UseFormSetValue<FormValues>;
   subImgFormData: FormData[];
+  setSubImgFormData: React.Dispatch<React.SetStateAction<FormData[]>>;
 }
 
 export default function SubImageInput({
@@ -31,16 +32,33 @@ export default function SubImageInput({
   subImgUrl,
   setSubImgUrl,
   subImgFormData,
+  setSubImgFormData,
 }: SubImageInputProps) {
   subImgUrl.splice(4);
 
-  const handleDeleteButton = (clickedId: string) => {
-    const newArray = subImgUrl.filter(
-      (url) => String(url) !== String(clickedId),
-    );
+  // const handleDeleteButton = (clickedId: string) => {
+  //   const newArray = subImgUrl.filter(
+  //     (url) => String(url) !== String(clickedId),
+  //   );
+  //   const newFormDataArray = subImgFormData.filter(
+  //     (url) => String(url) !== String(clickedId),
+  //   );
+  //   setSubImgUrl(newArray);
+  //   setSubImgFormData(newFormDataArray);
+  //   setValue('subImage', newArray);
+  // };
 
-    setSubImgUrl(newArray);
-    setValue('subImage', newArray);
+  const handleDeleteButton = (clickedUrl: string) => {
+    const newArray = subImgUrl.filter((url) => url !== clickedUrl); // 클릭된 url을 제외한 새로운 배열 생성
+    const index = subImgUrl.findIndex((url) => url === clickedUrl); // 클릭된 url의 인덱스 찾기
+    if (index !== -1) {
+      // 인덱스가 -1이 아닌 경우에만 제거
+      const newFormDataArray = [...subImgFormData]; // 기존의 배열을 복사하여 새로운 배열 생성
+      newFormDataArray.splice(index, 1); // 해당 인덱스의 formData 제거
+      setSubImgUrl(newArray); // 새로운 배열로 업데이트
+      setSubImgFormData(newFormDataArray); // 새로운 formData 배열로 업데이트
+      setValue('subImage', newArray); // subImage 값 업데이트
+    }
   };
 
   return (
@@ -64,7 +82,6 @@ export default function SubImageInput({
             type="file"
             accept="image/*"
             hidden
-            multiple
             {...register('subImage', {
               validate: (fieldValue) => {
                 return (
