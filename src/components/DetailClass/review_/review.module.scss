@@ -86,6 +86,7 @@
 
 @media screen and (min-width: 1200px) {
   .reviewWrapper:nth-child(2) {
+    overflow-wrap: break-word;
     width: 600px;
   }
 }

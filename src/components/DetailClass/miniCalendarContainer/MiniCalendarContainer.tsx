@@ -39,13 +39,20 @@ export default function MiniCalendarContainer({
   const [value, onChange] = useState<Value>(new Date());
   const [mark, setMark] = useState<string[]>([]);
   const [availableTimes, setAvailableTimes] = useState<Time[]>([]);
+  const [currentYear, setCurrentYear] = useState<number>(moment().year());
+  const [currentMonth, setCurrentMonth] = useState<string>(
+    moment().format('MM'),
+  );
+  const [noAvailableTimesMessage, setNoAvailableTimesMessage] =
+    useState<string>('날짜를 선택해주세요.');
   const router = useRouter();
   const { id } = router.query;
   const parsedId = parseInt(id as string, 10);
 
   const { data } = useQuery<Schedule[]>({
-    queryKey: ['Reservation'],
-    queryFn: () => getAvailableScheduleApi(parsedId, '2024', '05'),
+    queryKey: ['Reservation', currentYear, currentMonth],
+    queryFn: () =>
+      getAvailableScheduleApi(parsedId, String(currentYear), currentMonth),
   });
 
   useEffect(() => {
@@ -66,9 +73,10 @@ export default function MiniCalendarContainer({
     if (selectedData) {
       setAvailableTimes(selectedData.times);
       setSelectedDate(selectedData.date);
+      setNoAvailableTimesMessage('날짜를 선택해주세요.');
     } else {
-      console.log('예약 가능한 날짜가 아닙니다.');
       setAvailableTimes([]);
+      setNoAvailableTimesMessage('예약 가능한 날짜가 아닙니다.');
     }
   };
 
@@ -77,6 +85,19 @@ export default function MiniCalendarContainer({
     setSelectedStartTime(startTime);
     setSelectedEndTime(endTime);
     closeModal();
+  };
+
+  const handleViewChange = ({
+    activeStartDate,
+  }: {
+    activeStartDate: Date | null;
+  }) => {
+    if (activeStartDate) {
+      setCurrentYear(activeStartDate.getFullYear());
+      setCurrentMonth(
+        (activeStartDate.getMonth() + 1).toString().padStart(2, '0'),
+      );
+    }
   };
 
   return (
@@ -89,11 +110,10 @@ export default function MiniCalendarContainer({
           </div>
 
           <MiniCalendar
-            // fun={undefined}
-            // className={''}
             onChange={handleChange}
             value={value as Date}
             onClickDay={onClickDay}
+            onActiveDateChange={handleViewChange}
             titleContent={({ date, view }: any) => {
               if (
                 view === 'month' &&
@@ -107,7 +127,7 @@ export default function MiniCalendarContainer({
                       fontSize: '9px',
                       color: '#FFC23D',
                       position: 'absolute',
-                      top: '65%',
+                      top: '75%',
                     }}
                   >
                     TODAY
@@ -151,7 +171,7 @@ export default function MiniCalendarContainer({
                 </button>
               ))
             ) : (
-              <div className={styles.no_time}>날짜를 선택해주세요.</div>
+              <div className={styles.no_time}>{noAvailableTimesMessage}</div>
             )}
           </div>
         </div>
