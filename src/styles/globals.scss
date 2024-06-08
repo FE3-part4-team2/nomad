@@ -1,10 +1,13 @@
+@use './themes.scss' as *;
+
 * {
   box-sizing: border-box;
 }
 
 body {
   font-family: 'Pretendard', Helvetica;
-  background-color: #fafbfc;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 
 :root {

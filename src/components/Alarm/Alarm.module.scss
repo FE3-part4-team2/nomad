@@ -33,6 +33,9 @@
   width: 100%;
   margin-right: 20px;
   padding: 0 15px;
+  div {
+    color: black;
+  }
 }
 
 .alarmCard {
@@ -45,7 +48,7 @@
   padding-bottom: 10px !important;
   border-radius: 5px;
   font-size: 1.6rem;
-  background: var(--white-white_FFFFFF, #fff);
+  background: var(--bg-color);
 }
 
 .cardHeader {
@@ -131,7 +134,7 @@
 }
 
 .blueText {
-  color: blue;
+  color: #007aff;
 }
 
 .end {
