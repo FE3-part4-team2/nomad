@@ -51,6 +51,8 @@ export default function EditDateDeleteInput({
   deleteTime,
   errors,
 }: DateDeleteInputProps) {
+  console.log(item);
+
   const removeSelectTime = () => {
     remove(index);
 
@@ -72,12 +74,17 @@ export default function EditDateDeleteInput({
           <div className={styles.smallInputWrapper}>
             <input
               className={`${deleteStyle.smallInput} ${deleteStyle.dateInput}`}
+              defaultValue={item?.date}
               id="plusDate"
               type="date"
-              value={item?.date}
-              {...register(`schedules.${index}.date`, {
-                required: '날짜 입력은 필수입니다.',
-              })}
+              // value={item?.date}
+              {...register(
+                `schedules.${index}.date`,
+
+                // {
+                //   required: '날짜 입력은 필수입니다.',
+                // }
+              )}
             />
           </div>
           <div className={styles.smallInputWrapper}>
