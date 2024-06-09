@@ -4,14 +4,11 @@ import CategoryInput from '../MyClassInputs/CategoryInput/CategoryInput';
 import DescriptionInput from '../MyClassInputs/DescriptionInput/DescriptionInput';
 import PriceInput from '../MyClassInputs/PriceInput/PriceInput';
 import AddressInput from '../MyClassInputs/AddressInput/AddressInput';
-import ImageInputContainer from '@/containers/ImageInput/ImageInputContainer';
+// import ImageInputContainer from '@/containers/ImageInput/ImageInputContainer';
 import { useFieldArray, useForm } from 'react-hook-form';
 import TitleInput from '../MyClassInputs/TitleInput/TitleInput';
-import { SetStateAction, useEffect, useState } from 'react';
-import {
-  getDetailClassApi,
-  postActivitiesImageApi,
-} from '@/apis/activitiesApi';
+import { useState } from 'react';
+import { postActivitiesImageApi } from '@/apis/activitiesApi';
 import { DetailClassType } from '@/types/activitiesType/ActivitiesType';
 import { patchEditMyActivityApi } from '@/apis/myActivitiesApi';
 import EditSubImageInputContainer from '@/containers/ImageInput/EditSubImageInputContainer';
@@ -140,12 +137,14 @@ export default function EditMyClass({
   }
 
   const [apiImgURL, setApiImgURL] = useState<string[]>([]);
+  //api로 받아온 기존의 서브 이미지 배열
   const [idWithApiImgURL, setIdWithApiImgURL] = useState<
     {
       id: number;
       imageUrl: string;
     }[]
-  >([]);
+  >(getMyActivityData.subImages);
+
   const [deleteSubImageId, setDeleteSubImageId] = useState<number[]>([]);
 
   return (
