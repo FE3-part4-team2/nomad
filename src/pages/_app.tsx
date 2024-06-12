@@ -1,14 +1,18 @@
 import '@/components/Calendar/Calendar.css';
-import '@/styles/globals.css';
+import '@/styles/globals.scss';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
+import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { RecoilRoot } from 'recoil';
 
 export default function App({ Component, pageProps }: AppProps) {
   const queryClient = new QueryClient();
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', 'light');
+  }, []);
   return (
     <>
       <Head>
