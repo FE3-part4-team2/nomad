@@ -4,7 +4,7 @@ import moment from 'moment';
 interface MiniCalenderProps {
   onChange?: (e: any) => void;
   onClickDay?: (e: any) => void;
-  onActiveDateChange: ({
+  onActiveDateChange?: ({
     activeStartDate,
   }: {
     activeStartDate: Date | null;
