@@ -1,3 +1,5 @@
+**[Nomad 배포 바로가기](https://nomad-gold.vercel.app/)**
+
 ## 팀 소개
 <table>
     <tr>
