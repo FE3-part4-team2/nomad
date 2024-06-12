@@ -51,7 +51,7 @@ export default function EditDateDeleteInput({
   deleteTime,
   errors,
 }: DateDeleteInputProps) {
-  console.log(item);
+  // console.log(item);
 
   const removeSelectTime = () => {
     remove(index);

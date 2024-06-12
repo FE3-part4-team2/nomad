@@ -20,7 +20,6 @@ export default function ImageInput({
   bannerImgURL,
   onClick,
 }: ImageInputProps) {
-  console.log(bannerImgURL);
   return (
     <div>
       <label className={styles.inputTitle} htmlFor={id}>

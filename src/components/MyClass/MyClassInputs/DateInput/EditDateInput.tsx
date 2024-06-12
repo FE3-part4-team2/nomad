@@ -56,7 +56,7 @@ export default function EditDateInput({
 
     const newArr = plusDefaultValue.filter((value) => value.id !== selectId);
     setGetPlusDateInfo(newArr);
-    console.log(newArr);
+    // console.log(newArr);
   };
 
   const addSelectTime = () => {
