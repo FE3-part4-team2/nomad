@@ -96,7 +96,33 @@ export default function EditMyClass({
     return getMyActivityData.bannerImageUrl;
   };
 
+  const convertToObjArr = (stringArr: string[]) => {
+    return stringArr.map((item) => {
+      const [date, startTime, endTime] = item.split(' ');
+      return { date, startTime, endTime };
+    });
+  };
+
+  const mergeDates = (data: FormValues) => {
+    const newDate = data.schedules;
+    const res = newDate.map(
+      (item) => `${item.date} ${item.startTime} ${item.endTime}`,
+    );
+    const defaultDate = plusDateArray.map(
+      (item) => `${item.date} ${item.startTime} ${item.endTime}`,
+    );
+    console.log(res);
+    console.log(defaultDate);
+    const newnew = res.filter((x) => !defaultDate.includes(x));
+    console.log(newnew);
+    const goToApi = convertToObjArr(newnew);
+    return goToApi;
+  };
+
   const onSubmit = async (data: FormValues) => {
+    console.log(data);
+    const addDate = mergeDates(data);
+
     const banner = await checkBannerURL();
     // const bannerImg = String(checkBannerURL());
     // data.subImage = apiImgURL;
@@ -115,7 +141,8 @@ export default function EditMyClass({
       //   subImageUrlsToAdd: addSubImgUrl,
       subImageUrlsToAdd: apiImgURL,
       scheduleIdsToRemove: deleteDateId,
-      schedulesToAdd: data.schedules,
+      // schedulesToAdd: data.schedules,
+      schedulesToAdd: addDate,
     };
 
     const apiData = await patchEditMyActivityApi(id, editMyActivity);
@@ -125,17 +152,18 @@ export default function EditMyClass({
       }
     }
   };
-  //   const plusDateArray = getMyActivityData.schedules.slice(1);
   const [plusDateArray, setPlusDateArray] = useState(
     getMyActivityData.schedules.slice(1),
   );
   const [deleteDateId, setDeleteDateId] = useState<number[]>([]);
+  console.log(plusDateArray);
+  console.log(deleteDateId);
 
   function closeModal() {
     setIsModalOepn(false);
     router.push('/my-page/my-class');
   }
-
+  // 추가할 서브 이미지 array
   const [apiImgURL, setApiImgURL] = useState<string[]>([]);
   //api로 받아온 기존의 서브 이미지 배열
   const [idWithApiImgURL, setIdWithApiImgURL] = useState<
@@ -144,7 +172,7 @@ export default function EditMyClass({
       imageUrl: string;
     }[]
   >(getMyActivityData.subImages);
-
+  // 기존의 서브이미지 중 삭제할 이미지 아이디 담긴 배열
   const [deleteSubImageId, setDeleteSubImageId] = useState<number[]>([]);
 
   return (
