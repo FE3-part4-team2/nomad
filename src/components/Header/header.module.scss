@@ -5,11 +5,10 @@
   margin: 0 auto;
   border-bottom: 1px solid $gray_DDDDDD;
 
-  @media (min-width: 1200px){
+  @media (min-width: 1200px) {
     display: flex;
     justify-content: center;
   }
-  
 }
 
 .main {
@@ -21,10 +20,10 @@
 
   & a {
     text-decoration-line: none;
-    color: $black_171717;
+    color: var(--text-color);
   }
 
-  @media (min-width: 1200px){
+  @media (min-width: 1200px) {
     width: 1200px;
   }
 }
@@ -73,6 +72,7 @@
   border-radius: 4px;
   padding: 10px;
   z-index: 100;
+  color: black;
 }
 
 .dropdown li {

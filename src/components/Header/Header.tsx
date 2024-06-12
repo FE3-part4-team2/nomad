@@ -9,6 +9,7 @@ import styles from './header.module.scss';
 import { useIntersectionObserver } from '@/hooks/useObserver/useInfiniteQueryObserver';
 import AlarmContainer from '@/containers/AlarmContainer/AlarmContainer';
 import Cookie from 'js-cookie';
+import DarkModeToggle from '../DarkModeToggle/DarkModeToggle';
 
 interface Notification {
   totalCount: number;
@@ -97,7 +98,7 @@ export default function Header() {
             height={42}
           />
         </Link>
-
+        <DarkModeToggle />
         {userInfo && !isLoggedOut ? (
           <div className={styles.userContainer}>
             {open && noti ? (
@@ -113,7 +114,7 @@ export default function Header() {
                 width={25}
                 height={25}
                 alt="none-alarm"
-                style={{ opacity: 0.5 }}
+                style={{ opacity: 0.5, backgroundColor: 'white' }}
               />
             ) : (
               <button className={styles.alarm} onClick={handleAlarm} />

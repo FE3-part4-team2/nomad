@@ -1,3 +1,42 @@
+## 팀 소개
+<table>
+    <tr>
+        <td align="center"><img src="https://github.com/eundin.png" width="150"></td>
+        <td align="center"><img src="https://github.com/yulmai999.png" width="150"></td>
+        <td align="center"><img src="" width="150"></td>
+        <td align="center"><img src="" width="150"></td>
+        <td align="center"><img src="" width="150"></td>
+    </tr>
+    <tr>
+        <td align="center"><a href="https://github.com/eundin">장은진</a></td>
+        <td align="center"><a href="https://github.com/yulmai999">김율민</a></td>
+        <td align="center">김준형</td>
+        <td align="center">이주영</td>
+        <td align="center">최지희</td>
+    </tr>
+    <tr>
+        <td align="center">팀장</td>
+    </tr>
+</table>
+
+## 역할분담
+### 장은진
+
+### 김율민
+- 예약현황페이지
+- 로그인 액세스토큰, 리프레시 토큰처리
+- 캘린더
+- 다크모드 추가
+- 사이드바,레이아웃 
+
+### 김준형
+
+### 이주영
+
+### 최지희
+
+
+
 ## 🔨 사용 기술 및 도구
 
 ### 배포
@@ -55,8 +94,6 @@ src
 
 
 ### 📄 로그인&회원가입 페이지
-    - 가입정보를 입력받아서 post로 보내고
-    - 로그인하면서 accesstoken을 발급받아 로컬스토리지에 저장.
 
 ### 📄 체험상세 페이지
 
@@ -66,7 +103,8 @@ src
  #### 내 체험관리
  #### 예약현황
      - 캘린더(리액트캘린더 라이브러리사용)
-     - 캘린더모달(get, post, patch API를 사용하면 데이터 변화 실시간반영)
+     - 캘린더모달(get, post, patch API를 사용하면 데이터 변화 실시간반영) *무한스크롤기능추가
+     
 
 
 
@@ -88,6 +126,11 @@ src
 
 ## 🗒️ 팀 회고
 
+#### 김율민
+- 프로젝트를 시작할때 사용할 기술스택에 대한 충분한 사전공부가 안되었던거같다. 공부하는데 시간을 많이썼다.
+  특히 캘린더를 만드는데 있어서 확실한 방향을 정하지못하고 이것저것 시도하다가 시간을 많이 잡아먹혔다. <br/>
+  또, 프로젝트의 방향성이나 주제가 내가 원했던방향과 많이달라서 적극적으로 팀을 이끌기보다는 팀의 요구사항에 집중하는 수동적인 태도를 취했는데
+  프로젝트 일정관리가 안되거나 부족한 마무리를 생각하면 아쉬운부분이다. 좀더 적극적으로 주도했어야했지않나라는 생각이든다.  
 
 
 

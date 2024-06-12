@@ -10,7 +10,6 @@ interface EditBannerImageInputContainerProps {
   errors: FieldErrors<FormValues>;
   bannerImgURL: string;
   setBannerImgURL: Dispatch<SetStateAction<string>>;
-
   setValue: UseFormSetValue<FormValues>;
   setFormData: Dispatch<SetStateAction<FormData | undefined>>;
 }
@@ -56,7 +55,6 @@ export default function EditBannerImageInputContainer({
         onChange={handleImageChange}
         bannerImgURL={bannerImgURL}
         onClick={handleClickDeleteButton}
-        imageSrc={''}
       />
     </>
   );

@@ -27,9 +27,9 @@ export const getDetailClassApi = async (id: number) => {
 
 // 체험 예약 가능일 조회
 export const getAvailableScheduleApi = async (
-  id: number = 776,
-  year: string = '2024',
-  month: string = '05',
+  id: number,
+  year: string,
+  month: string,
 ) => {
   const res = await axiosInstance.get(
     `activities/${id}/available-schedule?year=${year}&month=${month}`,

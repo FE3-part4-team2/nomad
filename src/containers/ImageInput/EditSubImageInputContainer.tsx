@@ -31,7 +31,6 @@ export default function EditSubImageInputContainer({
   id,
   register,
   errors,
-  apiImgURL,
   setApiImgURL,
   idWithApiImgURL,
   setIdWithApiImgURL,
@@ -81,7 +80,6 @@ export default function EditSubImageInputContainer({
         onChange={handleImageChange}
         imageSrc={imgURL}
         setImgURL={setImgURL}
-        apiImgURL={apiImgURL}
         setIdWithApiImgURL={setIdWithApiImgURL}
         idWithApiImgURL={idWithApiImgURL}
         setDeleteSubImageId={setDeleteSubImageId}

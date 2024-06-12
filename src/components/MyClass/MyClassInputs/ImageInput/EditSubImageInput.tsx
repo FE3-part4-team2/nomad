@@ -12,7 +12,6 @@ interface EditSubImageInputProps {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   imageSrc: string[];
   setImgURL: React.Dispatch<React.SetStateAction<string[]>>;
-  apiImgURL: string[];
   idWithApiImgURL: {
     id: number;
     imageUrl: string;
@@ -34,7 +33,6 @@ export default function EditSubImageInput({
   register,
   errors,
   onChange,
-  // apiImgURL,
   idWithApiImgURL,
   setIdWithApiImgURL,
   setDeleteSubImageId,
@@ -74,7 +72,6 @@ export default function EditSubImageInput({
             type="file"
             accept="image/*"
             hidden
-            multiple
             {...register('subImage', {
               validate: (fieldValue) => {
                 return (
