@@ -7,7 +7,6 @@
   max-height: 800px;
   margin: 0 auto;
   border: none;
-
   background-color: #f5f5f5;
 }
 
@@ -159,9 +158,12 @@ abbr {
   }
 }
 
-.small.react-calendar {
-  box-shadow: 4px 2px 10px 0px rgba(0, 0, 0, 0.13);
-  padding: 3% 5%;
+.small .react-calendar {
+  background-color: white;
+}
+
+.small .react-calendar__navigation {
+  background-color: white;
 }
 
 .small .react-calendar__viewContainer {
@@ -182,6 +184,15 @@ abbr {
   justify-content: center;
   align-items: center;
   position: relative;
+}
+
+.small .react-calendar__month-view__weekdays__weekday {
+  border: none;
+  border-bottom: 1px solid #ccc;
+}
+
+.small .react-calendar button {
+  border: none;
 }
 
 .react-calendar__tile--now {

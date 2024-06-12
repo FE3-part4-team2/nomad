@@ -4,6 +4,11 @@ import moment from 'moment';
 interface MiniCalenderProps {
   onChange?: (e: any) => void;
   onClickDay?: (e: any) => void;
+  onActiveDateChange: ({
+    activeStartDate,
+  }: {
+    activeStartDate: Date | null;
+  }) => void;
   titleContent?: ({
     date,
     view,
@@ -16,6 +21,7 @@ interface MiniCalenderProps {
 
 export default function MiniCalendar({
   onClickDay,
+  onActiveDateChange,
   titleContent,
 }: MiniCalenderProps) {
   return (
@@ -26,6 +32,7 @@ export default function MiniCalendar({
         formatDay={(locale, date) => moment(date).format('D')}
         formatMonthYear={(locale, date) => moment(date).format('YYYY. MM')}
         onClickDay={onClickDay}
+        onActiveStartDateChange={onActiveDateChange}
         tileContent={titleContent}
       />
     </div>
