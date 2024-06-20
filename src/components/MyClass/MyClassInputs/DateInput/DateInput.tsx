@@ -4,14 +4,17 @@ import {
   UseFieldArrayAppend,
   UseFieldArrayRemove,
   UseFormRegister,
+  UseFormSetValue,
 } from 'react-hook-form';
 import styles from './dateInput.module.scss';
 import Image from 'next/image';
 import DateDeleteInput from './DatedeleteInput';
 import { FormValues } from '../../MyClassTitle/MyClassTitle';
+import DateDropDown from '../../MyClassDropDown/DateDropDown';
 
 interface DateInputProps {
   id: string;
+  setValue: UseFormSetValue<FormValues>;
   register: UseFormRegister<FormValues>;
   errors: FieldErrors<FormValues>;
   fields: FieldArrayWithId<FormValues, 'schedules', 'id'>[];
@@ -37,6 +40,7 @@ export default function DateInput({
   fields,
   append,
   remove,
+  setValue,
 }: DateInputProps) {
   // const [dateInputArray, setDateInputArray] = useState<JSX.Element[]>([]);
 
@@ -64,8 +68,9 @@ export default function DateInput({
       <div className={styles.isAdd}>
         <div className={styles.smallInputWrapper}>
           <label className={styles.inputSubtitle}>날짜</label>
+
           <input
-            className={`${styles.smallInput} ${styles.dateInput}`}
+            className={`${styles.smallInput} ${styles.dateInput} ${styles.input}`}
             id={id}
             type="date"
             {...register(`mainSchedule.date`, {
@@ -75,24 +80,54 @@ export default function DateInput({
         </div>
         <div className={styles.smallInputWrapper}>
           <label className={styles.inputSubtitle}>시작 시간</label>
-          <input
+          {/* <input
             className={`${styles.smallInput} ${styles.timeInput}`}
             id={id}
             type="time"
             {...register(`mainSchedule.startTime`, {
               required: '시작 시간 입력은 필수입니다.',
             })}
+          /> */}
+          <DateDropDown
+            register={register}
+            setValue={setValue}
+            forSetValue={'startTime'}
+            inputElement={
+              <input
+                type="text"
+                id="mainSchedule.startTime"
+                {...register(`mainSchedule.startTime`, {
+                  required: '시작 시간 입력은 필수입니다.',
+                })}
+                hidden
+              />
+            }
           />
         </div>
         <div className={styles.smallInputWrapper}>
           <label className={styles.inputSubtitle}>종료 시간</label>
-          <input
+          {/* <input
             className={`${styles.smallInput} ${styles.timeInput}`}
             id={id}
             type="time"
             {...register(`mainSchedule.endTime`, {
               required: '종료 시간 입력은 필수입니다.',
             })}
+          /> */}
+          <DateDropDown
+            forSetValue={'endTime'}
+            register={register}
+            setValue={setValue}
+            inputElement={
+              <input
+                type="text"
+                id="mainSchedule.endTime"
+                {...register(`mainSchedule.endTime`, {
+                  required: '종료 시간 입력은 필수입니다.',
+                })}
+                hidden
+              />
+            }
           />
         </div>
         <div>
@@ -116,6 +151,7 @@ export default function DateInput({
                 index={index}
                 register={register}
                 remove={remove}
+                setValue={setValue}
               />
             </div>
           );

@@ -162,6 +162,7 @@ export default function MyClassTitle({ buttonTitle }: MyClassTitleProps) {
               fields={fields}
               append={append}
               remove={remove}
+              setValue={setValue}
             />
             <EditBannerImageInputContainer
               id="image"
