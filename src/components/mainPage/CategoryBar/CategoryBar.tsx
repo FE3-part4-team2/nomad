@@ -30,8 +30,8 @@ export default function CategoryBar({
       </div>
       <div className={styles.dropDown}>
         <DropDown
-          dropDownName="가격"
-          dropDownList={['가격이 낮은 순', '가격이 높은 순']}
+          dropDownName="정렬"
+          dropDownList={['최신순', '가격이 낮은 순', '가격이 높은 순']}
           onClick={handleDropDown}
         />
       </div>

@@ -6,9 +6,12 @@ import {
   FieldErrors,
   UseFieldArrayRemove,
   UseFormRegister,
+  UseFormSetValue,
 } from 'react-hook-form';
+import PlusDateDropDown from '../../MyClassDropDown/PlusDateDropDown';
 
 interface DateDeleteInputProps {
+  setValue: UseFormSetValue<FormValues>;
   remove: UseFieldArrayRemove;
   index: number;
   register: UseFormRegister<FormValues>;
@@ -32,6 +35,7 @@ export default function DateDeleteInput({
   index,
   remove,
   errors,
+  setValue,
 }: DateDeleteInputProps) {
   const removeSelectTime = () => {
     remove(index);
@@ -51,23 +55,55 @@ export default function DateDeleteInput({
           />
         </div>
         <div className={styles.smallInputWrapper}>
-          <input
+          {/* <input
             className={`${deleteStyle.smallInput} ${deleteStyle.timeInput}`}
             id="plusStartTime"
             type="time"
             {...register(`schedules.${index}.startTime`, {
               required: '시작 시간 입력은 필수입니다.',
             })}
+          /> */}
+          <PlusDateDropDown
+            forSetValue={'startTime'}
+            register={register}
+            setValue={setValue}
+            index={index}
+            inputElement={
+              <input
+                id="plusStartTime"
+                type="text"
+                {...register(`schedules.${index}.startTime`, {
+                  required: '시작 시간 입력은 필수입니다.',
+                })}
+                hidden
+              />
+            }
           />
         </div>
         <div className={styles.smallInputWrapper}>
-          <input
+          {/* <input
             className={`${deleteStyle.smallInput} ${deleteStyle.timeInput}`}
             id="plusEndTime"
             type="time"
             {...register(`schedules.${index}.endTime`, {
               required: '종료 시간 입력은 필수입니다.',
             })}
+          /> */}
+          <PlusDateDropDown
+            forSetValue={'endTime'}
+            register={register}
+            setValue={setValue}
+            index={index}
+            inputElement={
+              <input
+                id="plusEndTime"
+                type="text"
+                {...register(`schedules.${index}.endTime`, {
+                  required: '종료 시간 입력은 필수입니다.',
+                })}
+                hidden
+              />
+            }
           />
         </div>
         <div>

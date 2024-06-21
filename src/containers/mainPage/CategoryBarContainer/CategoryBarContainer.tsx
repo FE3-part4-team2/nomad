@@ -2,7 +2,7 @@ import CategoryBar from '@/components/mainPage/CategoryBar/CategoryBar';
 
 interface CategoryBarProps {
   onClick: (title: string) => void;
-  onClickDropDown: (value: string) => void;
+  onClickDropDown: (value: string | undefined) => void;
 }
 
 export default function CategoryBarContainer({
@@ -19,13 +19,16 @@ export default function CategoryBarContainer({
     '웰빙',
   ];
 
-  const handleDropDown = (e: string) => {
+  const handleDropDown = (e: string | undefined) => {
     let selectedValue = e;
     if (selectedValue === '가격이 낮은 순') {
+      selectedValue = 'price_asc';
+      onClickDropDown(selectedValue);
+    } else if (selectedValue === '가격이 높은 순') {
       selectedValue = 'price_desc';
       onClickDropDown(selectedValue);
-    } else {
-      selectedValue = 'price_asc';
+    } else if (selectedValue === '최신순') {
+      selectedValue = undefined;
       onClickDropDown(selectedValue);
     }
   };
