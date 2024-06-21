@@ -84,30 +84,5 @@ export default function ImageComponent({
         </>
       )}
     </section>
-
-    // <>
-    //   <section className={styles.imageSection}>
-    //     <div className={styles.mainImageWrapper}>
-    //       <ModalImage
-    //         small={bannerImageUrl}
-    //         large={bannerImageUrl}
-    //         alt="메인이미지"
-    //         className={styles.mainImage}
-    //       />
-    //     </div>
-    //     <div className={styles.subImageContainer}>
-    //       {subImages?.slice(0, 4).map((i) => (
-    //         <div key={i.id} className={styles.subImageWrapper}>
-    //           <ModalImage
-    //             small={i.imageUrl}
-    //             large={i.imageUrl}
-    //             alt="서브이미지"
-    //             className={styles.subImage}
-    //           />
-    //         </div>
-    //       ))}
-    //     </div>
-    //   </section>
-    // </>
   );
 }
