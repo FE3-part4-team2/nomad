@@ -55,7 +55,7 @@ export default function ClassCardList() {
     setCardList([]);
   };
 
-  const updateSort = (value: string) => {
+  const updateSort = (value: string | undefined) => {
     const updatedParams = {
       ...params,
       sort: value,
