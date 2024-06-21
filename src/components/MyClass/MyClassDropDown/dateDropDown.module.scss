@@ -1,0 +1,57 @@
+@import 'src/styles/variables';
+
+.startTime {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 79px;
+  height: 44px;
+  padding: 0 5px 0 12px;
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 26px;
+  border-radius: 4px;
+  border: 1px solid $gray_79747E;
+  background: $white;
+  position: relative;
+  @media screen and (min-width: 375px) {
+    font-size: 1.6rem;
+    margin-top: 10px;
+    width: 104px;
+    height: 56px;
+  }
+  @media screen and (min-width: 768px) {
+    font-size: 1.6rem;
+    margin-top: 10px;
+    width: 140px;
+    height: 56px;
+  }
+}
+
+.timeList {
+  z-index: 3;
+  @extend .startTime;
+  height: auto;
+  padding: 0px;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  top: 50px;
+  left: 0;
+}
+
+.time {
+  z-index: 3;
+  width: 100%;
+  border-bottom: 1px solid $gray_79747E;
+  padding: 5px 0px;
+  text-align: center;
+}
+
+.time:last-child {
+  border-bottom: none;
+}
+
+.chevronUp {
+  transform: rotateX(180deg);
+}
