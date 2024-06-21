@@ -4,4 +4,8 @@
 
 .bannerWrapper {
   --swiper-theme-color: #fff;
+
+  @media (max-width: 768px) {
+    --swiper-theme-color: #00ff0000;
+  }
 }
