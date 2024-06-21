@@ -1,20 +1,20 @@
-
-.banner{
+.banner {
   position: relative;
 }
 
-.content{
+.content {
   width: 100%;
   margin: 0 auto;
   max-width: 343px;
   position: relative;
   top: -60px;
   z-index: 1;
+  font-family: pretendard;
 
-  @media (min-width:769px){
+  @media (min-width: 769px) {
     max-width: 696px;
   }
-  @media (min-width:1248px){
+  @media (min-width: 1248px) {
     max-width: 1200px;
   }
 }
