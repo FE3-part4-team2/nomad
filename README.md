@@ -5,14 +5,14 @@
     <tr>
         <td align="center"><img src="https://github.com/eundin.png" width="150"></td>
         <td align="center"><img src="https://github.com/yulmai999.png" width="150"></td>
-        <td align="center"><img src="" width="150"></td>
+        <td align="center"><img src="https://github.com/FE3-part4-team2/-Nomad/assets/91825771/883065db-d08f-4fd6-9cf0-02863870c6c5" width="150"></td>
         <td align="center"><img src="https://github.com/2zzzyoung.png" width="150"></td>
         <td align="center"><img src="https://github.com/FE3-part4-team2/-Nomad/assets/73398624/32b4370c-db54-4535-8c85-ae403ca47ad7" width="150"></td>
     </tr>
     <tr>
         <td align="center"><a href="https://github.com/eundin">장은진</a></td>
         <td align="center"><a href="https://github.com/yulmai999">김율민</a></td>
-        <td align="center">김준형</td>
+        <td align="center"><a href="https://github.com/jjunhyuki">김준형</a></td>
         <td align="center"><a href="https://github.com/2zzzyoung">이주영</td>
         <td align="center"><a href="https://github.com/jihee1103">최지희</a></td>
     </tr>
@@ -35,6 +35,11 @@
 - 사이드바,레이아웃 
 
 ### 김준형
+- 내정보
+- 예약 내역
+- 내 체험 관리
+- 404 페이지
+- 알림 토스트
 
 ### 이주영
 - 체험 상세 페이지
